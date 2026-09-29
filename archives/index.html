@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Survives, and Where</title>
+<meta name="description" content="A working field guide to Central and Eastern European parish registers and revision lists: what each layer holds, why one village sits in two archives, and how to cite a finding so anyone can check it.">
+<link rel="alternate" hreflang="en" href="https://rootmere.com/">
+<link rel="alternate" hreflang="ru" href="https://rootmere.com/ru/">
+<link rel="alternate" hreflang="x-default" href="https://rootmere.com/">
+<link rel="canonical" href="https://rootmere.com/archives/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rootmere">
+<meta property="og:title" content="What Survives, and Where">
+<meta property="og:description" content="A working field guide to Central and Eastern European parish registers and revision lists: what each layer holds, why one village sits in two archives, and how to cite a finding so anyone can check it.">
+<meta property="og:url" content="https://rootmere.com/archives/">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService",
+ "name":"Rootmere","url":"https://rootmere.com/",
+ "description":"Archival genealogical research in Central and Eastern Europe: reading handwritten parish registers and revision lists, and making a printed book about one family.",
+ "areaServed":"Worldwide",
+ "knowsLanguage":["en","ru","uk","pl"],
+ "parentOrganization":{"@type":"Organization","name":"Elite Product LLC","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"}},
+ "foundingDate":"2021",
+ "email":"hello@rootmere.com",
+ "makesOffer":[
+  {"@type":"Offer","name":"Archival scouting","price":"190","priceCurrency":"USD"},
+  {"@type":"Offer","name":"One family line and the book","price":"3400","priceCurrency":"USD"},
+  {"@type":"Offer","name":"Family archive, both lines","price":"5900","priceCurrency":"USD"}]}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EFF0EC; --card:#FAFAF7; --ink:#15191C; --ink-2:#3E4A4E;
+  --soft:#6E7A78; --rule:#D6D8D0; --seal:#8C2F23; --ledger:#2F5D50;
+  --sepia:#9C8963;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1315; --card:#171C1F; --ink:#E8EAE5; --ink-2:#B3BDBA;
+  --soft:#8794921; --soft:#879492; --rule:#262E31; --seal:#D07C6E;
+  --ledger:#7FB6A3; --sepia:#C4AC7C;
+}}
+:root[data-theme="dark"]{
+  --paper:#0F1315; --card:#171C1F; --ink:#E8EAE5; --ink-2:#B3BDBA;
+  --soft:#879492; --rule:#262E31; --seal:#D07C6E; --ledger:#7FB6A3; --sepia:#C4AC7C;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:1020px;margin:0 auto;padding:0 24px}
+.narrow{max-width:700px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;text-wrap:balance;margin:0}
+a{color:var(--seal)}
+*:focus-visible{outline:2px solid var(--seal);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ── шапка ── */
+nav{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:20}
+nav .w{display:flex;flex-direction:column;align-items:flex-start;gap:9px;
+  padding-top:13px;padding-bottom:11px}
+.brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:21px;letter-spacing:-.01em}
+.brand span{color:var(--seal)}
+.brandwrap{display:flex;flex-direction:column;gap:1px}
+.tagline{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--seal)}
+/* ссылки прокручиваются вбок на узком экране — на телефоне навигация нужна больше,
+   чем на компьютере: страница длинная, а до цен далеко листать */
+.navlinks{display:flex;gap:20px;overflow-x:auto;max-width:100%;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.navlinks::-webkit-scrollbar{display:none}
+.lang{display:flex;gap:6px;align-items:center;font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;flex:none}
+.lang a{color:var(--soft);text-decoration:none;padding:2px 6px;border:1px solid var(--rule)}
+.lang a[aria-current]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+.lang a:hover{color:var(--seal);border-color:var(--seal)}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.92em;background:var(--card);padding:1px 5px;border:1px solid var(--rule)}
+nav a.link{color:var(--ink-2);text-decoration:none;font-size:15px;white-space:nowrap;
+  padding-bottom:2px;border-bottom:1px solid transparent}
+nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:var(--seal)}
+@media(min-width:760px){
+  nav .w{flex-direction:row;justify-content:space-between;align-items:center;
+    padding-top:16px;padding-bottom:16px;gap:20px}
+  .navlinks{gap:24px}
+}
+
+/* ── герой ── */
+.hero{padding:76px 0 66px;border-bottom:1px solid var(--rule)}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--seal);margin:0 0 20px}
+.hero h1{font-weight:300;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:22px}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--seal)}
+.lede{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:56ch;margin:0 0 30px}
+.cta{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+  padding:14px 30px;font-weight:600;font-size:16px;border:1px solid var(--ink)}
+.cta:hover{background:var(--seal);border-color:var(--seal)}
+.cta.ghost{background:transparent;color:var(--ink);margin-left:12px}
+.cta.ghost:hover{color:var(--seal);border-color:var(--seal);background:transparent}
+/* В карточках цен кнопки делаем небольшими и одинаковыми: крупная «обсудить»
+   рядом с мелкой строчкой «оплатить» читалась так, будто мы стесняемся брать деньги. */
+.cta.sm{padding:9px 18px;font-size:14px;margin-left:0}
+.plan .foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* ── доказательство: скан ── */
+.proof{margin-top:52px;background:var(--card);border:1px solid var(--rule);padding:22px}
+.proof img{width:100%;height:auto;display:block;filter:contrast(1.04)}
+.proof .cap{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);
+  margin-top:12px;line-height:1.5}
+.proof .read{font-family:Fraunces,Georgia,serif;font-size:19px;font-style:italic;
+  color:var(--ink);margin:14px 0 0;padding-left:16px;border-left:2px solid var(--seal)}
+
+/* ── лупа: под пальцем рукопись сменяется расшифровкой ──
+   Смысл не в эффекте: человек своими глазами видит, что он бы это не прочёл,
+   а мы читаем. Это снимает главное возражение — «а вы точно умеете». */
+@property --my{syntax:'<percentage>';inherits:true;initial-value:34%}
+.lens{position:relative;container-type:inline-size;cursor:crosshair;touch-action:none;
+  animation:sweep 11s ease-in-out infinite}
+.lens.held{animation:none}
+@keyframes sweep{0%{--my:20%}48%{--my:88%}100%{--my:20%}}
+.lens img{width:100%;height:auto;display:block;filter:contrast(1.04)}
+.lens .typeset{position:absolute;inset:0;background:var(--card);
+  -webkit-mask-image:linear-gradient(to bottom,
+    transparent calc(var(--my) - 12%), #000 calc(var(--my) - 7%),
+    #000 calc(var(--my) + 7%), transparent calc(var(--my) + 12%));
+          mask-image:linear-gradient(to bottom,
+    transparent calc(var(--my) - 12%), #000 calc(var(--my) - 7%),
+    #000 calc(var(--my) + 7%), transparent calc(var(--my) + 12%))}
+.lens .typeset b{position:absolute;display:block;white-space:nowrap;font-weight:400;
+  font-family:Fraunces,Georgia,serif;font-size:4.8cqw;line-height:1;color:var(--ink);
+  transform:translateY(-50%)}
+.lens .hint{position:absolute;right:10px;bottom:8px;margin:0;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);background:var(--card);padding:3px 8px;
+  border:1px solid var(--rule);pointer-events:none}
+.lens.held .hint{opacity:0;transition:opacity .4s}
+@media (prefers-reduced-motion:reduce){.lens{animation:none}}
+
+/* ── телефон: выравниваем по центру ──
+   Просьба Ромы после просмотра с телефона. Центрируем заголовки, подписи и короткие
+   абзацы — так страница читается как разворот книги. Списки и длинные вопросы-ответы
+   оставляем по левому краю: маркеры и многострочный текст по центру читать тяжело. */
+@media (max-width:700px){
+  .hero h1,.hero .lede,.kicker,.eyebrow,h2,.sub,
+  .thing,.thing h3,.thing p,.thing .n,
+  .plan h3,.plan .price,.plan .term,.plan .tag,.plan .foot,
+  .fact,.final p,.case .quote,.case .who,
+  .proof .read,.proof .cap,
+  .step h3,.step p,.step .meta,
+  .honest h3,
+  .spellrow .lab{text-align:center}
+
+  .thing .n{display:block}
+  .chips{justify-content:center}
+  .facts{text-align:center}
+  /* нумерация шагов уезжала влево от центрованного заголовка */
+  .step{align-items:center}
+}
+
+section{padding:68px 0;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ledger);margin:0 0 14px}
+h2{font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.12;margin-bottom:16px}
+.sub{font-size:18px;color:var(--ink-2);max-width:60ch;margin:0 0 34px}
+
+/* ── три вещи ── */
+.things{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:780px){.things{grid-template-columns:repeat(3,1fr)}}
+.thing{background:var(--card);border:1px solid var(--rule);padding:26px 24px}
+.thing .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--seal);letter-spacing:.1em}
+.thing h3{font-size:21px;font-weight:500;margin:10px 0 10px}
+.thing p{margin:0;color:var(--ink-2);font-size:16px}
+
+/* ── как это происходит ── */
+.steps{display:grid;gap:0}
+.step{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:24px 0;border-top:1px solid var(--rule)}
+.step:first-child{border-top:none}
+.step .no{font-family:Fraunces,Georgia,serif;font-size:34px;font-weight:300;color:var(--sepia);line-height:1}
+.step h3{font-size:20px;font-weight:500;margin-bottom:6px}
+.step p{margin:0;color:var(--ink-2);font-size:16px}
+.step .meta{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);margin-top:8px;display:block}
+
+/* ── кейс ── */
+.case{background:var(--card);border:1px solid var(--rule);padding:30px 28px}
+.case .quote{font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.45;
+  font-style:italic;margin:0 0 18px;color:var(--ink)}
+.case .who{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+.casegrid{display:grid;gap:22px;grid-template-columns:1fr;margin-top:30px}
+@media(min-width:820px){.casegrid{grid-template-columns:1fr 1fr;align-items:start}}
+.casegrid img{width:100%;height:auto;border:1px solid var(--rule);display:block}
+.facts{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:26px}
+@media(min-width:680px){.facts{grid-template-columns:repeat(3,1fr)}}
+.fact{background:var(--card);padding:18px 20px}
+.fact b{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:500;display:block;
+  font-variant-numeric:tabular-nums}
+.fact span{font-size:14px;color:var(--soft);display:block;margin-top:4px;line-height:1.4}
+
+
+/* ── написания фамилии ── */
+.spell{background:var(--card);border:1px solid var(--rule);padding:26px 24px;margin-top:8px}
+.spellrow{margin-bottom:20px}
+.spellrow:last-child{margin-bottom:0}
+.spellrow .lab{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:Fraunces,Georgia,serif;font-size:17px;padding:5px 12px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+.chip.hit{border-color:var(--seal);color:var(--seal)}
+
+/* ── цены ── */
+.plans{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:820px){.plans{grid-template-columns:repeat(2,1fr)}}
+.plan{background:var(--card);border:1px solid var(--rule);padding:28px 26px;display:flex;flex-direction:column}
+.plan.main{border:2px solid var(--seal)}
+.plan .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--seal);margin-bottom:12px}
+.plan h3{font-size:24px;font-weight:500;margin-bottom:8px}
+.plan .price{font-family:Fraunces,Georgia,serif;font-size:40px;font-weight:300;
+  margin:10px 0 4px;font-variant-numeric:tabular-nums}
+.plan .term{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);margin-bottom:16px}
+.plan ul{margin:0 0 20px;padding-left:18px;color:var(--ink-2);font-size:16px}
+.plan li{margin-bottom:7px}
+.plan .foot{margin-top:auto}
+
+/* ── выделенный итог часов ── */
+.hours-total{display:flex;align-items:baseline;gap:10px;margin:16px 0 10px;
+  padding:12px 14px;background:var(--paper);border:1px solid var(--rule);
+  border-left:3px solid var(--seal)}
+.hours-total b{font-family:Fraunces,Georgia,serif;font-size:30px;font-weight:500;
+  line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.hours-total span{font-size:15px;color:var(--ink-2)}
+
+/* ── честность ── */
+.honest{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--ledger);padding:26px 26px}
+.honest h3{font-size:22px;font-weight:500;margin-bottom:14px}
+.honest ul{margin:0;padding-left:18px;color:var(--ink-2)}
+.honest li{margin-bottom:10px}
+
+/* ── вопросы ── */
+details{border-top:1px solid var(--rule);padding:18px 0}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;font-family:Fraunces,Georgia,serif;font-size:19px;font-weight:500;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";color:var(--seal);margin-right:12px;font-family:"IBM Plex Mono",monospace}
+details[open] summary::before{content:"\2013"}
+details p{margin:12px 0 0 28px;color:var(--ink-2);font-size:16px}
+
+/* ── финал ── */
+.final{text-align:center;padding:86px 0}
+.final h2{margin-bottom:18px}
+.final p{color:var(--ink-2);font-size:19px;max-width:52ch;margin:0 auto 30px}
+footer{padding:34px 0 54px;font-size:14px;color:var(--soft)}
+footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<nav><div class="w">
+  <div class="brandwrap">
+    <div class="brand">Rootmere</div>
+    <div class="tagline">Named in Ink</div>
+  </div>
+  <div class="navlinks">
+    <a class="link" href="/">Home</a>
+    <a class="link" href="#layers">The three layers</a>
+    <a class="link" href="#revisions">Revision lists</a>
+    <a class="link" href="#gaps">Gaps</a>
+    <a class="link" href="#citing">How to cite</a>
+    <a class="link" href="/article-1583/">A village in 1583</a>
+    <a class="link" href="/article-revisions/">Revision lists</a>
+  </div>
+  <div class="lang">
+    <a href="/archives/" aria-current="page">EN</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="w">
+  <p class="kicker">A working reference · updated as we read</p>
+  <h1>What survives, and where.<br><em>A field guide to the records behind a Central European family.</em></h1>
+  <p class="lede">This page exists because we could not find it anywhere else. It is the practical knowledge we use daily: which layers of record exist, what each one actually tells you, why one village's books end up in two different buildings, and why a thirty-year hole in a parish series is normal rather than a sign that you searched badly. It is written for people doing this themselves as much as for our own clients. Where we state a fact we say where it came from.</p>
+</div></header>
+
+<section id="layers"><div class="w">
+  <p class="eyebrow">Start here</p>
+  <h2>Three layers of record, and what each one is good for</h2>
+  <p class="sub">Most people know only the first one and give up when it runs out. The second layer is where the real depth usually is, and it is the one that survives when churches burn.</p>
+
+  <div class="things">
+    <div class="thing">
+      <span class="n">Layer 1</span>
+      <h3>Parish registers</h3>
+      <p>Births, marriages and deaths, kept by the parish. One entry names the child, both parents, the father's own patronymic, the godparents, the village, and often the priest and clerk. This is the layer with names in it — and the layer most often lost.</p>
+    </div>
+    <div class="thing">
+      <span class="n">Layer 2</span>
+      <h3>Revision lists</h3>
+      <p>Tax censuses of households. They give the whole family in one place: every person, their age, and the household's number. Because they repeat every fifteen to twenty years, they let you watch one household age, split and move — and they survive in state archives when church books do not.</p>
+    </div>
+    <div class="thing">
+      <span class="n">Layer 3</span>
+      <h3>Everything administrative</h3>
+      <p>Court files, land and cadastral surveys, school lists, army records, and in the twentieth century the files of whatever state was in charge. Uneven, scattered, and often the only place a person appears after the church series stops.</p>
+    </div>
+  </div>
+
+  <div class="honest" style="margin-top:26px">
+    <h3>The layer nobody expects: American paperwork</h3>
+    <p style="margin:0;color:var(--ink-2)">If the family emigrated, the single most valuable document is usually not in Europe at all. A ship manifest, a naturalization file, a draft registration card or a census line will often name the exact village of origin — the one the family stopped saying out loud two generations ago. Without that name, searching a European archive is close to guessing; with it, the search becomes finite. We start there more often than we start in Europe.</p>
+  </div>
+</div></section>
+
+<section id="revisions"><div class="w">
+  <p class="eyebrow">Layer two, in detail</p>
+  <h2>Revision lists: how to read a household across fifty years</h2>
+  <p class="sub">A revision list is a tax document, which is exactly why it is useful: the state had a reason to be accurate about who was alive and how old they were.</p>
+
+  <p>The lists were compiled at irregular intervals through the first half of the nineteenth century. For the households we have worked through, the usable series runs <b>1811, 1816, 1834, 1850, 1858</b>. Each entry gives a household number, every male in it with his age, and — from the later revisions — the women too. Crucially, each list also records what happened since the previous one: who died, in which year, who was taken as a recruit, who moved away.</p>
+
+  <p>That last detail is what makes the layer powerful. A parish death register may be lost, but the revision list still says the man died in 1821. And because the lists repeat, ages can be cross-checked: sixteen years between two revisions should make a man sixteen years older. When they don't agree — and they often don't by a year or two — that is worth noting rather than smoothing over.</p>
+
+  <div class="honest" style="margin-top:22px">
+    <h3>A worked example</h3>
+    <p style="margin:0 0 10px;color:var(--ink-2)">One household we traced carries the number 78 in the revisions of 1816 and 1834, then 102 in 1850 and 1858. The head of household appears in 1816 aged about forty-nine and is recorded as having died in 1821. His son appears at thirty in 1834, at forty-six in 1850, and as a widow's household by 1858. Four documents, one family, and a death date for a man whose parish burial entry does not survive.</p>
+    <p style="margin:0;color:var(--soft);font-size:15px">Sources: regional state archive, fond 37, inventory 2, files 156 (1816), 175 (1834), 186 (1850), 195 (1858).</p>
+  </div>
+</div></section>
+
+<section id="split"><div class="w">
+  <p class="eyebrow">Why your search failed</p>
+  <h2>One village, two archives, three names</h2>
+  <p class="sub">This is the single most common reason a search stalls, and it has nothing to do with how hard you looked.</p>
+
+  <p><b>The borders moved and the paperwork did not follow.</b> A parish that sat in one province in 1860 may sit in a different country in 1930 and a third administrative unit today. When archives were reorganised, a single parish's registers were often divided: one stretch of years went to one regional repository, another stretch to a diocesan or provincial one, hundreds of kilometres away. A series that looks like it simply ends in 1868 may continue in another building from 1900, catalogued separately and never cross-referenced.</p>
+
+  <p><b>The catalogue does not use the name your family uses.</b> A village can appear under its Polish form, its Ukrainian form, its Russian-era spelling, and a Latin transliteration of any of them — and the archive's finding aid will have picked exactly one. Searching the family's own spelling returns nothing at all. We have worked with a village that appears as six different strings across the documents and the catalogue, one of them written by the parish priest's own hand in 1784.</p>
+
+  <p><b>The film and the book are numbered differently.</b> Much of this material was microfilmed in the twentieth century and is now available as images. An image number is not a page number and not a folio number: a single reel can carry nine hundred images spanning several villages and several years. Working out which stretch of images covers which village, before reading anything, saves more time than any other single habit.</p>
+</div></section>
+
+<section id="gaps"><div class="w">
+  <p class="eyebrow">The part nobody writes down</p>
+  <h2>Gaps are normal, and they should be published</h2>
+  <p class="sub">A missing decade is not a failure of research. It is a fact about the archive, and it belongs in the result.</p>
+
+  <p>In one parish we worked through, the church series available in one archive stops at 1868, and the series in the second archive begins at 1900. Between them lies a <b>thirty-one year hole</b> — 1869 to 1899 — and into that hole falls a birth and a marriage we needed. No amount of further searching in those two repositories will produce them. What can be done is narrow and specific: check whether a duplicate copy was deposited elsewhere, check whether a later document restates the missing facts, and file a formal request for anything not yet filmed.</p>
+
+  <p>We write gaps like this into the books we produce, in plain words. It is tempting not to: a clean line of descent reads better than a line with a hole in it. But a family history is checked eventually — usually by a grandchild with more patience than sense — and a gap that was hidden becomes a reason to doubt everything else on the page.</p>
+
+  <div class="honest" style="margin-top:22px">
+    <h3>What we do not claim</h3>
+    <p style="margin:0;color:var(--ink-2)">Where two people share a surname and a village but no document links them, we say so and leave them unlinked. In one case a family with an almost identical surname turned out to belong to a different district entirely; they stayed out of the tree. A matching surname is not kinship. Kinship is a chain of household numbers, ages that agree across revisions, and patronymics that carry from one generation to the next.</p>
+  </div>
+</div></section>
+
+<section id="names"><div class="w">
+  <p class="eyebrow">Practical</p>
+  <h2>Search every spelling at once, including the wrong ones</h2>
+  <p class="sub">One surname we work with appears in thirty-five documented forms across Cyrillic, Polish and Latin script, plus clerks' and indexers' errors.</p>
+  <p>Any serious search has to run all the plausible forms in parallel, and then some implausible ones: an indexer working fast produces variants no linguist would predict. The hardest case we have hit was a clerk who ran out of room on a line and broke the surname across two lines with a hyphen. No index search will ever return that entry. It was found by a person reading the whole page — which is, in the end, what this work is.</p>
+</div></section>
+
+<section id="citing"><div class="w narrow">
+  <p class="eyebrow">Method</p>
+  <h2>How to cite so that someone can check you</h2>
+  <p class="sub">If a finding cannot be re-found by a stranger, it is not a finding yet.</p>
+  <div class="honest">
+    <ul style="margin:0">
+      <li><b>Archive, fond, inventory, file, folio.</b> In that order, and with the folio side (recto or verso) where the document has one. This is the chain a reading-room request is built from.</li>
+      <li><b>Film and image, when you worked from images.</b> The film identifier plus the image number, kept separately from the folio number, because they are different systems and they drift apart.</li>
+      <li><b>The entry number within the register.</b> Parish registers number their entries by year; that number pins the record even if the folio is misread.</li>
+      <li><b>What the document actually says, verbatim,</b> before any interpretation. Transcribe first, translate second, conclude third — kept visibly apart, so a later reader can disagree with the conclusion without losing the transcription.</li>
+    </ul>
+  </div>
+  <p style="margin-top:22px;color:var(--ink-2)">We publish this because the standard is not widely applied outside professional work, and because it is the thing that separates a family tree from a family legend. Anyone is welcome to use it, cite it, or argue with it.</p>
+</div></section>
+
+<section class="final" id="start"><div class="w">
+  <h2>If you are stuck on one of these</h2>
+  <p>Tell us the surname, the village as your family says it, and one exact date. We will tell you which of the problems above you are actually facing — and whether it can be solved.</p>
+  <a class="cta" href="mailto:hello@rootmere.com?subject=Question%20about%20archives">Write to us</a>
+  <p style="margin-top:20px"><a href="/">← Back to Rootmere</a></p>
+</div></section>
+
+<footer><div class="w row">
+  <div>Rootmere — reading the handwritten archives of Central and Eastern Europe, and making books about families.</div>
+  <div>Rootmere is a trade name of Elite Product LLC, California, USA.</div>
+</div></footer>
+<script>
+// Лупа следует за пальцем. Пока её не трогали — сама медленно идёт по строкам,
+// иначе на телефоне никто не догадается, что тут вообще что-то происходит.
+(function(){
+  var el = document.getElementById('lens');
+  if(!el) return;
+  var idle;
+  function set(y){
+    var r = el.getBoundingClientRect();
+    var p = ((y - r.top) / r.height) * 100;
+    el.classList.add('held');
+    el.style.setProperty('--my', Math.max(0, Math.min(100, p)) + '%');
+  }
+  function release(){
+    el.classList.remove('held');
+    el.style.removeProperty('--my');
+  }
+  function fromMouse(e){ clearTimeout(idle); set(e.clientY); }
+  // На телефоне палец уходит — возвращаем бегущую строку не сразу, иначе дёргается.
+  function fromTouch(e){
+    if(!e.touches || !e.touches.length) return;
+    clearTimeout(idle);
+    set(e.touches[0].clientY);
+    e.preventDefault();
+  }
+  function later(){ idle = setTimeout(release, 1800); }
+
+  el.addEventListener('pointermove', fromMouse);
+  el.addEventListener('mousemove', fromMouse);        // на случай старых браузеров
+  el.addEventListener('mouseleave', release);
+  el.addEventListener('touchstart', fromTouch, {passive:false});
+  el.addEventListener('touchmove',  fromTouch, {passive:false});
+  el.addEventListener('touchend', later);
+  el.addEventListener('touchcancel', later);
+})();
+</script>
+</body></html>

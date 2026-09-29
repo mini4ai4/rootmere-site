@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Village in 1583</title>
+<meta name="description" content="How to find one small village in a sixteenth-century tax register: indirect DjVu, missing text layers, place indexes, and what such an entry can and cannot tell you.">
+<link rel="alternate" hreflang="en" href="https://rootmere.com/">
+<link rel="alternate" hreflang="ru" href="https://rootmere.com/ru/">
+<link rel="alternate" hreflang="x-default" href="https://rootmere.com/">
+<link rel="canonical" href="https://rootmere.com/article-1583/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rootmere">
+<meta property="og:title" content="A Village in 1583">
+<meta property="og:description" content="How to find one small village in a sixteenth-century tax register: indirect DjVu, missing text layers, place indexes, and what such an entry can and cannot tell you.">
+<meta property="og:url" content="https://rootmere.com/article-1583/">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService",
+ "name":"Rootmere","url":"https://rootmere.com/",
+ "description":"Archival genealogical research in Central and Eastern Europe: reading handwritten parish registers and revision lists, and making a printed book about one family.",
+ "areaServed":"Worldwide",
+ "knowsLanguage":["en","ru","uk","pl"],
+ "parentOrganization":{"@type":"Organization","name":"Elite Product LLC","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"}},
+ "foundingDate":"2021",
+ "email":"hello@rootmere.com",
+ "makesOffer":[
+  {"@type":"Offer","name":"Archival scouting","price":"190","priceCurrency":"USD"},
+  {"@type":"Offer","name":"One family line and the book","price":"3400","priceCurrency":"USD"},
+  {"@type":"Offer","name":"Family archive, both lines","price":"5900","priceCurrency":"USD"}]}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EFF0EC; --card:#FAFAF7; --ink:#15191C; --ink-2:#3E4A4E;
+  --soft:#6E7A78; --rule:#D6D8D0; --seal:#8C2F23; --ledger:#2F5D50;
+  --sepia:#9C8963;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1315; --card:#171C1F; --ink:#E8EAE5; --ink-2:#B3BDBA;
+  --soft:#8794921; --soft:#879492; --rule:#262E31; --seal:#D07C6E;
+  --ledger:#7FB6A3; --sepia:#C4AC7C;
+}}
+:root[data-theme="dark"]{
+  --paper:#0F1315; --card:#171C1F; --ink:#E8EAE5; --ink-2:#B3BDBA;
+  --soft:#879492; --rule:#262E31; --seal:#D07C6E; --ledger:#7FB6A3; --sepia:#C4AC7C;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:1020px;margin:0 auto;padding:0 24px}
+.narrow{max-width:700px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;text-wrap:balance;margin:0}
+a{color:var(--seal)}
+*:focus-visible{outline:2px solid var(--seal);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ── шапка ── */
+nav{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:20}
+nav .w{display:flex;flex-direction:column;align-items:flex-start;gap:9px;
+  padding-top:13px;padding-bottom:11px}
+.brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:21px;letter-spacing:-.01em}
+.brand span{color:var(--seal)}
+.brandwrap{display:flex;flex-direction:column;gap:1px}
+.tagline{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--seal)}
+/* ссылки прокручиваются вбок на узком экране — на телефоне навигация нужна больше,
+   чем на компьютере: страница длинная, а до цен далеко листать */
+.navlinks{display:flex;gap:20px;overflow-x:auto;max-width:100%;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.navlinks::-webkit-scrollbar{display:none}
+.lang{display:flex;gap:6px;align-items:center;font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;flex:none}
+.lang a{color:var(--soft);text-decoration:none;padding:2px 6px;border:1px solid var(--rule)}
+.lang a[aria-current]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+.lang a:hover{color:var(--seal);border-color:var(--seal)}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.92em;background:var(--card);padding:1px 5px;border:1px solid var(--rule)}
+nav a.link{color:var(--ink-2);text-decoration:none;font-size:15px;white-space:nowrap;
+  padding-bottom:2px;border-bottom:1px solid transparent}
+nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:var(--seal)}
+@media(min-width:760px){
+  nav .w{flex-direction:row;justify-content:space-between;align-items:center;
+    padding-top:16px;padding-bottom:16px;gap:20px}
+  .navlinks{gap:24px}
+}
+
+/* ── герой ── */
+.hero{padding:76px 0 66px;border-bottom:1px solid var(--rule)}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--seal);margin:0 0 20px}
+.hero h1{font-weight:300;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:22px}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--seal)}
+.lede{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:56ch;margin:0 0 30px}
+.cta{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+  padding:14px 30px;font-weight:600;font-size:16px;border:1px solid var(--ink)}
+.cta:hover{background:var(--seal);border-color:var(--seal)}
+.cta.ghost{background:transparent;color:var(--ink);margin-left:12px}
+.cta.ghost:hover{color:var(--seal);border-color:var(--seal);background:transparent}
+/* В карточках цен кнопки делаем небольшими и одинаковыми: крупная «обсудить»
+   рядом с мелкой строчкой «оплатить» читалась так, будто мы стесняемся брать деньги. */
+.cta.sm{padding:9px 18px;font-size:14px;margin-left:0}
+.plan .foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* ── доказательство: скан ── */
+.proof{margin-top:52px;background:var(--card);border:1px solid var(--rule);padding:22px}
+.proof img{width:100%;height:auto;display:block;filter:contrast(1.04)}
+.proof .cap{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);
+  margin-top:12px;line-height:1.5}
+.proof .read{font-family:Fraunces,Georgia,serif;font-size:19px;font-style:italic;
+  color:var(--ink);margin:14px 0 0;padding-left:16px;border-left:2px solid var(--seal)}
+
+/* ── лупа: под пальцем рукопись сменяется расшифровкой ──
+   Смысл не в эффекте: человек своими глазами видит, что он бы это не прочёл,
+   а мы читаем. Это снимает главное возражение — «а вы точно умеете». */
+@property --my{syntax:'<percentage>';inherits:true;initial-value:34%}
+.lens{position:relative;container-type:inline-size;cursor:crosshair;touch-action:none;
+  animation:sweep 11s ease-in-out infinite}
+.lens.held{animation:none}
+@keyframes sweep{0%{--my:20%}48%{--my:88%}100%{--my:20%}}
+.lens img{width:100%;height:auto;display:block;filter:contrast(1.04)}
+.lens .typeset{position:absolute;inset:0;background:var(--card);
+  -webkit-mask-image:linear-gradient(to bottom,
+    transparent calc(var(--my) - 12%), #000 calc(var(--my) - 7%),
+    #000 calc(var(--my) + 7%), transparent calc(var(--my) + 12%));
+          mask-image:linear-gradient(to bottom,
+    transparent calc(var(--my) - 12%), #000 calc(var(--my) - 7%),
+    #000 calc(var(--my) + 7%), transparent calc(var(--my) + 12%))}
+.lens .typeset b{position:absolute;display:block;white-space:nowrap;font-weight:400;
+  font-family:Fraunces,Georgia,serif;font-size:4.8cqw;line-height:1;color:var(--ink);
+  transform:translateY(-50%)}
+.lens .hint{position:absolute;right:10px;bottom:8px;margin:0;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);background:var(--card);padding:3px 8px;
+  border:1px solid var(--rule);pointer-events:none}
+.lens.held .hint{opacity:0;transition:opacity .4s}
+@media (prefers-reduced-motion:reduce){.lens{animation:none}}
+
+/* ── телефон: выравниваем по центру ──
+   Просьба Ромы после просмотра с телефона. Центрируем заголовки, подписи и короткие
+   абзацы — так страница читается как разворот книги. Списки и длинные вопросы-ответы
+   оставляем по левому краю: маркеры и многострочный текст по центру читать тяжело. */
+@media (max-width:700px){
+  .hero h1,.hero .lede,.kicker,.eyebrow,h2,.sub,
+  .thing,.thing h3,.thing p,.thing .n,
+  .plan h3,.plan .price,.plan .term,.plan .tag,.plan .foot,
+  .fact,.final p,.case .quote,.case .who,
+  .proof .read,.proof .cap,
+  .step h3,.step p,.step .meta,
+  .honest h3,
+  .spellrow .lab{text-align:center}
+
+  .thing .n{display:block}
+  .chips{justify-content:center}
+  .facts{text-align:center}
+  /* нумерация шагов уезжала влево от центрованного заголовка */
+  .step{align-items:center}
+}
+
+section{padding:68px 0;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ledger);margin:0 0 14px}
+h2{font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.12;margin-bottom:16px}
+.sub{font-size:18px;color:var(--ink-2);max-width:60ch;margin:0 0 34px}
+
+/* ── три вещи ── */
+.things{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:780px){.things{grid-template-columns:repeat(3,1fr)}}
+.thing{background:var(--card);border:1px solid var(--rule);padding:26px 24px}
+.thing .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--seal);letter-spacing:.1em}
+.thing h3{font-size:21px;font-weight:500;margin:10px 0 10px}
+.thing p{margin:0;color:var(--ink-2);font-size:16px}
+
+/* ── как это происходит ── */
+.steps{display:grid;gap:0}
+.step{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:24px 0;border-top:1px solid var(--rule)}
+.step:first-child{border-top:none}
+.step .no{font-family:Fraunces,Georgia,serif;font-size:34px;font-weight:300;color:var(--sepia);line-height:1}
+.step h3{font-size:20px;font-weight:500;margin-bottom:6px}
+.step p{margin:0;color:var(--ink-2);font-size:16px}
+.step .meta{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);margin-top:8px;display:block}
+
+/* ── кейс ── */
+.case{background:var(--card);border:1px solid var(--rule);padding:30px 28px}
+.case .quote{font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.45;
+  font-style:italic;margin:0 0 18px;color:var(--ink)}
+.case .who{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft)}
+.casegrid{display:grid;gap:22px;grid-template-columns:1fr;margin-top:30px}
+@media(min-width:820px){.casegrid{grid-template-columns:1fr 1fr;align-items:start}}
+.casegrid img{width:100%;height:auto;border:1px solid var(--rule);display:block}
+.facts{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:26px}
+@media(min-width:680px){.facts{grid-template-columns:repeat(3,1fr)}}
+.fact{background:var(--card);padding:18px 20px}
+.fact b{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:500;display:block;
+  font-variant-numeric:tabular-nums}
+.fact span{font-size:14px;color:var(--soft);display:block;margin-top:4px;line-height:1.4}
+
+
+/* ── написания фамилии ── */
+.spell{background:var(--card);border:1px solid var(--rule);padding:26px 24px;margin-top:8px}
+.spellrow{margin-bottom:20px}
+.spellrow:last-child{margin-bottom:0}
+.spellrow .lab{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:Fraunces,Georgia,serif;font-size:17px;padding:5px 12px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+.chip.hit{border-color:var(--seal);color:var(--seal)}
+
+/* ── цены ── */
+.plans{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:820px){.plans{grid-template-columns:repeat(2,1fr)}}
+.plan{background:var(--card);border:1px solid var(--rule);padding:28px 26px;display:flex;flex-direction:column}
+.plan.main{border:2px solid var(--seal)}
+.plan .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--seal);margin-bottom:12px}
+.plan h3{font-size:24px;font-weight:500;margin-bottom:8px}
+.plan .price{font-family:Fraunces,Georgia,serif;font-size:40px;font-weight:300;
+  margin:10px 0 4px;font-variant-numeric:tabular-nums}
+.plan .term{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);margin-bottom:16px}
+.plan ul{margin:0 0 20px;padding-left:18px;color:var(--ink-2);font-size:16px}
+.plan li{margin-bottom:7px}
+.plan .foot{margin-top:auto}
+
+/* ── выделенный итог часов ── */
+.hours-total{display:flex;align-items:baseline;gap:10px;margin:16px 0 10px;
+  padding:12px 14px;background:var(--paper);border:1px solid var(--rule);
+  border-left:3px solid var(--seal)}
+.hours-total b{font-family:Fraunces,Georgia,serif;font-size:30px;font-weight:500;
+  line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.hours-total span{font-size:15px;color:var(--ink-2)}
+
+/* ── честность ── */
+.honest{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--ledger);padding:26px 26px}
+.honest h3{font-size:22px;font-weight:500;margin-bottom:14px}
+.honest ul{margin:0;padding-left:18px;color:var(--ink-2)}
+.honest li{margin-bottom:10px}
+
+/* ── вопросы ── */
+details{border-top:1px solid var(--rule);padding:18px 0}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;font-family:Fraunces,Georgia,serif;font-size:19px;font-weight:500;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";color:var(--seal);margin-right:12px;font-family:"IBM Plex Mono",monospace}
+details[open] summary::before{content:"\2013"}
+details p{margin:12px 0 0 28px;color:var(--ink-2);font-size:16px}
+
+/* ── финал ── */
+.final{text-align:center;padding:86px 0}
+.final h2{margin-bottom:18px}
+.final p{color:var(--ink-2);font-size:19px;max-width:52ch;margin:0 auto 30px}
+footer{padding:34px 0 54px;font-size:14px;color:var(--soft)}
+footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<nav><div class="w">
+  <div class="brandwrap">
+    <div class="brand">Rootmere</div>
+    <div class="tagline">Named in Ink</div>
+  </div>
+  <div class="navlinks">
+    <a class="link" href="/">Home</a>
+    <a class="link" href="/archives/">Archive guide</a>
+    <a class="link" href="/article-revisions/">Revision lists</a>
+    <a class="link" href="#find">Finding the page</a>
+    <a class="link" href="#read">Reading the entry</a>
+    <a class="link" href="#worth">What it is worth</a>
+  </div>
+  <div class="lang"><a href="/article-1583/" aria-current="page">EN</a></div>
+</div></nav>
+
+<header class="hero"><div class="w">
+  <p class="kicker">Working note · from our own desk</p>
+  <h1>A village in 1583.<br><em>How to find one small place in a book nobody has indexed.</em></h1>
+  <p class="lede">Most family lines in Central and Eastern Europe run out of parish registers somewhere in the eighteenth century. What comes before that is not silence — it is tax. Landowners were assessed household by household, and those assessments were printed in the nineteenth century in scholarly volumes that now sit in digital libraries as scanned images with no searchable text. This is a working note on how we get into them: the exact mechanics, the traps, and what such an entry actually tells you about a family that has not yet acquired a surname.</p>
+</div></header>
+
+<section id="find"><div class="w narrow">
+  <p class="eyebrow">The mechanics</p>
+  <h2>The file at the end of the link is not the book</h2>
+
+  <p>Volumes of this kind are usually served as DjVu, and the URL you are given returns a file of a few hundred bytes. It looks like a failed download. It is not: it is an <b>indirect DjVu</b> — an index that points at one file per page, each stored separately.</p>
+
+  <p>So the first move is to list the pages the index refers to, then fetch them. With the DjVuLibre tools that is two commands: <span class="mono">djvused</span> to print the file list, and any parallel fetch to pull them down. A 485-page volume came to under five megabytes and under a minute for us. Keep the index file beside the pages or nothing will open.</p>
+
+  <div class="honest">
+    <h3>Check for a text layer before you plan anything</h3>
+    <p style="margin:0;color:var(--ink-2)">Run the text extractor over the volume and count the characters. If it returns zero, there is no text layer: the book is photographs of paper, and no amount of searching will find your village. This check costs one command and saves an hour of wrong assumptions. Ours returned zero.</p>
+  </div>
+
+  <p style="margin-top:22px">Without a text layer you need another way in, and the nineteenth century provides it. Serious editions of this material carry a <b>place index</b> at the back. Render the last dozen pages as images, read the index with your eyes, find the printed page number for your place, then convert that to an image number — the offset between printed page and scan is constant once you have calibrated it on any one page. Two renders, and you are looking at the right spread.</p>
+</div></section>
+
+<section id="read"><div class="w narrow">
+  <p class="eyebrow">The entry</p>
+  <h2>What a tax register actually says</h2>
+
+  <p>The entries are terse and formulaic, and that is what makes them readable once you know the pattern. A typical line names the holder, then counts what is taxable in each settlement: houses on the market square, poor cottages, gardeners with and without land, mill wheels of each type, a craftsman, a priest.</p>
+
+  <p>That is not a list of names. In 1583 the people in these villages are counted, not named — surnames as we use them are still forming, and the register records the lord and the taxable units, not the households' own identities. Anyone promising you a named sixteenth-century peasant ancestor from a document like this is selling something.</p>
+
+  <div class="honest" style="border-left-color:var(--sepia)">
+    <h3>So what is it good for?</h3>
+    <ul style="margin:0">
+      <li><b>It fixes the place.</b> The village existed, under this spelling, in this estate group, under this owner, in this year. That alone kills whole branches of wrong searching.</li>
+      <li><b>It gives you the estate.</b> Villages were held in clusters. Knowing which cluster yours belonged to tells you where the surviving estate papers, court cases and later inventories were filed — often under the owner's name, not the village's.</li>
+      <li><b>It sizes the place.</b> A settlement of eight households in 1583 and one of eighty are different research problems, with different odds that anything about one family survives.</li>
+      <li><b>It dates the church.</b> A priest counted in the register means a parish, and a parish means registers may have begun far earlier than the ones that survive.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="worth"><div class="w narrow">
+  <p class="eyebrow">Method</p>
+  <h2>Why we publish the route and not just the result</h2>
+
+  <p>Two reasons, and neither is generosity.</p>
+
+  <p>The first is that a finding nobody can re-find is not a finding. We cite volume, section, printed page and scan, so that anyone — a client, a client's sceptical grandchild, another researcher — can open the same page and disagree with us if we are wrong.</p>
+
+  <p>The second is that this is the part of the work that does not scale by buying a subscription. Databases have swallowed the easy records. What is left is scattered across national libraries in formats that were never meant to be searched, in languages and scripts that were never meant to be machine-read. Getting into them is a craft, and we would rather be judged on the craft than on a marketing claim.</p>
+
+  <div class="honest" style="margin-top:6px">
+    <h3>The honest limits of this route</h3>
+    <ul style="margin:0">
+      <li>It works where a nineteenth-century scholarly edition exists. For many regions it simply does not, and you are back to the archive itself.</li>
+      <li>Printed editions carry the editor's readings and the editor's errors. Where the manuscript survives, the manuscript wins.</li>
+      <li>Spelling in these volumes follows the language of the state that printed them, not the language the village used. Search every form, including the ones that look wrong.</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:24px;color:var(--ink-2)">If you are stuck at the point where the parish registers stop, this is usually the layer underneath. Tell us the place as your family says it and we will tell you whether such a volume covers it.</p>
+</div></section>
+
+<section class="final" id="start"><div class="w">
+  <h2>Stuck before 1800?</h2>
+  <p>Send us the surname, the village as your family pronounces it, and one exact date. We will tell you which layer of record your search has actually run into — and whether it can be got past.</p>
+  <a class="cta sm" href="mailto:hello@rootmere.com?subject=Question%20about%20early%20records">Write to us</a>
+  <p style="margin-top:20px"><a href="/">← Back to Rootmere</a> · <a href="/archives/">The archive guide</a></p>
+</div></section>
+
+<footer><div class="w row">
+  <div>Rootmere — reading the handwritten archives of Central and Eastern Europe, and making books about families.</div>
+  <div>Rootmere is a trade name of Elite Product LLC, California, USA.</div>
+</div></footer>
+<script>
+// Лупа следует за пальцем. Пока её не трогали — сама медленно идёт по строкам,
+// иначе на телефоне никто не догадается, что тут вообще что-то происходит.
+(function(){
+  var el = document.getElementById('lens');
+  if(!el) return;
+  var idle;
+  function set(y){
+    var r = el.getBoundingClientRect();
+    var p = ((y - r.top) / r.height) * 100;
+    el.classList.add('held');
+    el.style.setProperty('--my', Math.max(0, Math.min(100, p)) + '%');
+  }
+  function release(){
+    el.classList.remove('held');
+    el.style.removeProperty('--my');
+  }
+  function fromMouse(e){ clearTimeout(idle); set(e.clientY); }
+  // На телефоне палец уходит — возвращаем бегущую строку не сразу, иначе дёргается.
+  function fromTouch(e){
+    if(!e.touches || !e.touches.length) return;
+    clearTimeout(idle);
+    set(e.touches[0].clientY);
+    e.preventDefault();
+  }
+  function later(){ idle = setTimeout(release, 1800); }
+
+  el.addEventListener('pointermove', fromMouse);
+  el.addEventListener('mousemove', fromMouse);        // на случай старых браузеров
+  el.addEventListener('mouseleave', release);
+  el.addEventListener('touchstart', fromTouch, {passive:false});
+  el.addEventListener('touchmove',  fromTouch, {passive:false});
+  el.addEventListener('touchend', later);
+  el.addEventListener('touchcancel', later);
+})();
+</script>
+</body></html>
