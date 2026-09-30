@@ -44,6 +44,10 @@ from outside this arc are welcome to ask.
   registers and revision lists, and how to cite a finding.
 - [A generation for free](https://rootmere.com/article-revisions/): reading a
   nineteenth-century revision list column by column.
+- [But surely it all burned](https://rootmere.com/article-burned/): why "the records
+  were destroyed" is usually a conclusion rather than a fact — the diocesan duplicate,
+  the civil registry's second copy, and the microfilm are separate objects in separate
+  places, and most searches stop after checking one.
 - [Thirty years of nothing](https://rootmere.com/article-gap/): what to do when a
   register series simply stops.
 - [A village in 1583](https://rootmere.com/article-1583/): finding a village in a
