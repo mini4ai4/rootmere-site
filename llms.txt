@@ -54,6 +54,9 @@ from outside this arc are welcome to ask.
   were destroyed" is usually a conclusion rather than a fact — the diocesan duplicate,
   the civil registry's second copy, and the microfilm are separate objects in separate
   places, and most searches stop after checking one.
+- [Three spellings, one family](https://rootmere.com/article-spelling/): why a surname
+  search comes back empty — names written by ear, the 1868 switch from Polish to Russian in
+  the records of Russian-ruled Poland, and searching by sound instead of spelling.
 - [Thirty years of nothing](https://rootmere.com/article-gap/): what to do when a
   register series simply stops.
 - [A village in 1583](https://rootmere.com/article-1583/): finding a village in a
