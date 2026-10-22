@@ -81,6 +81,11 @@ from outside this arc are welcome to ask.
   partition ruled it (Russian, Austrian Galicia, or Prussian) and what language and alphabet the
   records use, open the right free database (Geneteka's name index, Szukaj w Archiwach by parish,
   FamilySearch, Metryki), and read the handwriting — the step where most searches stop.
+- [Russian, Prussian, or Austrian? Which Poland your family came from](https://rootmere.com/article-partitions/):
+  for over a century there was no Poland — the land was split among three empires, and the partition a
+  village fell into set the language of its records (Polish then Russian Cyrillic in the Russian partition,
+  Latin in Austrian Galicia, German in Prussian Poznań), which archive holds them, and how much survived.
+  How to tell which one your village was in, using a gazetteer and old administrative maps.
 - [Thirty years of nothing](https://rootmere.com/article-gap/): what to do when a
   register series simply stops.
 - [A village in 1583](https://rootmere.com/article-1583/): finding a village in a
