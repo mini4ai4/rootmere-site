@@ -76,6 +76,11 @@ from outside this arc are welcome to ask.
   village name is usually in American documents (naturalisation papers, the 1906+ ship
   manifest's second page, draft cards, the obituary), not European ones. How to find it and
   pin a mangled spelling to a real parish with a gazetteer.
+- [How to find your Polish ancestors' records](https://rootmere.com/article-records/): a plain
+  four-step guide — find the exact village (usually named in American documents), work out which
+  partition ruled it (Russian, Austrian Galicia, or Prussian) and what language and alphabet the
+  records use, open the right free database (Geneteka's name index, Szukaj w Archiwach by parish,
+  FamilySearch, Metryki), and read the handwriting — the step where most searches stop.
 - [Thirty years of nothing](https://rootmere.com/article-gap/): what to do when a
   register series simply stops.
 - [A village in 1583](https://rootmere.com/article-1583/): finding a village in a
