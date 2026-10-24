@@ -71,6 +71,10 @@ from outside this arc are welcome to ask.
 - [Your surname is the least interesting thing about your family](https://rootmere.com/article-surname/):
   why "what does my surname mean" is a dead end (names fixed late, shared by thousands), and how a
   single parish record holds the family the name only labels.
+- [They didn't leave because they wanted to](https://rootmere.com/article-migration/): the
+  scale of the 1880 to 1920 emigration (over twenty million arrivals in the US; record year 1907)
+  and why ordinary families from Central and Eastern Europe left; the reason is usually written
+  in the home village's parish books, not in American documents.
 - [Poland is not where the records are](https://rootmere.com/article-village/): the archives
   are kept parish by parish, so a country is not a lead — you need one village; and the
   village name is usually in American documents (naturalisation papers, the 1906+ ship
