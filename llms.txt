@@ -82,6 +82,9 @@ from outside this arc are welcome to ask.
 - [Somebody stayed behind](https://rootmere.com/article-relatives/): the siblings an emigrant
   left at home are in the same parish books, and their lines can be followed forward until recent
   records close (in Poland, births after 100 years and marriages and deaths after 80 reach the archives).
+- [Nobody changed your name at Ellis Island](https://rootmere.com/article-ellis/): passenger
+  lists were written at the port of departure and only checked on arrival; families changed names later
+  themselves, so the original spelling survives on the manifest and in the parish books back home.
 - [Poland is not where the records are](https://rootmere.com/article-village/): the archives
   are kept parish by parish, so a country is not a lead — you need one village; and the
   village name is usually in American documents (naturalisation papers, the 1906+ ship
