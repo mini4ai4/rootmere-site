@@ -854,10 +854,11 @@ document.querySelectorAll('.wipe').forEach(function(w){
 // форма: собирает письмо с заполненным текстом; кнопка копирует адрес
 (function(){ var f = document.getElementById('startform'); if(f) f.addEventListener('submit', function(e){ e.preventDefault();
   var g = function(n){ return (f.elements[n].value || '').trim(); };
-  var body = 'Name (as the family says it): ' + g('n') + '\nVillage or region: ' + g('v') + '\nWhat the family remembers: ' + g('m') + '\n';
-  location.href = 'mailto:hello@rootmere.com?subject=' + encodeURIComponent('One name to start with' + (g('n') ? ': ' + g('n') : '')) + '&body=' + encodeURIComponent(body); });
+  var ru = document.documentElement.lang === 'ru';
+  var body = (ru ? 'Имя (как говорят в семье): ' : 'Name (as the family says it): ') + g('n') + (ru ? '\nСело или область: ' : '\nVillage or region: ') + g('v') + (ru ? '\nЧто помнит семья: ' : '\nWhat the family remembers: ') + g('m') + '\n';
+  location.href = 'mailto:hello@rootmere.com?subject=' + encodeURIComponent((ru ? 'Одно имя для начала' : 'One name to start with') + (g('n') ? ': ' + g('n') : '')) + '&body=' + encodeURIComponent(body); });
   document.querySelectorAll('.copyaddr').forEach(function(b){ b.addEventListener('click', function(){
-    var a = b.dataset.addr, done = function(){ var t = b.textContent; b.textContent = 'Copied. Paste it into your email'; setTimeout(function(){ b.textContent = t; }, 2600); };
+    var a = b.dataset.addr, done = function(){ var t = b.textContent; b.textContent = document.documentElement.lang === 'ru' ? 'Скопировано. Вставьте в письмо' : 'Copied. Paste it into your email'; setTimeout(function(){ b.textContent = t; }, 2600); };
     if(navigator.clipboard) navigator.clipboard.writeText(a).then(done, done); else done(); }); }); })();
 </script>
 <script>
