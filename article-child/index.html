@@ -405,6 +405,42 @@ a.card-link h3{text-decoration:none}
 @media(max-width:759px){.sticky-cta{bottom:calc(12px + env(safe-area-inset-bottom))}}
 .lens.offscreen{animation-play-state:paused}
 @media (prefers-color-scheme:dark){.proof img,.timeline .doc,.art-cover img{filter:brightness(.88) contrast(1.04)}}
+
+/* ── P1 круг 1 (Рома 9795/9797, 08.11): шторка, цифры в таймлайне, переключатель написаний, форма ── */
+.hero .pre{font-family:Fraunces,Georgia,serif;font-size:clamp(20px,2.4vw,26px);line-height:1.3;color:var(--ink-2);margin:0 0 10px;max-width:24ch}
+.home-hero h1{font-size:clamp(46px,7vw,76px);margin-bottom:18px}
+.hero:not(.home-hero) h1 em{color:inherit;background:none;font-weight:inherit}
+.wipe{position:relative;margin:0;touch-action:pan-y;border:1px solid var(--rule);background:var(--card);overflow:hidden}
+.wipe img{display:block;width:100%;height:auto;filter:contrast(1.04)}
+.wipe-read{position:absolute;inset:0;background:#FBF8F1;clip-path:inset(0 0 0 var(--x));container-type:inline-size}
+.wipe-read b{position:absolute;font:400 4.3cqw/1 Fraunces,Georgia,serif;color:var(--ink);transform:translateY(-50%);white-space:nowrap}
+.wipe::after{content:"";position:absolute;top:0;bottom:0;left:var(--x);width:2px;background:var(--seal);pointer-events:none}
+.wipe::before{content:"";position:absolute;top:50%;left:clamp(16px,var(--x),calc(100% - 16px));width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;
+  background:var(--seal);box-shadow:0 2px 10px rgba(0,0,0,.28);z-index:2;pointer-events:none}
+.wipe input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:3}
+.wipe-hint{display:flex;justify-content:space-between;margin:0 0 8px;font:500 12px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.wipe-hint span:last-child{color:var(--seal)}
+.stamp{position:absolute;right:10px;bottom:8px;z-index:2;font:500 11px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;background:#FBF8F1;
+  border:1.5px solid var(--seal);padding:3px 7px;transform:rotate(-4deg) scale(1.5);opacity:0;transition:.35s;text-transform:uppercase;pointer-events:none}
+.wipe.done .stamp{opacity:1;transform:rotate(-4deg) scale(1)}
+@media(max-width:899px){.home-hero .proof{order:-1;margin:0 -8px}.home-hero{padding-top:22px}}
+.timeline .num{margin:12px 0 0;font:500 14px "IBM Plex Mono",monospace;color:var(--ink-2)}
+.timeline .num b{font:500 26px Fraunces,Georgia,serif;color:var(--seal);margin-right:6px}
+.seg{display:inline-flex;border:1px solid var(--ink);margin:0 0 18px}
+.seg button{min-height:44px;padding:0 16px;border:0;background:transparent;font:600 15px "Source Sans 3",sans-serif;color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.spell .chip{transition:opacity .3s}
+.spell.search .chip{opacity:.12}
+.spell.search .chip.typed{opacity:1;outline:2px solid var(--seal)}
+.spell.search .lab{opacity:.4}
+@media(max-width:700px){.seg{display:flex}.seg button{flex:1;padding:0 8px;font-size:14px}}
+.startform{max-width:520px;margin:0 auto;text-align:left;display:grid;gap:14px}
+.startform label{display:grid;gap:6px;font:600 15px "Source Sans 3",sans-serif;color:var(--ink)}
+.startform input,.startform textarea{font:400 17px "Source Sans 3",sans-serif;padding:12px 14px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:0;min-height:48px}
+.startform input:focus,.startform textarea:focus{outline:2px solid var(--seal);outline-offset:1px}
+.startform .cta{justify-self:start;min-height:52px;border:0;cursor:pointer;font-size:17px}
+@media(max-width:700px){.startform .cta{justify-self:stretch;text-align:center}}
+.copyaddr{background:none;border:0;padding:0;font:inherit;color:var(--seal);text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body><nav><div class="w">
@@ -607,5 +643,37 @@ document.querySelectorAll('details.menu a').forEach(function(a){
 // лупа на десктопе не крутит анимацию, когда её не видно (судья v2, P2-7)
 (function(){ var l=document.getElementById('lens'); if(!l||!('IntersectionObserver' in window)) return;
   new IntersectionObserver(function(es){ l.classList.toggle('offscreen', !es[0].isIntersecting); }).observe(l); })();
+</script>
+<script>
+// шторка «1866 ink ⇄ Our reading» (Рома 9797): тянешь — проявляется прочтение, до конца — штамп
+document.querySelectorAll('.wipe').forEach(function(w){
+  var r = w.querySelector('input');
+  function set(v){ w.style.setProperty('--x', v + '%'); r.value = v; w.classList.toggle('done', v < 6); }
+  r.addEventListener('input', function(){ set(+r.value); });
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ set(45); return; }
+  if(!('IntersectionObserver' in window)) { set(45); return; }
+  var ran = false;
+  new IntersectionObserver(function(es, o){
+    if(!es[0].isIntersecting || ran) return; ran = true; o.disconnect();
+    var t0 = null;
+    function st(ts){ if(!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 1600);
+      var e = k < .5 ? 1 - Math.pow(1 - k / .5, 3) : (k - .5) / .5;
+      set(Math.round(k < .5 ? 100 - 75 * e : 25 + 30 * e)); if(k < 1) requestAnimationFrame(st); }
+    setTimeout(function(){ requestAnimationFrame(st); }, 600);
+  }, {threshold: .6}).observe(w);
+});
+// написания: что видит поиск / что находим мы
+(function(){ var sp = document.getElementById('spell'), seg = document.querySelector('.seg'); if(!sp || !seg) return;
+  seg.addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return;
+    seg.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    sp.classList.toggle('search', b.dataset.mode === 'search'); }); })();
+// форма: собирает письмо с заполненным текстом; кнопка копирует адрес
+(function(){ var f = document.getElementById('startform'); if(f) f.addEventListener('submit', function(e){ e.preventDefault();
+  var g = function(n){ return (f.elements[n].value || '').trim(); };
+  var body = 'Name (as the family says it): ' + g('n') + '\nVillage or region: ' + g('v') + '\nWhat the family remembers: ' + g('m') + '\n';
+  location.href = 'mailto:hello@rootmere.com?subject=' + encodeURIComponent('One name to start with' + (g('n') ? ': ' + g('n') : '')) + '&body=' + encodeURIComponent(body); });
+  document.querySelectorAll('.copyaddr').forEach(function(b){ b.addEventListener('click', function(){
+    var a = b.dataset.addr, done = function(){ var t = b.textContent; b.textContent = 'Copied. Paste it into your email'; setTimeout(function(){ b.textContent = t; }, 2600); };
+    if(navigator.clipboard) navigator.clipboard.writeText(a).then(done, done); else done(); }); }); })();
 </script>
 </body></html>
