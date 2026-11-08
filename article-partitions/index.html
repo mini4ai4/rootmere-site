@@ -442,6 +442,26 @@ a.card-link h3{text-decoration:none}
 @media(max-width:700px){.startform .cta{justify-self:stretch;text-align:center}}
 .copyaddr{background:none;border:0;padding:0;font:inherit;color:var(--seal);text-decoration:underline;cursor:pointer}
 .cover{aspect-ratio:1200/560;object-position:top}
+
+/* лестница поколений из tree_data.json (судья v2 P1-3) */
+.ladder{margin:46px 0 0;background:var(--card);border:1px solid var(--rule);padding:26px 22px 22px}
+.ladder figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;margin-bottom:20px;font:500 20px Fraunces,Georgia,serif;color:var(--ink)}
+.ladder .mono-s{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);align-self:center}
+.ladder ol{list-style:none;margin:0;padding:0 0 0 22px;position:relative}
+.ladder ol::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:var(--seal);transform-origin:top;transform:scaleY(var(--draw,1));transition:transform 1.6s ease}
+.ladder li{position:relative;padding:0 0 16px;display:grid;grid-template-columns:1fr;gap:2px}
+.ladder li::before{content:"";position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--seal)}
+.ladder li b{font:500 19px/1.25 Fraunces,Georgia,serif;color:var(--ink)}
+.ladder .y{font:500 13px "IBM Plex Mono",monospace;color:var(--ink-2)}
+.ladder .src{font:400 12.5px "IBM Plex Mono",monospace;color:var(--soft)}
+.ladder li.living b{color:var(--soft);font-style:italic}
+.ladder li.living::before{background:var(--rule);border-color:var(--rule)}
+.ladder li.unproven::before{border-style:dashed}
+.ladder li.unproven b{font-style:italic}
+.ladder li:last-child{padding-bottom:0}
+.ladder li:last-child::before{background:var(--seal)}
+.ladder-note{margin:16px 0 0;font-size:14px;color:var(--ink-2)}
+@media(min-width:900px){.ladder li{grid-template-columns:260px 210px 1fr;align-items:baseline;gap:16px}}
 </style>
 </head>
 <body><nav><div class="w">
@@ -669,5 +689,11 @@ document.querySelectorAll('.wipe').forEach(function(w){
   document.querySelectorAll('.copyaddr').forEach(function(b){ b.addEventListener('click', function(){
     var a = b.dataset.addr, done = function(){ var t = b.textContent; b.textContent = 'Copied. Paste it into your email'; setTimeout(function(){ b.textContent = t; }, 2600); };
     if(navigator.clipboard) navigator.clipboard.writeText(a).then(done, done); else done(); }); }); })();
+</script>
+<script>
+(function(){ var l=document.getElementById('ladder'); if(!l||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var o=l.querySelector('ol'); o.style.setProperty('--draw',0);
+  new IntersectionObserver(function(es,ob){ if(es[0].isIntersecting){ o.style.setProperty('--draw',1); ob.disconnect(); } },{threshold:.2}).observe(l); })();
 </script>
 </body></html>
