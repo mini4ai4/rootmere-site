@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body>
@@ -388,6 +396,7 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Working note · from our own desk</p>
   <h1>A village in 1583.<br><em>How to find one small place in a book nobody has indexed.</em></h1>
   <p class="lede">Most family lines in Central and Eastern Europe run out of parish registers somewhere in the eighteenth century. What comes before that is not silence — it is tax. Landowners were assessed household by household, and those assessments were printed in the nineteenth century in scholarly volumes that now sit in digital libraries as scanned images with no searchable text. This is a working note on how we get into them: the exact mechanics, the traps, and what such an entry actually tells you about a family that has not yet acquired a surname.</p>
+  <p class="readtime">4 min read</p>
 </div></header>
 
 <section id="find"><div class="w narrow">
@@ -424,6 +433,7 @@ a.card-link h3{text-decoration:none}
     </ul>
   </div>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="worth"><div class="w narrow">
   <p class="eyebrow">Method</p>
@@ -541,6 +551,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

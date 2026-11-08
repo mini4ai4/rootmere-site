@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -387,7 +395,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">The question we are asked first</p>
   <h1>"But surely it all burned."<br><em>Less of it than you think.</em></h1>
   <p class="lede">Almost everyone who writes to us says some version of this in the first paragraph. The wars went through those countries twice, the borders moved, the villages emptied. It seems obvious that nothing could have survived. It is the single most common reason people never start, and it is wrong more often than it is right. Not because the destruction was exaggerated, but because of a habit of nineteenth-century bureaucracy that almost nobody outside the archives knows about.</p>
+  <p class="readtime">5 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_burned.jpg" alt="What survived the fires in the archives — Rootmere"></div></figure>
 
 <section id="why"><div class="w narrow">
   <p class="eyebrow">First, the honest part</p>
@@ -417,6 +427,7 @@ a.card-link h3{text-decoration:none}
     <p style="margin:0;color:var(--ink-2)">When someone says the records for a village are gone, the useful reply is a question: which copy? The parish book, the diocesan duplicate, the civil registry original, the supervising authority's duplicate, or the microfilm? Those are five different objects in five different places. It is unusual for a family to lose all five, and common for people to check one, find nothing, and stop.</p>
   </div>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="gone"><div class="w narrow">
   <p class="eyebrow">Where it does end</p>
@@ -537,6 +548,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

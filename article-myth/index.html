@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body>
@@ -387,6 +395,7 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Why this matters at all</p>
   <h1>Every family without a record has a story instead.<br><em>Usually nobody has ever checked it.</em></h1>
   <p class="lede">We were nobility once. We came from nothing. They took everything from us. We were always in that one village. Almost every family carries a sentence like this, repeated until no one remembers who said it first — and almost nobody has ever tested it against a document. That would be harmless if the story just sat there. It doesn't. It quietly decides things.</p>
+  <p class="readtime">4 min read</p>
 </div></header>
 
 <section id="four"><div class="w narrow">
@@ -420,6 +429,7 @@ a.card-link h3{text-decoration:none}
     <p style="margin:0;color:var(--ink-2)">One family we worked with was sure of a noble origin — the surname looked the part, and the story was firm. The documents said peasants: a numbered household in one village, the same yard across four tax censuses, from the 1810s to the 1850s. Not a disappointment, as it turned out. Being able to name the yard, and to watch the same family age across four books, is a far more solid thing to hand a grandchild than an unverifiable claim to a coat of arms. And it came with a real surprise the legend had no room for — a man in the 1860s whom nobody alive had heard of.</p>
   </div>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section><div class="w narrow">
   <p class="eyebrow">The honest objection</p>
@@ -526,6 +536,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

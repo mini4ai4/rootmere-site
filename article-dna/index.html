@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -386,7 +394,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">After the kit</p>
   <h1>Your DNA test gave you a percentage, not a person<br><em>and a wall of cousins you'll never write to.</em></h1>
   <p class="lede">You spat in the tube, waited the few weeks, and opened the results with more feeling than you expected. A pie chart. Thirty-one per cent one place, nineteen another, a slice marked "Eastern Europe" that could mean almost anywhere between the Baltic and the Black Sea. A list of fourth cousins with usernames instead of faces. It was interesting for an evening. And then, if you're honest, it left you a little emptier than before — because the thing you actually wanted wasn't in there.</p>
+  <p class="readtime">4 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_dna.jpg" alt="A DNA percentage beside a handwritten parish record — Rootmere"></div></figure>
 
 <section id="percentage"><div class="w narrow">
   <p class="eyebrow">What you were really asking</p>
@@ -407,6 +417,7 @@ a.card-link h3{text-decoration:none}
 
   <p>What you were hoping for — a person with a name, standing in a place with a name, on a date you could point to — isn't encoded in blood. It was written down, by hand, at the time, by a priest or a clerk who had no idea anyone would ever come looking. That record is a different kind of object entirely, and the good news is that it's the kind that tends to survive.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="bridge"><div class="w narrow">
   <p class="eyebrow">Where the real answer is kept</p>
@@ -517,6 +528,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

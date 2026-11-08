@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body>
@@ -387,6 +395,7 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Working note · from our own desk</p>
   <h1>The document that gives you a generation for free.<br><em>How to read a revision list, column by column.</em></h1>
   <p class="lede">When a parish register is lost, most people stop. They shouldn't. Tax censuses of households — revision lists — survive in state archives when church books have burned, and they are built in a way that hands you two things a parish register never will: a death date for a man whose burial entry is gone, and, if you read the column headings carefully, the name of a father who was already dead before the record was written. This is how we read them.</p>
+  <p class="readtime">4 min read</p>
 </div></header>
 
 <section id="how"><div class="w narrow">
@@ -424,6 +433,7 @@ a.card-link h3{text-decoration:none}
 
   <p>Where these disagree, we write down that they disagree. A family history that quietly smooths over a bad match is worth less than one that says plainly: this link is probable, not proven.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="patronymic"><div class="w narrow">
   <p class="eyebrow">The trick worth knowing</p>
@@ -541,6 +551,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

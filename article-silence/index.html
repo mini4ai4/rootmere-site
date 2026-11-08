@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -386,7 +394,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">When the family says "she never talked about the old country"</p>
   <h1>Grandma never talked about where she came from.<br><em>That isn't the same as there being nothing to tell.</em></h1>
   <p class="lede">A lot of people start looking with almost nothing. No village, no stories, a couple of photos and one sentence that ends every conversation: "She didn't like to talk about it." It's easy to hear that as a closed door. Most of the time it's something else. The person who stayed quiet usually had reasons, and the reasons didn't follow her into the parish books, where the family is written down as plainly as anyone else.</p>
+  <p class="readtime">4 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_silence.jpg" alt="Slavic women and a child at Ellis Island, 1905, photographed by Lewis Hine — Rootmere"></div></figure>
 
 <section id="quiet"><div class="w narrow">
   <p class="eyebrow">You're not the only one</p>
@@ -407,6 +417,7 @@ a.card-link h3{text-decoration:none}
 
   <p>Families are sometimes afraid of what they'll find, a birth outside marriage, a relative who did something bad. Occasionally it's there. Much more often what turns up is ordinary, a long line of farmers and weavers who stayed in one parish for two hundred years, and the hard part of the story is simply that they had to leave it.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="books"><div class="w narrow">
   <p class="eyebrow">Where to start when nobody talked</p>
@@ -517,6 +528,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

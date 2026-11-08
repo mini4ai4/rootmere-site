@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body>
@@ -387,6 +395,7 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Why this matters at all</p>
   <h1>A country without history is at the mercy of whoever tells it a story.<br><em>So is a family.</em></h1>
   <p class="lede">Nobody argues about whether a nation needs its history. We fund archives, build museums, teach it to children, and the justification is always the same: a people that does not know its past keeps walking into it. That logic is accepted completely at the scale of a country — and then, almost universally, not applied at the scale where it actually touches a life. This is an argument that it should be.</p>
+  <p class="readtime">5 min read</p>
 </div></header>
 
 <section id="nations"><div class="w narrow">
@@ -415,6 +424,7 @@ a.card-link h3{text-decoration:none}
     <p style="margin:0;color:var(--ink-2)">This is the part that sounds like a metaphor and is not. Lay four generations out on one sheet and patterns appear that nobody in the family had ever noticed: the age at which the men left; the branch that stopped speaking to the other branch and the year it happened; the same illness arriving at the same decade; the recurring decision to move toward a city, or away from one. Nobody sees these while living inside them. They only become visible written down, which is precisely the argument made for national history, and it is just as true here.</p>
   </div>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section><div class="w narrow">
   <p class="eyebrow">What replaces the record</p>
@@ -549,6 +559,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

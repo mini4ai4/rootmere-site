@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -387,6 +395,7 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Before there was a Poland to come from</p>
   <h1>Russian, Prussian,<br><em>or Austrian?</em></h1>
   <p class="lede">For well over a century there was no Poland on the map. The land had been carved up among three empires, and the one your village fell under set almost everything about its records — the language they were written in, the archive that keeps them now, and even how much of them survived. Before you can search, you have to know which of the three you are standing in.</p>
+  <p class="readtime">4 min read</p>
 </div></header>
 
 <section id="which"><div class="w narrow">
@@ -406,6 +415,7 @@ a.card-link h3{text-decoration:none}
 
   <p>The catch is the language. Those entries were written in Polish until 1868, and in Russian — in the Cyrillic alphabet — from then until 1918. So a single family line can cross from one script into another partway through, and the later records will be in a language and an alphabet most descendants cannot read. The books themselves sit today in the regional state archives, with anything under about a hundred years old still held in the town's own civil records office.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="austrian"><div class="w narrow">
   <p class="eyebrow">The south — Galicia</p>
@@ -525,6 +535,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

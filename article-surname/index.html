@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -386,7 +394,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Where everyone starts</p>
   <h1>Your surname is the least interesting thing about your family<br><em>and the first thing most people waste a year on.</em></h1>
   <p class="lede">It is always the first move. You type the family name into a search box, or into one of those "what does your surname mean" sites, and back comes a tidy little paragraph: it means <em>smith</em>, or <em>son of John</em>, or <em>the man from the meadow</em>. For a moment it feels like a thread you can pull. Then you pull it, and nothing comes. The meaning of a surname is the one piece of your history that almost everyone can find and that tells you almost nothing about your own people.</p>
+  <p class="readtime">5 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_surname.jpg" alt="A surname written out by hand in an old record — Rootmere"></div></figure>
 
 <section id="meaning"><div class="w narrow">
   <p class="eyebrow">Why the meaning is a dead end</p>
@@ -405,6 +415,7 @@ a.card-link h3{text-decoration:none}
 
   <p>And names move. The same family appears as <a href="/article-spelling/">Wojciechowski one year and Woyciechoski the next</a>, then arrives at a port and leaves as Wojick, because a surname is only ever as stable as the clerk writing it down. If the name itself were the history, every one of those spellings would be a different family. They are not. The history was never in the spelling. It was in the event the record was keeping.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="record"><div class="w narrow">
   <p class="eyebrow">Where the real answer is kept</p>
@@ -511,6 +522,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

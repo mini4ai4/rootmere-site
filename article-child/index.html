@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -386,7 +394,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Before you think you need it</p>
   <h1>The day a child asks where you're from<br><em>and the answer most families can only shrug at.</em></h1>
   <p class="lede">It arrives on its own schedule. A school project with a map to colour in. A grandchild who has just done one of those spit-in-a-tube tests and wants to know what the percentages mean. A new baby, and someone wondering aloud what to call them. Sooner or later a child in your family looks up and asks where you are from, and who you were before here. Most families can answer with the name of a country and very little else.</p>
+  <p class="readtime">5 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_child.jpg" alt="Where you are from, written down for a child — Rootmere"></div></figure>
 
 <section id="question"><div class="w narrow">
   <p class="eyebrow">You do not get to pick the moment</p>
@@ -407,6 +417,7 @@ a.card-link h3{text-decoration:none}
 
   <p>The alternative is not a lecture or a family tree on the wall. It is being able to say one true, specific thing: the name of the village the way your grandmother said it, the church the family stood in, the brother who stayed behind. One concrete fact does more than a whole legend, because a child can hold it, repeat it, and one day go and stand in the place.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="still"><div class="w narrow">
   <p class="eyebrow">What is still answerable</p>
@@ -532,6 +543,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

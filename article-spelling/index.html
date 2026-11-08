@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body><nav><div class="w">
@@ -386,7 +394,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Why the search comes back empty</p>
   <h1>"There is nobody by that name."<br><em>There is. It is spelled differently.</em></h1>
   <p class="lede">People type the family surname into a database, get nothing, and conclude that their family is not in the records. Often the family is there several times over, under spellings that look nothing alike. The records are not wrong, and neither is your family's version. Nobody in the nineteenth century had a reason to agree on one.</p>
+  <p class="readtime">3 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_spelling.jpg" alt="One surname under three spellings — Rootmere"></div></figure>
 
 <section id="clerk"><div class="w narrow">
   <p class="eyebrow">First, who held the pen</p>
@@ -410,6 +420,7 @@ a.card-link h3{text-decoration:none}
     <p style="margin:0;color:var(--ink-2)">If a search fails after 1868 but worked before, or the other way round, suspect the alphabet before you suspect a gap in the records.</p>
   </div>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section id="search"><div class="w narrow">
   <p class="eyebrow">What actually helps</p>
@@ -517,6 +528,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>

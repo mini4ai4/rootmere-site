@@ -365,6 +365,14 @@ a.card-link h3{text-decoration:none}
   .sticky-cta.on{transform:none}
   footer{padding-bottom:90px}
 }
+
+/* статьи: время чтения, обложка, CTA посередине, полоса прогресса (08.11) */
+.readtime{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);margin:18px 0 0;letter-spacing:.04em}
+.art-cover{margin:0;padding:34px 0 0}
+.art-cover img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
+.midcta p{margin:0 0 12px;color:var(--ink-2)}
+.readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 </style>
 </head>
 <body>
@@ -387,7 +395,9 @@ a.card-link h3{text-decoration:none}
   <p class="kicker">Why this matters at all</p>
   <h1>What do you give someone who already has everything?<br><em>Something that was theirs before they were born.</em></h1>
   <p class="lede">There is an age at which people stop wanting objects. They have the sweater. They will politely accept another bottle. And the person choosing the gift knows it — which is why the search gets harder every year, and why so many people end up buying something they already know will be opened, admired for four seconds, and put in a drawer. This is about the one category that escapes that, and about why it works even on people who have never once thought about their ancestors.</p>
+  <p class="readtime">5 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_gift.jpg" alt="A family history as a gift — Rootmere"></div></figure>
 
 <section id="problem"><div class="w narrow">
   <p class="eyebrow">The real problem</p>
@@ -422,6 +432,7 @@ a.card-link h3{text-decoration:none}
 
   <p>This is why it works as a gift for someone who never asked for it. You are not giving them a hobby. You are handing them a story that turns out to be about them, with the first chapters already written.</p>
 </div></section>
+<div class="w narrow"><aside class="midcta"><p><b>Wondering if your family's records survived?</b> Send us one name and whatever the family remembers. The first answer is free.</p><a class="cta sm" href="/#start">Get a free first answer</a></aside></div>
 
 <section><div class="w narrow">
   <p class="eyebrow">The honest urgency</p>
@@ -548,6 +559,18 @@ a.card-link h3{text-decoration:none}
     new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
     if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
   }
+})();
+</script>
+<script>
+(function(){
+  if(!document.querySelector('.readtime')) return;
+  var bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden','true');
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){ var d = document.documentElement, max = d.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  upd();
 })();
 </script>
 </body></html>
