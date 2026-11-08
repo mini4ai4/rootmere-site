@@ -553,6 +553,23 @@ a.card-link h3{text-decoration:none}
   .page-hero{height:480px;border:1px solid var(--rule)}
 }
 @media(min-width:900px){.home-hero h1{font-size:clamp(48px,5.2vw,66px);white-space:nowrap}}
+
+/* круг 4 (судья r4): мгновенный превью-фон, герой 44% экрана, бегунок поверх страницы, рамка над прочтением */
+.page-hero::before{background:var(--lq) left center/cover}
+.page-hero .pg{background:var(--lq) center/100% 100%}
+.page-hero .box{z-index:2}
+.box-read{z-index:1;background:#FBF6EA}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .box-read{background:#1d1c19}}
+:root[data-theme="dark"] .box-read{background:#1d1c19}
+.page-hero{height:min(44vh,400px)}
+.page-hero figcaption{top:10px;bottom:auto}
+.page-hero .wipe-ctl{position:absolute;left:0;right:0;bottom:0;margin:0;padding:6px 16px;z-index:3;
+  background:linear-gradient(transparent,rgba(0,0,0,.28));min-height:48px}
+.page-hero .wipe-ctl input::-webkit-slider-runnable-track{background:rgba(255,255,255,.7)}
+.page-hero .wipe-ctl .stamp{right:16px;max-width:calc(100% - 32px);background:#FBF6EA}
+.hero-scan .cap{margin:8px 0 0}
+@media(max-width:899px){.hero-scan .cap{padding:0 24px}.home-hero .pre{margin-top:18px}}
+@media(min-width:900px){.page-hero{height:460px}}
 </style>
 </head>
 <body>
@@ -583,9 +600,10 @@ a.card-link h3{text-decoration:none}
   </div>
 </div></nav>
 
+<link rel="preload" as="image" href="/img/1866_page.jpg" fetchpriority="high">
 <header class="hero home-hero"><div class="w hero-grid">
   <div class="hero-scan">
-  <figure class="page-hero" id="pageHero" style="--x:100%">
+  <figure class="page-hero" id="pageHero" style="--x:100%;--lq:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAdADADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDsm+RlGM/QU1mOCQGNObCgbuB64/8ArUh9T90e3/1qzLGRlicYbjt/k0kBYQR4Uj5QP0p6HJ4GR6j/APVTYseQmCM7R29qAFBbH3D3xzwam2g4ycGoQRnG4HFSBOnHFACE7hlgM/X/AOvTWC9MCkncrIqrx3pu8nsOuO9ABGkat0HXmiHHkR4AyQKItzEEkZGPX/GliUtEORjaOMe31oAXCEHKgjPT/Jp4YgLjAAP+e9IPMGcOMYxjbQj/AHFOTk9SaAP/2Q==)">
     <div class="pg"><img src="/img/1866_page.jpg" width="955" height="585" alt="A full page of a handwritten 1866 parish register, two columns of baptism entries" fetchpriority="high"><span class="box" aria-hidden="true"></span>
       <div class="box-read">
         <b style="left:13%;top:13%">Sexton Vasyl Biletskyi</b>
@@ -596,9 +614,9 @@ a.card-link h3{text-decoration:none}
       </div>
     </div>
     <figcaption>Parish register · 1866 · image 620 of 894</figcaption>
-  </figure>
   <div class="wipe-ctl"><input type="range" min="0" max="100" value="100" aria-label="Drag to compare the 1866 handwriting with our English reading"><span class="stamp" aria-hidden="true">Read · 1866 · image 620</span></div>
-  <p class="cap">Drag across the frame: 1866 ink on the left, our reading on the right. Before someone read this entry, the family knew neither the name nor the village.</p>
+  </figure>
+  <p class="cap">Drag across the frame: 1866 ink, then our reading.</p>
   </div>
   <div class="hero-copy">
     <p class="pre">Someone wrote your ancestor's name by hand two hundred years ago.</p>
@@ -1047,7 +1065,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 // страница метрики: вся → зум к записи → рамка → прочтение проявляется в рамке; тянуть пальцем по странице
 (function(){ var h=document.getElementById('pageHero'); if(!h) return;
   var pg=h.querySelector('.pg'), img=h.querySelector('img'), box=h.querySelector('.box');
-  var ctl=h.parentNode.querySelector('.wipe-ctl'), r=ctl?ctl.querySelector('input'):null;
+  var ctl=h.querySelector('.wipe-ctl'), r=ctl?ctl.querySelector('input'):null;
   function set(v){ v=Math.max(0,Math.min(100,v)); h.style.setProperty('--x',v+'%'); if(r) r.value=v; var d=v<6; h.classList.toggle('done',d); if(ctl) ctl.classList.toggle('done',d); }
   if(r) r.addEventListener('input',function(){ h.classList.add('read'); set(+r.value); });
   var drag=false,sx=0,sy=0,dec=false;
@@ -1061,7 +1079,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
   function go(){ var f=fit(); pg.style.setProperty('--fit',f); pg.offsetWidth; pg.style.transition='';
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ pg.style.setProperty('--fit',1); h.classList.add('go'); setTimeout(wipe,1700); }); }); }
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ h.classList.add('go','read'); set(40); return; }
-  if(img.complete) go(); else img.addEventListener('load',go);
+  go();
   addEventListener('orientationchange',function(){ pg.style.setProperty('--fit',1); });
 })();
 </script>

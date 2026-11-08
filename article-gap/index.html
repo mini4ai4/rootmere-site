@@ -550,6 +550,23 @@ a.card-link h3{text-decoration:none}
   .page-hero{height:480px;border:1px solid var(--rule)}
 }
 @media(min-width:900px){.home-hero h1{font-size:clamp(48px,5.2vw,66px);white-space:nowrap}}
+
+/* круг 4 (судья r4): мгновенный превью-фон, герой 44% экрана, бегунок поверх страницы, рамка над прочтением */
+.page-hero::before{background:var(--lq) left center/cover}
+.page-hero .pg{background:var(--lq) center/100% 100%}
+.page-hero .box{z-index:2}
+.box-read{z-index:1;background:#FBF6EA}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .box-read{background:#1d1c19}}
+:root[data-theme="dark"] .box-read{background:#1d1c19}
+.page-hero{height:min(44vh,400px)}
+.page-hero figcaption{top:10px;bottom:auto}
+.page-hero .wipe-ctl{position:absolute;left:0;right:0;bottom:0;margin:0;padding:6px 16px;z-index:3;
+  background:linear-gradient(transparent,rgba(0,0,0,.28));min-height:48px}
+.page-hero .wipe-ctl input::-webkit-slider-runnable-track{background:rgba(255,255,255,.7)}
+.page-hero .wipe-ctl .stamp{right:16px;max-width:calc(100% - 32px);background:#FBF6EA}
+.hero-scan .cap{margin:8px 0 0}
+@media(max-width:899px){.hero-scan .cap{padding:0 24px}.home-hero .pre{margin-top:18px}}
+@media(min-width:900px){.page-hero{height:460px}}
 </style>
 </head>
 <body>
@@ -804,7 +821,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 // страница метрики: вся → зум к записи → рамка → прочтение проявляется в рамке; тянуть пальцем по странице
 (function(){ var h=document.getElementById('pageHero'); if(!h) return;
   var pg=h.querySelector('.pg'), img=h.querySelector('img'), box=h.querySelector('.box');
-  var ctl=h.parentNode.querySelector('.wipe-ctl'), r=ctl?ctl.querySelector('input'):null;
+  var ctl=h.querySelector('.wipe-ctl'), r=ctl?ctl.querySelector('input'):null;
   function set(v){ v=Math.max(0,Math.min(100,v)); h.style.setProperty('--x',v+'%'); if(r) r.value=v; var d=v<6; h.classList.toggle('done',d); if(ctl) ctl.classList.toggle('done',d); }
   if(r) r.addEventListener('input',function(){ h.classList.add('read'); set(+r.value); });
   var drag=false,sx=0,sy=0,dec=false;
@@ -818,7 +835,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
   function go(){ var f=fit(); pg.style.setProperty('--fit',f); pg.offsetWidth; pg.style.transition='';
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ pg.style.setProperty('--fit',1); h.classList.add('go'); setTimeout(wipe,1700); }); }); }
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ h.classList.add('go','read'); set(40); return; }
-  if(img.complete) go(); else img.addEventListener('load',go);
+  go();
   addEventListener('orientationchange',function(){ pg.style.setProperty('--fit',1); });
 })();
 </script>
