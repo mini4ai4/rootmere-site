@@ -462,6 +462,39 @@ a.card-link h3{text-decoration:none}
 .ladder li:last-child::before{background:var(--seal)}
 .ladder-note{margin:16px 0 0;font-size:14px;color:var(--ink-2)}
 @media(min-width:900px){.ladder li{grid-template-columns:260px 210px 1fr;align-items:baseline;gap:16px}}
+
+/* круг 2 к 80 (судья r2, 08.11): красный = только «прочитано и проверено»; шторка без багов */
+.kicker,.eyebrow{color:var(--soft)}
+.home-hero h1{color:var(--ink)}
+.home-hero h1 .pen{position:relative;display:inline-block}
+.home-hero h1 .pen svg{position:absolute;left:-2%;right:-2%;bottom:-.08em;width:104%;height:.28em;overflow:visible}
+.home-hero h1 .pen path{fill:none;stroke:var(--seal);stroke-width:2.6;stroke-linecap:round;vector-effect:non-scaling-stroke;
+  stroke-dasharray:140;stroke-dashoffset:140;transition:stroke-dashoffset .9s ease .5s}
+.home-hero h1.inked .pen path,.no-js .home-hero h1 .pen path{stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){.home-hero h1 .pen path{stroke-dashoffset:0;transition:none}}
+.wipe-read{background:var(--paper)}
+.wipe-read b{color:var(--ink)}
+.wipe::before{content:none}
+.wipe{cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.wipe-ctl{display:flex;align-items:center;gap:14px;margin-top:12px;min-height:44px}
+.wipe-ctl input{flex:1;min-width:0;height:44px;margin:0;accent-color:var(--seal);-webkit-appearance:none;appearance:none;background:transparent}
+.wipe-ctl input::-webkit-slider-runnable-track{height:2px;background:var(--rule)}
+.wipe-ctl input::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;margin-top:-14px;border-radius:50%;background:var(--seal);border:3px solid var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.wipe-ctl input::-moz-range-track{height:2px;background:var(--rule)}
+.wipe-ctl input::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--seal);border:3px solid var(--paper)}
+.wipe-ctl .stamp{position:static;flex:none;transform:rotate(-3deg) scale(1.4)}
+.wipe-ctl.done .stamp{opacity:1;transform:rotate(-3deg) scale(1)}
+@media(max-width:899px){
+  .home-hero .proof{background:none;border:0;padding:0;margin:0 -24px}
+  .home-hero .proof .wipe{border-left:0;border-right:0}
+  .home-hero .proof .wipe-hint,.home-hero .proof .wipe-ctl,.home-hero .proof .cap{padding:0 24px}
+  .wipe-ctl .stamp{font-size:10px}
+}
+.gets{font-size:18px;color:var(--ink-2);max-width:60ch;margin:6px 0 0}
+.gets b{color:var(--ink);font-weight:600}
+.startform .cta{font-family:"Source Sans 3",sans-serif;font-weight:600}
+.wipe-ctl{position:relative}
+.wipe-ctl .stamp{position:absolute;right:0;top:50%;margin-top:-12px}
 </style>
 </head>
 <body>
@@ -656,11 +689,22 @@ document.querySelectorAll('details.menu a').forEach(function(a){
   new IntersectionObserver(function(es){ l.classList.toggle('offscreen', !es[0].isIntersecting); }).observe(l); })();
 </script>
 <script>
-// шторка «1866 ink ⇄ Our reading» (Рома 9797): тянешь — проявляется прочтение, до конца — штамп
+// шторка «1866 ink ⇄ Our reading» (Рома 9797; судья r2: тянуть где угодно, бегунок снизу, штамп рядом)
 document.querySelectorAll('.wipe').forEach(function(w){
-  var r = w.querySelector('input');
-  function set(v){ w.style.setProperty('--x', v + '%'); r.value = v; w.classList.toggle('done', v < 6); }
-  r.addEventListener('input', function(){ set(+r.value); });
+  var ctl = w.nextElementSibling && w.nextElementSibling.classList.contains('wipe-ctl') ? w.nextElementSibling : null;
+  var r = ctl ? ctl.querySelector('input') : null;
+  function set(v){ v = Math.max(0, Math.min(100, v)); w.style.setProperty('--x', v + '%'); if(r) r.value = v;
+    var d = v < 6; w.classList.toggle('done', d); if(ctl) ctl.classList.toggle('done', d); }
+  if(r) r.addEventListener('input', function(){ set(+r.value); });
+  var drag = false, sx = 0, sy = 0, decided = false;
+  function pos(e){ var b = w.getBoundingClientRect(); return (e.clientX - b.left) / b.width * 100; }
+  w.addEventListener('pointerdown', function(e){ drag = true; decided = e.pointerType === 'mouse'; sx = e.clientX; sy = e.clientY;
+    if(decided){ w.setPointerCapture(e.pointerId); set(pos(e)); } });
+  w.addEventListener('pointermove', function(e){ if(!drag) return;
+    if(!decided){ var dx = Math.abs(e.clientX - sx), dy = Math.abs(e.clientY - sy); if(dx + dy < 6) return;
+      decided = true; if(dy > dx){ drag = false; return; } try{ w.setPointerCapture(e.pointerId); }catch(_){} }
+    set(pos(e)); });
+  ['pointerup','pointercancel'].forEach(function(t){ w.addEventListener(t, function(){ drag = false; }); });
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ set(45); return; }
   if(!('IntersectionObserver' in window)) { set(45); return; }
   var ran = false;
@@ -692,5 +736,8 @@ document.querySelectorAll('.wipe').forEach(function(w){
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var o=l.querySelector('ol'); o.style.setProperty('--draw',0);
   new IntersectionObserver(function(es,ob){ if(es[0].isIntersecting){ o.style.setProperty('--draw',1); ob.disconnect(); } },{threshold:.2}).observe(l); })();
+</script>
+<script>
+(function(){ var h=document.querySelector('.home-hero h1'); if(h) setTimeout(function(){ h.classList.add('inked'); }, 250); })();
 </script>
 </body></html>
