@@ -38,12 +38,12 @@
 <style>
 :root{
   --paper:#EFF0EC; --card:#FAFAF7; --ink:#15191C; --ink-2:#3E4A4E;
-  --soft:#6E7A78; --rule:#D6D8D0; --seal:#8C2F23; --ledger:#2F5D50;
+  --soft:#5A6563; --rule:#D6D8D0; --seal:#8C2F23; --ledger:#2F5D50;
   --sepia:#9C8963;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#0F1315; --card:#171C1F; --ink:#E8EAE5; --ink-2:#B3BDBA;
-  --soft:#8794921; --soft:#879492; --rule:#262E31; --seal:#D07C6E;
+  --soft:#879492; --rule:#262E31; --seal:#D07C6E;
   --ledger:#7FB6A3; --sepia:#C4AC7C;
 }}
 :root[data-theme="dark"]{
@@ -95,13 +95,13 @@ nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:
 .hero{padding:76px 0 66px;border-bottom:1px solid var(--rule)}
 .kicker{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--seal);margin:0 0 20px}
-.hero h1{font-weight:300;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:22px}
+.hero h1{font-weight:400;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:22px}
 .hero h1 em{font-style:italic;font-weight:500;color:var(--seal)}
 .lede{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:56ch;margin:0 0 30px}
 .cta{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
   padding:14px 30px;font-weight:600;font-size:16px;border:1px solid var(--ink)}
 .cta:hover{background:var(--seal);border-color:var(--seal)}
-.cta.ghost{background:transparent;color:var(--ink);margin-left:12px}
+.cta.ghost{background:transparent;color:var(--ink)}
 .cta.ghost:hover{color:var(--seal);border-color:var(--seal);background:transparent}
 /* В карточках цен кнопки делаем небольшими и одинаковыми: крупная «обсудить»
    рядом с мелкой строчкой «оплатить» читалась так, будто мы стесняемся брать деньги. */
@@ -120,7 +120,7 @@ nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:
    Смысл не в эффекте: человек своими глазами видит, что он бы это не прочёл,
    а мы читаем. Это снимает главное возражение — «а вы точно умеете». */
 @property --my{syntax:'<percentage>';inherits:true;initial-value:34%}
-.lens{position:relative;container-type:inline-size;cursor:crosshair;touch-action:none;
+.lens{position:relative;container-type:inline-size;cursor:crosshair;touch-action:pan-y;
   animation:sweep 11s ease-in-out infinite}
 .lens.held{animation:none}
 @keyframes sweep{0%{--my:20%}48%{--my:88%}100%{--my:20%}}
@@ -147,17 +147,16 @@ nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:
    абзацы — так страница читается как разворот книги. Списки и длинные вопросы-ответы
    оставляем по левому краю: маркеры и многострочный текст по центру читать тяжело. */
 @media (max-width:700px){
-  .hero h1,.hero .lede,.kicker,.eyebrow,h2,.sub,
-  .thing,.thing h3,.thing p,.thing .n,
-  .plan h3,.plan .price,.plan .term,.plan .tag,.plan .foot,
-  .fact,.final p,.case .quote,.case .who,
-  .proof .read,.proof .cap,
-  .step h3,.step p,.step .meta,
-  .honest h3,
+  /* 08.11 (судья веб-дизайна + Рома 9774): по центру только короткое — надзаголовки,
+     H2, цены, подписи. Абзацы в несколько строк — по левому краю, их так легче читать. */
+  .kicker,.eyebrow,h2,
+  .plan .price,.plan .tag,
+  .fact,.final p,.case .who,
   .spellrow .lab{text-align:center}
 
   .thing .n{display:block}
   .chips{justify-content:center}
+  .hero h1{text-align:left}
   .facts{text-align:center}
   /* нумерация шагов уезжала влево от центрованного заголовка */
   .step{align-items:center}
@@ -257,6 +256,115 @@ details p{margin:12px 0 0 28px;color:var(--ink-2);font-size:16px}
 .final p{color:var(--ink-2);font-size:19px;max-width:52ch;margin:0 auto 30px}
 footer{padding:34px 0 54px;font-size:14px;color:var(--soft)}
 footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* ══ 08.11.2026 редизайн (судья веб-дизайна → Рома 9774) ══ */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal,.reveal.noanim{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* шапка на телефоне — одна строка */
+@media(max-width:759px){
+  nav .w{flex-direction:row;align-items:center;gap:14px;padding-top:9px;padding-bottom:9px}
+  .tagline{display:none}
+  .brand{font-size:19px}
+  .navlinks{gap:16px;flex:1;min-width:0}
+  nav a.link{font-size:14px}
+  .lang a{padding:1px 5px}
+}
+
+/* герой в две колонки */
+.hero{padding:56px 0 54px}
+.hero-grid{display:grid;gap:34px;align-items:center}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:46px}
+  .hero h1{font-size:clamp(36px,4.3vw,54px)}}
+.hero .proof{margin-top:0}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.trustline{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.04em;color:var(--ink-2);margin:16px 0 0}
+.lens-toggle{display:none;margin-top:10px;font:600 14px "Source Sans 3",system-ui,sans-serif;
+  background:transparent;color:var(--ink);border:1px solid var(--ink);padding:8px 14px;cursor:pointer}
+.lens.reading .typeset{-webkit-mask-image:none;mask-image:none}
+.lens.reading{animation:none}
+@media(hover:none){.lens-toggle{display:inline-block}.lens{animation:none}.lens .hint{display:none}
+  .lens:not(.reading) .typeset{-webkit-mask-image:linear-gradient(transparent,transparent);mask-image:linear-gradient(transparent,transparent)}}
+/* росчерк под акцентом заголовка */
+.hero h1 em{background:linear-gradient(var(--seal),var(--seal)) no-repeat 0 100%/0% 2px;
+  transition:background-size 1.4s ease .4s;padding-bottom:2px}
+.hero h1 em.inked{background-size:100% 2px}
+
+/* полоса доказательств */
+.proofstrip{border-bottom:1px solid var(--rule);background:var(--card)}
+.proofstrip .w{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+@media(min-width:760px){.proofstrip .w{grid-template-columns:repeat(4,1fr)}}
+.ps{padding:22px 16px;border-left:1px solid var(--rule)}
+.ps:first-child{border-left:none}
+.ps b{font-family:Fraunces,Georgia,serif;font-size:34px;font-weight:500;display:block;line-height:1.1;
+  color:var(--seal);font-variant-numeric:tabular-nums}
+.ps span{font-size:14px;color:var(--ink-2);display:block;margin-top:4px;line-height:1.35}
+
+/* иконки */
+.ico{width:40px;height:40px;fill:none;stroke:var(--seal);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block;margin-bottom:12px}
+@media(max-width:700px){.thing .ico,.step4 .ico{margin-left:auto;margin-right:auto}}
+
+/* таймлайн кейса */
+.timeline{list-style:none;margin:30px 0 0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:92px;top:6px;bottom:6px;width:2px;background:var(--seal);
+  transform-origin:top;transform:scaleY(var(--draw,1));transition:transform 1.8s ease}
+.timeline li{display:grid;grid-template-columns:80px 1fr;gap:28px;padding:0 0 26px;position:relative}
+.timeline li::before{content:"";position:absolute;left:87px;top:8px;width:12px;height:12px;border-radius:50%;
+  background:var(--card);border:2px solid var(--seal)}
+.timeline .yr{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--seal);text-align:right;padding-top:3px}
+.timeline h3{font-size:20px;font-weight:500;margin-bottom:4px}
+.timeline p{margin:0;color:var(--ink-2);font-size:16px}
+.timeline .doc{width:100%;max-width:460px;border:1px solid var(--rule);margin-top:12px;display:block}
+.timeline li.gap::before{background:var(--paper);border-style:dashed}
+.timeline li.gap h3{color:var(--soft)}
+@media(max-width:600px){
+  .timeline::before{left:7px}
+  .timeline li{grid-template-columns:1fr;gap:4px;padding-left:30px}
+  .timeline li::before{left:2px}
+  .timeline .yr{text-align:left}
+}
+
+/* 4 шага */
+.steps4{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:700px){.steps4{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.steps4{grid-template-columns:repeat(4,1fr)}}
+.step4{background:var(--card);border:1px solid var(--rule);padding:24px 22px;position:relative}
+.step4 .no{position:absolute;top:14px;right:18px;font-family:Fraunces,Georgia,serif;font-size:30px;font-weight:300;color:var(--sepia)}
+.step4 h3{font-size:19px;font-weight:500;margin-bottom:6px}
+.step4 p{margin:0;color:var(--ink-2);font-size:15.5px}
+.step4 .meta{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ledger);margin-top:10px;display:block}
+
+/* цены: 3 карточки */
+@media(min-width:900px){.plans.plans3{grid-template-columns:repeat(3,1fr)}}
+.plan.free{border-top:3px solid var(--ledger)}
+.plan.free .price{color:var(--ledger)}
+.other-plans{margin:22px 0 6px;color:var(--ink-2);font-size:16px;line-height:1.8}
+
+/* раскрывашки */
+details.more{margin-top:18px;background:var(--card);border:1px solid var(--rule);padding:14px 20px}
+details.more summary{font-size:17px}
+details.more ul{margin:12px 0 4px;padding-left:20px;color:var(--ink-2)}
+details.more li{margin-bottom:8px}
+.note{margin:18px 0 0;color:var(--ink-2)}
+
+/* карточки статей */
+a.card-link{text-decoration:none;color:inherit;display:block;transition:transform .25s ease,box-shadow .25s ease}
+a.card-link:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+a.card-link h3{text-decoration:none}
+.cover{width:calc(100% + 48px);margin:-26px -24px 16px;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
+
+/* липкая кнопка на телефоне */
+.final .trustline{font-size:13px;margin:16px auto 0}
+.sticky-cta{display:none}
+@media(max-width:759px){
+  .sticky-cta{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;text-align:center;
+    background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;padding:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);transform:translateY(140%);transition:transform .35s ease}
+  .sticky-cta.on{transform:none}
+  footer{padding-bottom:90px}
+}
 </style>
 </head>
 <body>
@@ -336,39 +444,87 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div>Rootmere is a trade name of Elite Product LLC, California, USA.</div>
 </div></footer>
 <script>
-// Лупа следует за пальцем. Пока её не трогали — сама медленно идёт по строкам,
-// иначе на телефоне никто не догадается, что тут вообще что-то происходит.
+// Лупа: на компьютере рукопись под курсором сменяется расшифровкой.
+// На телефоне — кнопка «Show the reading» (08.11: раньше лупа ловила палец, и страница не листалась).
 (function(){
   var el = document.getElementById('lens');
   if(!el) return;
-  var idle;
   function set(y){
     var r = el.getBoundingClientRect();
     var p = ((y - r.top) / r.height) * 100;
     el.classList.add('held');
     el.style.setProperty('--my', Math.max(0, Math.min(100, p)) + '%');
   }
-  function release(){
-    el.classList.remove('held');
-    el.style.removeProperty('--my');
-  }
-  function fromMouse(e){ clearTimeout(idle); set(e.clientY); }
-  // На телефоне палец уходит — возвращаем бегущую строку не сразу, иначе дёргается.
-  function fromTouch(e){
-    if(!e.touches || !e.touches.length) return;
-    clearTimeout(idle);
-    set(e.touches[0].clientY);
-    e.preventDefault();
-  }
-  function later(){ idle = setTimeout(release, 1800); }
-
-  el.addEventListener('pointermove', fromMouse);
-  el.addEventListener('mousemove', fromMouse);        // на случай старых браузеров
+  function release(){ el.classList.remove('held'); el.style.removeProperty('--my'); }
+  el.addEventListener('pointermove', function(e){ if(e.pointerType === 'mouse') set(e.clientY); });
   el.addEventListener('mouseleave', release);
-  el.addEventListener('touchstart', fromTouch, {passive:false});
-  el.addEventListener('touchmove',  fromTouch, {passive:false});
-  el.addEventListener('touchend', later);
-  el.addEventListener('touchcancel', later);
+  var btn = document.getElementById('lensToggle');
+  if(!btn){ // старые страницы (RU) без кнопки — добавляем её, иначе на телефоне расшифровку не увидеть
+    btn = document.createElement('button'); btn.type = 'button'; btn.className = 'lens-toggle';
+    btn.setAttribute('aria-pressed', 'false'); btn.textContent = document.documentElement.lang === 'ru' ? 'Показать расшифровку' : 'Show the reading';
+    el.parentNode.insertBefore(btn, el.nextSibling);
+  }
+  var ru = document.documentElement.lang === 'ru';
+  if(btn) btn.addEventListener('click', function(){
+    var on = el.classList.toggle('reading');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? (ru ? 'Показать рукопись' : 'Show the handwriting') : (ru ? 'Показать расшифровку' : 'Show the reading');
+  });
+})();
+
+// Мягкое появление блоков, росчерк под заголовком, линия таймлайна, счётчики, липкая кнопка.
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  var em = document.querySelector('.hero h1 em');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(x){ x.classList.add('in'); });
+    if(em) em.classList.add('inked');
+  } else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var t = e.target, sib = t.parentNode ? Array.prototype.indexOf.call(t.parentNode.children, t) : 0;
+        t.style.transitionDelay = Math.min(sib, 4) * 80 + 'ms';
+        t.classList.add('in'); io.unobserve(t);
+      });
+    }, {rootMargin: '0px 0px -8% 0px'});
+    items.forEach(function(x){ io.observe(x); });
+    if(em) setTimeout(function(){ em.classList.add('inked'); }, 300);
+
+    var tl = document.getElementById('timeline');
+    if(tl){
+      tl.style.setProperty('--draw', 0);
+      new IntersectionObserver(function(es, o){
+        if(es[0].isIntersecting){ tl.style.setProperty('--draw', 1); o.disconnect(); }
+      }, {threshold: .15}).observe(tl);
+    }
+
+    var nums = document.querySelectorAll('[data-count]');
+    var no = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        no.unobserve(e.target);
+        var b = e.target, end = +b.dataset.count, pre = b.dataset.prefix || '', t0 = null;
+        function step(ts){
+          if(!t0) t0 = ts;
+          var k = Math.min(1, (ts - t0) / 1200), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+          b.textContent = pre + (end >= 10000 || (end > 1999) ? v.toLocaleString('en-US') : v);
+          if(k < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, {threshold: .6});
+    nums.forEach(function(n){ no.observe(n); });
+  }
+
+  var sc = document.getElementById('stickyCta'), hero = document.querySelector('.hero'), start = document.getElementById('start');
+  if(sc && hero && 'IntersectionObserver' in window){
+    var pastHero = false, atStart = false;
+    function upd(){ sc.classList.toggle('on', pastHero && !atStart); }
+    new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
+    if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
+  }
 })();
 </script>
 </body></html>

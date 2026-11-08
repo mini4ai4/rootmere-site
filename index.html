@@ -38,12 +38,12 @@
 <style>
 :root{
   --paper:#EFF0EC; --card:#FAFAF7; --ink:#15191C; --ink-2:#3E4A4E;
-  --soft:#6E7A78; --rule:#D6D8D0; --seal:#8C2F23; --ledger:#2F5D50;
+  --soft:#5A6563; --rule:#D6D8D0; --seal:#8C2F23; --ledger:#2F5D50;
   --sepia:#9C8963;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#0F1315; --card:#171C1F; --ink:#E8EAE5; --ink-2:#B3BDBA;
-  --soft:#8794921; --soft:#879492; --rule:#262E31; --seal:#D07C6E;
+  --soft:#879492; --rule:#262E31; --seal:#D07C6E;
   --ledger:#7FB6A3; --sepia:#C4AC7C;
 }}
 :root[data-theme="dark"]{
@@ -95,13 +95,13 @@ nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:
 .hero{padding:76px 0 66px;border-bottom:1px solid var(--rule)}
 .kicker{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--seal);margin:0 0 20px}
-.hero h1{font-weight:300;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:22px}
+.hero h1{font-weight:400;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:22px}
 .hero h1 em{font-style:italic;font-weight:500;color:var(--seal)}
 .lede{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:56ch;margin:0 0 30px}
 .cta{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
   padding:14px 30px;font-weight:600;font-size:16px;border:1px solid var(--ink)}
 .cta:hover{background:var(--seal);border-color:var(--seal)}
-.cta.ghost{background:transparent;color:var(--ink);margin-left:12px}
+.cta.ghost{background:transparent;color:var(--ink)}
 .cta.ghost:hover{color:var(--seal);border-color:var(--seal);background:transparent}
 /* В карточках цен кнопки делаем небольшими и одинаковыми: крупная «обсудить»
    рядом с мелкой строчкой «оплатить» читалась так, будто мы стесняемся брать деньги. */
@@ -120,7 +120,7 @@ nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:
    Смысл не в эффекте: человек своими глазами видит, что он бы это не прочёл,
    а мы читаем. Это снимает главное возражение — «а вы точно умеете». */
 @property --my{syntax:'<percentage>';inherits:true;initial-value:34%}
-.lens{position:relative;container-type:inline-size;cursor:crosshair;touch-action:none;
+.lens{position:relative;container-type:inline-size;cursor:crosshair;touch-action:pan-y;
   animation:sweep 11s ease-in-out infinite}
 .lens.held{animation:none}
 @keyframes sweep{0%{--my:20%}48%{--my:88%}100%{--my:20%}}
@@ -147,17 +147,16 @@ nav a.link:hover,nav a.link:focus-visible{color:var(--seal);border-bottom-color:
    абзацы — так страница читается как разворот книги. Списки и длинные вопросы-ответы
    оставляем по левому краю: маркеры и многострочный текст по центру читать тяжело. */
 @media (max-width:700px){
-  .hero h1,.hero .lede,.kicker,.eyebrow,h2,.sub,
-  .thing,.thing h3,.thing p,.thing .n,
-  .plan h3,.plan .price,.plan .term,.plan .tag,.plan .foot,
-  .fact,.final p,.case .quote,.case .who,
-  .proof .read,.proof .cap,
-  .step h3,.step p,.step .meta,
-  .honest h3,
+  /* 08.11 (судья веб-дизайна + Рома 9774): по центру только короткое — надзаголовки,
+     H2, цены, подписи. Абзацы в несколько строк — по левому краю, их так легче читать. */
+  .kicker,.eyebrow,h2,
+  .plan .price,.plan .tag,
+  .fact,.final p,.case .who,
   .spellrow .lab{text-align:center}
 
   .thing .n{display:block}
   .chips{justify-content:center}
+  .hero h1{text-align:left}
   .facts{text-align:center}
   /* нумерация шагов уезжала влево от центрованного заголовка */
   .step{align-items:center}
@@ -257,6 +256,115 @@ details p{margin:12px 0 0 28px;color:var(--ink-2);font-size:16px}
 .final p{color:var(--ink-2);font-size:19px;max-width:52ch;margin:0 auto 30px}
 footer{padding:34px 0 54px;font-size:14px;color:var(--soft)}
 footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* ══ 08.11.2026 редизайн (судья веб-дизайна → Рома 9774) ══ */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal,.reveal.noanim{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* шапка на телефоне — одна строка */
+@media(max-width:759px){
+  nav .w{flex-direction:row;align-items:center;gap:14px;padding-top:9px;padding-bottom:9px}
+  .tagline{display:none}
+  .brand{font-size:19px}
+  .navlinks{gap:16px;flex:1;min-width:0}
+  nav a.link{font-size:14px}
+  .lang a{padding:1px 5px}
+}
+
+/* герой в две колонки */
+.hero{padding:56px 0 54px}
+.hero-grid{display:grid;gap:34px;align-items:center}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:46px}
+  .hero h1{font-size:clamp(36px,4.3vw,54px)}}
+.hero .proof{margin-top:0}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.trustline{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.04em;color:var(--ink-2);margin:16px 0 0}
+.lens-toggle{display:none;margin-top:10px;font:600 14px "Source Sans 3",system-ui,sans-serif;
+  background:transparent;color:var(--ink);border:1px solid var(--ink);padding:8px 14px;cursor:pointer}
+.lens.reading .typeset{-webkit-mask-image:none;mask-image:none}
+.lens.reading{animation:none}
+@media(hover:none){.lens-toggle{display:inline-block}.lens{animation:none}.lens .hint{display:none}
+  .lens:not(.reading) .typeset{-webkit-mask-image:linear-gradient(transparent,transparent);mask-image:linear-gradient(transparent,transparent)}}
+/* росчерк под акцентом заголовка */
+.hero h1 em{background:linear-gradient(var(--seal),var(--seal)) no-repeat 0 100%/0% 2px;
+  transition:background-size 1.4s ease .4s;padding-bottom:2px}
+.hero h1 em.inked{background-size:100% 2px}
+
+/* полоса доказательств */
+.proofstrip{border-bottom:1px solid var(--rule);background:var(--card)}
+.proofstrip .w{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+@media(min-width:760px){.proofstrip .w{grid-template-columns:repeat(4,1fr)}}
+.ps{padding:22px 16px;border-left:1px solid var(--rule)}
+.ps:first-child{border-left:none}
+.ps b{font-family:Fraunces,Georgia,serif;font-size:34px;font-weight:500;display:block;line-height:1.1;
+  color:var(--seal);font-variant-numeric:tabular-nums}
+.ps span{font-size:14px;color:var(--ink-2);display:block;margin-top:4px;line-height:1.35}
+
+/* иконки */
+.ico{width:40px;height:40px;fill:none;stroke:var(--seal);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block;margin-bottom:12px}
+@media(max-width:700px){.thing .ico,.step4 .ico{margin-left:auto;margin-right:auto}}
+
+/* таймлайн кейса */
+.timeline{list-style:none;margin:30px 0 0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:92px;top:6px;bottom:6px;width:2px;background:var(--seal);
+  transform-origin:top;transform:scaleY(var(--draw,1));transition:transform 1.8s ease}
+.timeline li{display:grid;grid-template-columns:80px 1fr;gap:28px;padding:0 0 26px;position:relative}
+.timeline li::before{content:"";position:absolute;left:87px;top:8px;width:12px;height:12px;border-radius:50%;
+  background:var(--card);border:2px solid var(--seal)}
+.timeline .yr{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--seal);text-align:right;padding-top:3px}
+.timeline h3{font-size:20px;font-weight:500;margin-bottom:4px}
+.timeline p{margin:0;color:var(--ink-2);font-size:16px}
+.timeline .doc{width:100%;max-width:460px;border:1px solid var(--rule);margin-top:12px;display:block}
+.timeline li.gap::before{background:var(--paper);border-style:dashed}
+.timeline li.gap h3{color:var(--soft)}
+@media(max-width:600px){
+  .timeline::before{left:7px}
+  .timeline li{grid-template-columns:1fr;gap:4px;padding-left:30px}
+  .timeline li::before{left:2px}
+  .timeline .yr{text-align:left}
+}
+
+/* 4 шага */
+.steps4{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:700px){.steps4{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.steps4{grid-template-columns:repeat(4,1fr)}}
+.step4{background:var(--card);border:1px solid var(--rule);padding:24px 22px;position:relative}
+.step4 .no{position:absolute;top:14px;right:18px;font-family:Fraunces,Georgia,serif;font-size:30px;font-weight:300;color:var(--sepia)}
+.step4 h3{font-size:19px;font-weight:500;margin-bottom:6px}
+.step4 p{margin:0;color:var(--ink-2);font-size:15.5px}
+.step4 .meta{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ledger);margin-top:10px;display:block}
+
+/* цены: 3 карточки */
+@media(min-width:900px){.plans.plans3{grid-template-columns:repeat(3,1fr)}}
+.plan.free{border-top:3px solid var(--ledger)}
+.plan.free .price{color:var(--ledger)}
+.other-plans{margin:22px 0 6px;color:var(--ink-2);font-size:16px;line-height:1.8}
+
+/* раскрывашки */
+details.more{margin-top:18px;background:var(--card);border:1px solid var(--rule);padding:14px 20px}
+details.more summary{font-size:17px}
+details.more ul{margin:12px 0 4px;padding-left:20px;color:var(--ink-2)}
+details.more li{margin-bottom:8px}
+.note{margin:18px 0 0;color:var(--ink-2)}
+
+/* карточки статей */
+a.card-link{text-decoration:none;color:inherit;display:block;transition:transform .25s ease,box-shadow .25s ease}
+a.card-link:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+a.card-link h3{text-decoration:none}
+.cover{width:calc(100% + 48px);margin:-26px -24px 16px;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
+
+/* липкая кнопка на телефоне */
+.final .trustline{font-size:13px;margin:16px auto 0}
+.sticky-cta{display:none}
+@media(max-width:759px){
+  .sticky-cta{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;text-align:center;
+    background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;padding:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);transform:translateY(140%);transition:transform .35s ease}
+  .sticky-cta.on{transform:none}
+  footer{padding-bottom:90px}
+}
 </style>
 </head>
 <body>
@@ -267,14 +375,11 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div>
   <div class="navlinks">
     <a class="link" href="#what">What you get</a>
-    <a class="link" href="#how">How the work goes</a>
-    <a class="link" href="#case">A client's story</a>
-    <a class="link" href="#spellings">Why you couldn't find it</a>
+    <a class="link" href="#case">An example</a>
+    <a class="link" href="#how">How it works</a>
     <a class="link" href="#prices">Prices</a>
-    <a class="link" href="/article-why/">Why it matters</a>
+    <a class="link" href="/articles/">Articles</a>
     <a class="link" href="/faq/">Questions</a>
-    <a class="link" href="/partners/">For professionals</a>
-    <a class="link" href="/archives/">Archive guide</a>
   </div>
   <div class="lang">
     <a href="/" aria-current="page">EN</a>
@@ -282,16 +387,21 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div>
 </div></nav>
 
-<header class="hero"><div class="w">
-  <p class="kicker">Galicia · Volhynia · Podolia · Bukovina · Bessarabia · Transylvania · Transcarpathia · Silesia · Mazovia</p>
-  <h1>Someone wrote your ancestor's name by hand two hundred years ago.<br><em>We read what almost nobody can read today.</em></h1>
-  <p class="lede">The records of your family are not only where your family lived. A parish register from one small town sits in a regional archive — and at the same time on microfilm in a vault in Utah. And the name of the place your great-grandfather left is usually not in a European archive at all: it is in an American one, on a ship manifest or a naturalization paper. We work along that whole chain — and we read the handwriting at the far end of it.</p>
-  <a class="cta" href="#prices">See how this works</a>
-  <a class="cta ghost" href="#case">Show me an example first</a>
+<header class="hero"><div class="w hero-grid">
+  <div class="hero-copy">
+    <p class="kicker">Family records of Central and Eastern Europe</p>
+    <h1>Someone wrote your ancestor's name by hand two hundred years ago.<br><em>We can read it.</em></h1>
+    <p class="lede">Send us one name and whatever the family remembers. We'll tell you, for free, which archive should hold your people and whether their books survived.</p>
+    <div class="cta-row">
+      <a class="cta" href="#start">Get a free first answer</a>
+      <a class="cta ghost" href="#case">See an example</a>
+    </div>
+    <p class="trustline">Free first answer · Archival scouting $190 · All prices published</p>
+  </div>
 
   <div class="proof">
     <div class="lens" id="lens">
-      <img alt="A line from an 1866 parish register recording a baptism" src="/img/1866_zapys_krupno.jpg" loading="lazy">
+      <img alt="A line from an 1866 parish register recording a baptism" src="/img/1866_zapys_krupno.jpg" fetchpriority="high">
       <div class="typeset" aria-hidden="true">
         <b style="left:11.5%;top:18%">Дьячекъ Василій Билецкій</b>
         <b style="left:0.5%;top:34%">Крестьянинъ села Гнѣздичны</b>
@@ -299,96 +409,72 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
         <b style="left:1%;top:70%">ная жена его Марія Иванова</b>
         <b style="left:1.5%;top:87%">оба православнаго исповѣданія.</b>
       </div>
-      <p class="hint">drag across the lines</p>
     </div>
+    <button class="lens-toggle" type="button" id="lensToggle" aria-pressed="false">Show the reading</button>
     <p class="read">"A peasant of the village of Hnizdychna, Foma son of Foma Pryvrotskyi, and his lawful wife Maria daughter of Ivan, both of the Orthodox confession."</p>
-    <p class="cap">Parish register, 1866. Image 620 of 894.<br>Before someone read this line, the family knew neither the name nor the village.</p>
+    <p class="cap">Parish register, 1866. Image 620 of 894. Before someone read this line, the family knew neither the name nor the village.</p>
   </div>
 </div></header>
 
+<div class="proofstrip reveal"><div class="w">
+  <div class="ps"><b data-count="1720" data-prefix="~">~1720</b><span>earliest ancestor found in our first project</span></div>
+  <div class="ps"><b data-count="3579">3,579</b><span>register pages read by hand</span></div>
+  <div class="ps"><b data-count="10">10</b><span>generations, every link cited</span></div>
+  <div class="ps"><b data-count="35">35</b><span>spellings of one surname, all checked</span></div>
+</div></div>
+
 <section id="what"><div class="w">
   <p class="eyebrow">What you get</p>
-  <h2>Not a report. An heirloom — the kind that gets handed down</h2>
-  <p class="sub">Most researchers send you a Word file. We make the thing that outlives both of us: a book your grandchildren will take down off a shelf, and a tree that stays on the wall long after there is no one left to ask where the family came from.</p>
+  <h2>Not a report. Something your grandchildren will keep</h2>
+  <p class="sub">Most researchers send a Word file. We make things that stay in the family.</p>
 
   <div class="things">
-    <div class="thing">
-      <span class="n">01</span>
-      <h3>A book about your family's history</h3>
-      <p>Written in your voice, as a story rather than a list of dates. Documents are set into the text itself, and your family's own recollections run beside them. Hardcover, two copies.</p>
+    <div class="thing reveal">
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 8h22a6 6 0 0 1 6 6v26H16a6 6 0 0 1-6-6z"/><path d="M10 34a6 6 0 0 1 6-6h22"/><path d="M17 15h14M17 21h10"/></svg>
+      <h3>A book about your family</h3>
+      <p>A story, not a list of dates. The documents sit right in the text, next to what your family remembers. Hardcover, two copies.</p>
     </div>
-    <div class="thing">
-      <span class="n">02</span>
+    <div class="thing reveal">
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="10" r="4"/><circle cx="12" cy="26" r="4"/><circle cx="36" cy="26" r="4"/><circle cx="6" cy="40" r="3"/><circle cx="18" cy="40" r="3"/><circle cx="30" cy="40" r="3"/><circle cx="42" cy="40" r="3"/><path d="M24 14v4M24 18H12v4M24 18h12v4M12 30v4M12 34H6v3M12 34h6v3M36 30v4M36 34h-6v3M36 34h6v3"/></svg>
       <h3>A family tree to hang</h3>
-      <p>A printed genealogical tree, composed like a real art print. It goes on a wall, not into a drawer.</p>
+      <p>Printed and composed like a real art print. It goes on a wall, not into a drawer.</p>
     </div>
-    <div class="thing">
-      <span class="n">03</span>
-      <h3>Your family's own page on the web</h3>
-      <p>The whole archive at its own address: the history, the tree and every scanned document. One link sends it to relatives in Toronto, Chicago, or back in the old country. And it survives after the paper book has been read to pieces.</p>
+    <div class="thing reveal">
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="9" width="36" height="28" rx="2"/><path d="M6 16h36M16 43h16M24 37v6"/><path d="M13 23h12M13 29h8"/></svg>
+      <h3>Your family's own page</h3>
+      <p>The story, the tree and every scan at one address. One link reaches cousins in Toronto, Chicago or back in the old country.</p>
     </div>
   </div>
 </div></section>
 
-<section id="memory"><div class="w">
-  <p class="eyebrow">Your memory and our archive</p>
-  <h2>The archive gives you the skeleton. Your grandmother's voice, or your parents', or your own, gives you the reason to open the book</h2>
-  <p class="sub">You almost certainly hold something no archive has: a notebook, letters, a photograph with writing on the back, or simply the stories you heard as a child. That is not an addition to the research. It is half of it.</p>
+<section id="case"><div class="w">
+  <p class="eyebrow">Our first full project · the founder's own family</p>
+  <h2>It started with a grandfather's name and a village</h2>
+  <p class="sub">That's usually a dead end. The village's books sit in two archives hundreds of miles apart, the catalogue files it under a name the family never used, and from 1869 to 1899 no register survives at all. Today the family has ten generations on paper.</p>
 
-  <div class="things">
-    <div class="thing">
-      <span class="n">You bring</span>
-      <h3>What you remember</h3>
-      <p>Your own recollections, what your parents told you, your grandmother's notebook or your grandfather's memoir, letters, the writing on the back of photographs. Even a fragment: "Grandma used to say he came from across the river." Fragments like that have led us to the right village more than once.</p>
-    </div>
-    <div class="thing">
-      <span class="n">We find</span>
-      <h3>What nobody remembers</h3>
-      <p>Names no one in the family has spoken in a hundred years. Dates, villages, neighbours, godparents. Sometimes a person no living relative knew existed.</p>
-    </div>
-    <div class="thing">
-      <span class="n">In the book</span>
-      <h3>The two meet on one page</h3>
-      <p>The voice — your grandmother's, your grandfather's, your parents', your own — runs as direct speech in its own typeface. Beside it stands the document that confirms those words. Or corrects them: that is part of the story too, and often the most interesting part.</p>
-    </div>
-  </div>
+  <div class="case">
+    <p class="quote">"My grandfather died when I was ten. Twenty-three years later I wrote a letter to an archive. They answered, and the certificate held ten lines I've read again and again since."</p>
+    <p class="who">Roman, Rootmere's founder · his own family</p>
 
-  <div class="honest" style="margin-top:26px;border-left-color:var(--seal)">
-    <h3>If there is an older person in your family, start with them, not with the archive</h3>
-    <p style="margin:0;color:var(--ink-2)">We will record and transcribe a conversation with your mother, father, grandmother or grandfather: what they remember, what the relatives were called, where the family came from. An hour or two of recording that no amount of money will buy later. The archive can wait — it is not going anywhere. A person may not be able to wait.</p>
-    <p style="margin:14px 0 8px"><b>Two conversations, and the first one is now</b></p>
-    <ul style="margin:0 0 12px;color:var(--ink-2)">
-      <li><b>The first conversation comes before the archive.</b> We give you the list everyone starts with: where they were born, what their parents and their parents' brothers and sisters were called, where the family came from, what was said about the crossing and about the war. You can record that this week — and that is what matters, because the archive will wait and a person may not.</li>
-      <li><b>The second conversation comes once the first findings arrive.</b> That is when the questions get precise: "ask what your grandfather's brother was called", "find out which year they left, and from where exactly." Often it is the second conversation that breaks the deadlock, because the person remembers something nobody thought to ask about before.</li>
-      <li><b>You do the recording.</b> People talk to a grandchild very differently than to a stranger on a screen — longer, and more freely. An ordinary phone is enough.</li>
-      <li><b>A one-page guide:</b> how to sit, how to hold the phone, what to say at the start of the recording, and why it is worth letting the person finish.</li>
-      <li><b>Then it is our work:</b> we transcribe the recording, clean the repetitions carefully while keeping the living speech, and weave it into the book as direct speech.</li>
-      <li><b>The audio stays with you.</b> In twenty years the recording of the voice will be worth more than the book.</li>
-    </ul>
-    <p style="margin:0 0 10px;color:var(--ink-2)">If the person does not want to be recorded, don't push. Write down afterwards what you remember — that is enough, we work with notes like that too.</p>
-    <p style="margin:0 0 10px;color:var(--ink-2)">If you can't hold the conversation yourself, we will hold it for you over video, in English, Russian or Ukrainian. That takes longer and costs separately, but sometimes it is the only way.</p>
-    <p style="margin:12px 0 0"><b>The questions, the guide, the transcription and the weaving into the book — $290.</b> Included at no charge when ordered together with any project.</p>
+    <ol class="timeline" id="timeline">
+      <li class="reveal"><span class="yr">2021</span><div><h3>One certificate</h3><p>His great-grandmother was sixteen when his grandfather was born. A second certificate gave the father's name and the grandfather's patronymic: two ancestors instead of one.</p>
+        <img class="doc" src="/img/dovidka_lines.jpg" alt="Lines from an archival birth certificate naming the father and the sixteen-year-old mother" loading="lazy"></div></li>
+      <li class="reveal"><span class="yr">1868</span><div><h3>A man nobody remembered</h3><p>"Of the same village, the peasant Sila son of Foma Pryvrotskyi."</p>
+        <img class="doc" src="/img/1868_sila.jpg" alt="A line from an 1868 parish register" loading="lazy"></div></li>
+      <li class="gap reveal"><span class="yr">1869–1899</span><div><h3>Thirty years with no books</h3><p>No register for the village survives in any archive. We wrote that plainly in his book and here. One day a grandchild will check.</p></div></li>
+      <li class="reveal"><span class="yr">1850</span><div><h3>The household number</h3><p>The revision lists track the family by household: № 78 in 1816 and 1834, № 102 in 1850 and 1858. Ages and patronymics line up, so it's the same family, not another man with the same name.</p></div></li>
+      <li class="reveal"><span class="yr">1811</span><div><h3>Semen son of Ilya</h3><p>Born around 1765, died in 1821. In household 71 two more generations open above him.</p></div></li>
+      <li class="reveal"><span class="yr">~1720</span><div><h3>Ivan, the earliest name</h3><p>Every link back to him carries a citation: fond, inventory, file and folio.</p></div></li>
+    </ol>
   </div>
 </div></section>
 
 <section id="spellings"><div class="w">
   <p class="eyebrow">Why you couldn't find it yourself</p>
   <h2>One surname. Thirty-five spellings</h2>
-  <p class="sub">This is not a made-up example. Every spelling below comes from a real register or index. You search for "Pryvrotskyi" and find nothing, because the book says "Przywrocki". Or "Привроцкій". Or "Pshivrotsky".</p>
+  <p class="sub">Every spelling below comes from a real register or index. You search for "Pryvrotskyi" and get nothing, because the book says "Przywrocki". Or "Привроцкій". Or "Pshivrotsky".</p>
 
-  <div class="honest" style="margin-bottom:26px">
-    <h3>How we prove it is one family and not a coincidence of names</h3>
-    <p style="margin:0 0 10px;color:var(--ink-2)">A similar spelling proves nothing. Kinship is proved by a chain that can be checked against documents:</p>
-    <ul style="margin:0 0 12px">
-      <li><b>One village</b> — every record from the same parish, not "a similar surname somewhere in the empire".</li>
-      <li><b>One household.</b> In the revision lists the family carries a number: № 78 in 1816 and 1834, № 102 in 1850 and 1858. That is the same house, not another man with the same name.</li>
-      <li><b>The ages agree.</b> Sixteen years pass between revisions — and in the next book the man is exactly sixteen years older. Where they don't agree, we say so and do not present it as proven.</li>
-      <li><b>The patronymics agree.</b> Semen's son becomes "Semenov" in the next book. A chain of patronymics binds generations far more reliably than the spelling of a surname.</li>
-    </ul>
-    <p style="margin:0;color:var(--ink-2)"><b>And the counter-example we threw out.</b> There is a family called Pryvrodski — the spelling is almost indistinguishable. But it belongs to a different district, hundreds of miles away, and a different family. We kept them out of the tree, although the temptation was there. When only the surname matches, that is not a relative. That is a coincidence.</p>
-  </div>
-
-  <div class="spell">
+  <div class="spell reveal">
     <div class="spellrow">
       <p class="lab">Cyrillic, as the registers were written</p>
       <div class="chips">
@@ -399,7 +485,7 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       </div>
     </div>
     <div class="spellrow">
-      <p class="lab">Polish — many registers were kept in it</p>
+      <p class="lab">Polish, the language of many registers</p>
       <div class="chips">
         <span class="chip hit">Przywrocki</span><span class="chip">Przywrócki</span><span class="chip">Przywrocka</span>
         <span class="chip">Prywrocki</span><span class="chip">Przewrocki</span><span class="chip">Przywrotski</span>
@@ -407,7 +493,7 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       </div>
     </div>
     <div class="spellrow">
-      <p class="lab">Latin script and transliteration — how the name reached the indexes</p>
+      <p class="lab">Latin script, as the name reached the indexes</p>
       <div class="chips">
         <span class="chip">Privrotsky</span><span class="chip">Pryvrotskyi</span><span class="chip">Privrotski</span>
         <span class="chip">Pshivrotsky</span><span class="chip">Przywrocky</span><span class="chip">Privrackÿ</span>
@@ -415,7 +501,7 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       </div>
     </div>
     <div class="spellrow">
-      <p class="lab">Clerks' and indexers' errors — you have to know these too</p>
+      <p class="lab">Clerks' and indexers' slips</p>
       <div class="chips">
         <span class="chip">Привродский</span><span class="chip">Привродсий</span><span class="chip">Привровский</span>
         <span class="chip">Приврамский</span><span class="chip">Приврацко</span><span class="chip">Привратский</span>
@@ -423,370 +509,184 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       </div>
     </div>
   </div>
+  <p class="note">That last one is from an 1850 revision list. The clerk ran out of line and split the surname in two. No search engine will ever find it. Only a person reading the whole page will.</p>
 
-  <p style="margin-top:22px;color:var(--ink-2)">That last spelling comes from an 1850 revision list: the clerk ran out of line and broke the surname in half across two lines. No search for "Pryvrotskyi" will ever surface that record. Only a person reading the whole page will find it.</p>
-
-  <p style="margin-top:14px;color:var(--ink-2)">The village name behaves the same way. Гнѣздичная, Гнѣздична, Гнездичное, Гніздичне, Gniazdyczna, Hnizdyczna — the last of those was written by the priest's own hand in a register of 1784. And in the archive's catalogue the village sits under a third variant, so under the name the family actually uses it cannot be found at all.</p>
+  <details class="more"><summary>How we prove it's one family, not a coincidence of names</summary>
+    <ul>
+      <li><b>One village.</b> Every record from the same parish, not "a similar surname somewhere in the empire".</li>
+      <li><b>One household.</b> In the revision lists the family carries a number, № 78 in 1816 and 1834, № 102 in 1850 and 1858. Same house.</li>
+      <li><b>The ages agree.</b> Sixteen years between revisions, and the man is exactly sixteen years older. Where they don't agree, we say so.</li>
+      <li><b>The patronymics agree.</b> Semen's son becomes "Semenov" in the next book, which binds generations better than any spelling.</li>
+      <li><b>And what we threw out.</b> A Pryvrodski family, almost the same spelling, in another district hundreds of miles away. Same surname isn't the same family.</li>
+    </ul>
+  </details>
 </div></section>
 
-<section id="how"><div class="w narrow">
-  <p class="eyebrow">How it goes</p>
-  <h2>Six steps, and at every one you know what is being done</h2>
-  <p class="sub">We don't name the date it will all be finished — honestly, nobody knows it. We name the <b>pace</b>: how many hours we work through, how often we write to you, and what happens at each step.</p>
-  <div class="honest" style="margin-bottom:30px"><h3>Why we don't promise a date</h3><p style="margin:0;color:var(--ink-2)">Take the example further down this page: we have been reading one family line for three weeks and are not done — and that is the normal course of the work, not a delay. An archive answers within thirty days, and up to forty-five when the request is large, and no one can speed that up. So we name a pace rather than a date on a calendar: how many hours we work through, how often we write, and what the next step is.</p></div>
+<section id="how"><div class="w">
+  <p class="eyebrow">How it works</p>
+  <h2>Four steps, and you always know where we are</h2>
+  <p class="sub">We don't promise a finishing date, because an archive takes up to thirty days to answer and nobody can speed that up. We promise a pace: weekly letters, hours counted, the next step named.</p>
 
-  <div class="steps">
-    <div class="step"><div class="no">1</div><div>
+  <div class="steps4">
+    <div class="step4 reveal"><span class="no">1</span>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 12h32v22H20l-8 6v-6H8z"/><path d="M15 20h18M15 26h12"/></svg>
       <h3>You tell us what you know</h3>
-      <p>A name, a village, one exact date, photographs of family documents. The more there is, the cheaper it comes out. If there is no village, we will say so straight away: without it the search almost always runs into a wall.</p>
-    </div></div>
-    <div class="step"><div class="no">2</div><div>
+      <p>A name, a village if you have it, an old document or two. We reply with a free first answer.</p>
+      <span class="meta">free</span></div>
+    <div class="step4 reveal"><span class="no">2</span>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="11"/><path d="M29 29l11 11"/></svg>
       <h3>Scouting</h3>
-      <p>We check what actually survives for that place: which registers are still there, what has been filmed, where the gaps are. And we tell you honestly how far we can realistically get.</p>
-      <span class="meta">5–7 days · $190 · credited against the project</span>
-    </div></div>
-    <div class="step"><div class="no">3</div><div>
-      <h3>Reading</h3>
-      <p>The longest part. Spread after spread, magnified, checking one clerk's hand against another's. One surname appears in a dozen spellings, a village in twenty. We search with all of them at once.</p>
-      <span class="meta">25 paid hours worked through over 6–8 weeks · a letter to you every week, even when there is little news</span>
-    </div></div>
-    <div class="step"><div class="no">4</div><div>
-      <h3>Requests to archives</h3>
-      <p>Some registers were never filmed — what is in them is released only on a formal request. We draft the request, file it, and carry the correspondence through to the answer. If an archive asks for proof of kinship on a particular file, we tell you in advance which of your documents will be needed.</p>
-      <span class="meta">archives answer within 30 days · they invoice afterwards, and we tell you the amount before it is incurred</span>
-    </div></div>
-    <div class="step"><div class="no">5</div><div>
+      <p>We check which books for that place survive, what's been filmed, where the gaps are, and how far we can realistically get.</p>
+      <span class="meta">5–7 days · $190 · credited later</span></div>
+    <div class="step4 reveal"><span class="no">3</span>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h14a4 4 0 0 1 4 4v26a4 4 0 0 0-4-4H8z"/><path d="M40 10H28a2 2 0 0 0-2 2"/><path d="M40 10v26H28a2 2 0 0 0-2 2"/></svg>
+      <h3>Reading and archive requests</h3>
+      <p>Page after page, magnified. Where a book was never filmed, we file the request and carry it through.</p>
+      <span class="meta">6–8 weeks · a letter every week</span></div>
+    <div class="step4 reveal"><span class="no">4</span>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 8h24v32l-12-7-12 7z"/></svg>
       <h3>The book</h3>
-      <p>We write the history, set the documents into it, and draw the tree. You read and approve the draft — every name and every date — before anything goes to print.</p>
-      <span class="meta">3 weeks after the reading is closed</span>
-    </div></div>
-    <div class="step"><div class="no">6</div><div>
-      <h3>Delivery</h3>
-      <p>The book, the tree and the link to your family's page. After that: an anniversary, Christmas, or no occasion at all.</p>
-    </div></div>
-  </div>
-</div></section>
-
-<section id="case"><div class="w">
-  <p class="eyebrow">A client's story · Roman</p>
-  <h2>He began where everyone begins: his grandfather's name and the name of a village</h2>
-  <p class="sub">That is enough to reach a dead end. The registers of that one small place sit in two different regional archives, hundreds of miles apart. In the catalogue the village is filed under a name the family never used. The surname appears in thirty-five spellings. And between 1869 and 1899 not a single register survives — thirty years of emptiness exactly where it was needed. Today Roman has ten generations of his family, and the most distant ancestor was born around 1720.</p>
-
-  <div class="case">
-    <p class="quote">"My grandfather died when I was ten. Twenty-three years later I wrote a letter to an archive. They answered. And the certificate held ten lines that I have read again and again since."</p>
-    <p class="who">Roman, client · published with his permission</p>
-
-    <div class="casegrid">
-      <div>
-        <img alt="An archival certificate issued by a regional state archive" src="/img/P2_dovidka.jpg" loading="lazy">
-        <p class="cap" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin-top:10px">Certificate from a regional state archive, 2021. Citation: fond R-3572, inventory 2, file 501, folio 210 verso. The applicant's details are masked.</p>
-      </div>
-      <div>
-        <p style="margin-top:0;color:var(--ink-2)">That certificate revealed that his great-grandmother was sixteen when his grandfather was born. Then came a second certificate, and in it the father's name and the grandfather's patronymic at once — two ancestors instead of one.</p>
-        <p style="color:var(--ink-2)">After that came the revision lists of 1811, 1816, 1834, 1850 and 1858. In them we found Semen son of Ilya — born around 1765, died in 1821. And in the list of 1811, in household number 71, two further generations opened up above him: his father Ilya and his grandfather Ivan, born at the turn of the century, around 1720. Every link carries a citation to fond, inventory, file and folio.</p>
-        <p style="color:var(--ink-2)">We also found a gap: between 1869 and 1899 no register for the village survives in any archive. We wrote that plainly — both in his book and here. You cannot hide a thing like that: one day a grandchild will go and check.</p>
-        <img style="margin-top:16px" alt="A line from an 1868 parish register" src="/img/1868_sila.jpg" loading="lazy">
-        <p class="cap" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin-top:10px">1868: "of the same village, the peasant Sila son of Foma Pryvrotskyi." A man no one in the family remembered.</p>
-      </div>
-    </div>
-
-    <div class="facts">
-      <div class="fact"><b>~1720</b><span>birth year of the most distant ancestor named</span></div>
-      <div class="fact"><b>3,579</b><span>pages of archival registers read by hand</span></div>
-      <div class="fact"><b>10</b><span>generations, every link cited to an archival file</span></div>
-    </div>
+      <p>You check every name and date in the draft before anything goes to print. Then the book, the tree and your family's page.</p>
+      <span class="meta">about 3 weeks after reading</span></div>
   </div>
 </div></section>
 
 <section id="prices"><div class="w">
   <p class="eyebrow">Prices</p>
-  <h2>We publish our prices. In this trade that is rare</h2>
-  <p class="sub">You pay for hours worked and for a finished object. The number of hours is stated — when they run out we come to you with a result, rather than quietly spending more of your money.</p>
+  <h2>We publish our prices. In this trade that's rare</h2>
+  <p class="sub">You pay for counted hours and a finished object. When the hours run out we come to you with a result, not a bigger bill.</p>
 
-  <div class="honest" style="margin-bottom:30px;border-left-color:var(--sepia)">
-    <h3>What one paid hour actually is</h3>
-    <p style="margin:0 0 14px;color:var(--ink-2)">We sell hours, so we owe you an account of what they consist of. An hour does not go on "searching the internet" — here is the real list.</p>
-    <div class="casegrid" style="margin-top:0;gap:26px">
-      <div>
-        <p style="margin:0 0 8px"><b>What you are paying for</b></p>
-        <ul style="margin:0;padding-left:18px;color:var(--ink-2)">
-          <li>Working out which archive, fond and file could even hold the record</li>
-          <li>Ordering and downloading the images — one reel runs to nine hundred of them</li>
-          <li>Mapping the file first: which village sits where, so we don't read all nine hundred in a row</li>
-          <li>Reading page after page — magnified, contrast raised, checking a doubtful letter against neighbouring entries by the same clerk</li>
-          <li>Transcribing the handwritten line and rendering it into plain language</li>
-          <li>Comparing one clerk's hand against another's when a letter is disputed</li>
-          <li>Verifying every find with a control search — otherwise "not found" is indistinguishable from a broken tool</li>
-          <li>Drafting and filing the formal request to the archive</li>
-          <li>Recording the find with an exact citation: fond, inventory, file, folio — so anyone can check our work</li>
-        </ul>
-      </div>
-      <div>
-        <p style="margin:0 0 8px"><b>What you are not paying for</b></p>
-        <ul style="margin:0;padding-left:18px;color:var(--ink-2)">
-          <li>Correspondence with you and the weekly letters</li>
-          <li>Waiting for an archive to answer — those thirty days consume no hours</li>
-          <li>Writing the book, the typesetting, the tree and the family page: those are separate work already included in the package</li>
-          <li><b>Our own mistakes.</b> If we read something wrong and have to read it again, that is on us, not on your hours</li>
-        </ul>
-      </div>
+  <div class="plans plans3">
+    <div class="plan free reveal">
+      <p class="tag">Start here</p>
+      <h3>First answer</h3>
+      <p class="price">Free</p>
+      <p class="term">by email · no obligation</p>
+      <ul>
+        <li>Tell us one name and what the family remembers</li>
+        <li>We say which archive should hold them</li>
+        <li>And whether those books survived</li>
+      </ul>
+      <div class="foot"><a class="cta sm" href="#start">Send us one name</a></div>
     </div>
-  </div>
 
-  <div class="plans">
-    <div class="plan">
-      <p class="tag">Where everyone starts</p>
+    <div class="plan reveal">
+      <p class="tag">Where the work begins</p>
       <h3>Scouting</h3>
       <p class="price">$190</p>
       <p class="term">5–7 days · 3–5 hours of work</p>
       <ul>
-        <li>We check which registers for your village survive</li>
+        <li>Which registers for your village survive</li>
         <li>A 2–3 page report in plain language</li>
-        <li>An honest forecast: how far we can get and what stands in the way</li>
+        <li>An honest forecast of how far we can get</li>
         <li>Credited against the project if you continue</li>
       </ul>
       <div class="foot"><a class="cta sm" href="https://buy.stripe.com/fZu9AT0WP1w85YAef56Jg3Y">Pay $190</a><a class="cta ghost sm" href="#start">Ask first</a></div>
     </div>
 
-    <div class="plan main">
+    <div class="plan main reveal">
       <p class="tag">Most people choose this</p>
       <h3>One family line and the book</h3>
       <p class="price">$3,400</p>
       <p class="term">8–10 weeks · 57 hours of work</p>
       <ul>
-        <li>One line — your father's or your mother's, your choice</li>
-        <li>A printed hardcover book, 2 copies</li>
-        <li>A genealogical tree ready to print, A2 format</li>
-        <li>Your family's page at its own address</li>
-        <li>Every scan we find, as files — they are yours</li>
+        <li>Your father's or your mother's line</li>
+        <li>Hardcover book, 2 copies</li>
+        <li>A tree ready to print, A2</li>
+        <li>Your family's page and every scan</li>
       </ul>
-      <div class="hours-total"><b>57</b><span>hours of work in this package</span></div><p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:0 0 8px">What they consist of</p><ul style="margin:0 0 14px;font-size:15px"><li>reading the archives — <b>25 h</b></li><li>writing the book — <b>10 h</b></li><li>typesetting and setting in the documents — <b>5 h</b></li><li>the tree, ready to print — <b>2.5 h</b></li><li>your family's page — <b>10 h</b></li><li>running the project and the letters — <b>4 h</b></li></ul>
-      <p style="font-size:14px;color:var(--soft);margin:0 0 18px;padding-top:12px;border-top:1px dotted var(--rule)"><b>On depth and thickness.</b> We guarantee the hours of work, the book, and every document found. What we do not guarantee is the number of generations or the thickness of the book: both depend on what survived. Where the material is rich the book comes out thicker; where an archive lost decades it comes out thinner, but honest. We give you the forecast after the scouting, before you pay for a package.</p>
-      <div class="foot"><a class="cta sm" href="https://buy.stripe.com/fZufZh20TeiUaeQ0of6Jg3Z">Pay $3,400</a><a class="cta ghost sm" href="#start">Discuss first</a></div>
-    </div>
-
-    <div class="plan">
-      <p class="tag">Both family lines</p>
-      <h3>Family archive</h3>
-      <p class="price">$5,900</p>
-      <p class="term">4–5 months · 94 hours of work</p>
-      <ul>
-        <li>Your father's line and your mother's</li>
-        <li>Formal requests to archives — we draft, file and carry the correspondence</li>
-        <li>A hardcover book, 4 copies — thickness follows the material: everything found goes in</li>
-        <li>The tree on canvas and your family's page</li>
-      </ul>
-      <div class="hours-total"><b>94</b><span>hours of work in this package</span></div><p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:0 0 8px">What they consist of</p><ul style="margin:0 0 14px;font-size:15px"><li>reading the archives, both lines — <b>50 h</b></li><li>writing the book — <b>15 h</b></li><li>typesetting and setting in the documents — <b>7 h</b></li><li>the tree, ready to print — <b>4 h</b></li><li>your family's page — <b>12 h</b></li><li>running the project and the letters — <b>6 h</b></li></ul>
-      <p style="font-size:14px;color:var(--soft);margin:0 0 18px;padding-top:12px;border-top:1px dotted var(--rule)"><b>On depth and thickness.</b> We guarantee the hours of work, the book, and every document found. What we do not guarantee is the number of generations or the thickness of the book: both depend on what survived. Where the material is rich the book comes out thicker; where an archive lost decades it comes out thinner, but honest. We give you the forecast after the scouting, before you pay for a package.</p>
-      <div class="foot"><a class="cta sm" href="https://buy.stripe.com/bJe7sLdJB0s4gDedb16Jg40">Pay $5,900</a><a class="cta ghost sm" href="#start">Discuss first</a></div>
-    </div>
-
-    <div class="plan">
-      <p class="tag">If you have already dug yourself</p>
-      <h3>A book from your own materials</h3>
-      <p class="price">from $900</p>
-      <p class="term">3–4 weeks · the country makes no difference</p>
-      <ul>
-        <li>You have a folder of documents and nothing beautiful</li>
-        <li>We write the narrative and typeset the book</li>
-        <li>The tree, the printing, your family's page</li>
-        <li>The research is already yours — we turn it into an object</li>
-      </ul>
-      <div class="foot"><a class="cta sm" href="https://buy.stripe.com/8x23cv5d5eiU86Idb16Jg41">Pay from $900</a><a class="cta ghost sm" href="#start">Show us what you have</a></div>
+      <div class="foot"><a class="cta sm" href="https://buy.stripe.com/fZu9AT0WP1w85YAef56Jg3Y">Start with scouting · $190</a><a class="cta ghost sm" href="https://buy.stripe.com/fZufZh20TeiUaeQ0of6Jg3Z">Pay $3,400</a></div>
     </div>
   </div>
 
-  <div class="honest" style="margin-top:28px;border-left-color:var(--seal)">
-    <h3>What happens to the hours</h3>
-    <p style="margin:0 0 12px;color:var(--ink-2)">At the scouting stage we give a forecast of how far we can realistically get. It is a forecast, not a guarantee: until you read a register you do not know what is in it. So we agree in advance what happens in each case.</p>
-    <ul style="margin:0">
-      <li><b>The hours run out with the line nearly closed.</b> We finish reading at our own cost — up to five hours on one line and up to ten on two. You will not be asked to pay for the end of a story we started ourselves.</li>
-      <li><b>The hours run out but there is clearly more ahead.</b> We stop and say so plainly: here is how far we got, here is what comes next and what it would take. You receive the book built on what has been found — it is already yours. Going further is bought separately, and by the hour.</li>
-      <li><b>The line closes before the hours run out.</b> The remainder is yours: we refund it, put it towards the second line, or spend it going deeper — your decision, not ours.</li>
-      <li><b>The counter is always visible.</b> Every weekly letter states how many hours have been used and how many remain.</li>
-    </ul>
-  </div>
+  <p class="other-plans">Both family lines: <b>$5,900</b>, 4–5 months, 94 hours, 4 copies, tree on canvas · <a href="https://buy.stripe.com/bJe7sLdJB0s4gDedb16Jg40">pay</a> &nbsp;·&nbsp; A book from your own research: <b>from $900</b> · <a href="https://buy.stripe.com/8x23cv5d5eiU86Idb16Jg41">pay</a> &nbsp;·&nbsp; Gift certificate: <b>from $190</b> · <a href="https://buy.stripe.com/fZuaEXbBtgr2cmY2wn6Jg42">buy</a></p>
 
-  <div class="honest" style="margin-top:20px">
-    <h3>Gift certificate — from $190</h3>
-    <p style="margin:0 0 10px;color:var(--ink-2)">Research runs for months and may not be ready in time for an anniversary. The certificate is handed over on the day; the work starts when the recipient is ready.</p>
-    <ul style="margin:0">
-      <li>Named: the name is printed on the certificate, and only that person can redeem it</li>
-      <li>The full value is credited against the project — it is not a discount and not a part-payment</li>
-      <li>Valid for 12 months, extendable once</li>
-      <li>It cannot be passed to someone else — precisely because it is named</li>
-    </ul>
-    <figure style="margin:20px 0 0">
-      <img src="/img/cert_preview.jpg" loading="lazy" alt="The Rootmere gift certificate, printed on scorched paper"
-           style="width:100%;max-width:330px;height:auto;display:block;border:1px solid var(--rule)">
-      <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin-top:10px">
-        Printed on heavy paper, named, numbered and sealed. It is meant to be kept, not thrown away.
-      </figcaption>
-    </figure>
-    <p style="margin:14px 0 0"><a class="cta sm" href="https://buy.stripe.com/fZuaEXbBtgr2cmY2wn6Jg42">Buy a certificate — from $190</a></p>
-  </div>
-</div></section>
-
-<section><div class="w narrow">
-  <div class="honest">
-    <h3>Honestly — before you pay</h3>
+  <details class="more"><summary>What the 57 and 94 hours consist of</summary>
     <ul>
-      <li><b>You will get the book either way.</b> What we cannot promise is depth: books burn, archives lose things, whole decades disappear. But a book comes out of three generations too — it will simply be about the people we did find, and about what became of the rest. You are paying for the work and for a finished object, not for the promise of an ancestor.</li>
-      <li><b>We work as fast as the material allows.</b> We do not stretch the work out and we do not sit on findings: when we find something you hear it the same day, not in a report a month later. But part of the timing is not ours: an archive answers within thirty days. So we name a pace and the next step rather than a finishing date.</li>
-      <li><b>We read what was written across Central and Eastern Europe.</b> Cyrillic cursive, Polish and Latin church registers, German Kurrent, Hungarian and Jewish registers. These are the lands of the former Austro-Hungarian empire and its neighbours: Galicia, Volhynia, Podolia, Bukovina, Bessarabia, Transylvania, Transcarpathia, Silesia, Mazovia, Lesser Poland, the Pale of Settlement. Those archives sit today in Poland, Lithuania, Latvia, Czechia, Slovakia, Hungary, Romania, Moldova, Austria and their neighbours. If your roots are somewhere else entirely, write anyway: a book from your own materials we will assemble from anywhere, and for the search itself we will point you to the right person.</li>
+      <li><b>One line, 57 h:</b> reading the archives 25 · writing the book 10 · typesetting 5 · the tree 2.5 · your family's page 10 · running the project 4.</li>
+      <li><b>Both lines, 94 h:</b> reading 50 · writing 15 · typesetting 7 · the tree 4 · the page 12 · running the project 6.</li>
+      <li><b>What an hour is:</b> finding which archive, fond and file could hold the record, ordering the images, mapping the file, reading page by page, transcribing, checking a doubtful letter against the same clerk's other entries, and recording every find with a full citation.</li>
+      <li><b>Not charged:</b> our letters to you, waiting for an archive, and our own mistakes. If we misread something and read it again, that's on us.</li>
     </ul>
-  </div>
+  </details>
+  <details class="more"><summary>What happens if the hours run out, or don't</summary>
+    <ul>
+      <li><b>Line nearly closed:</b> we finish at our own cost, up to five hours on one line and ten on two.</li>
+      <li><b>Clearly more ahead:</b> we stop and tell you plainly. You get the book built on what's found, and going further is by the hour.</li>
+      <li><b>Line closes early:</b> the remainder is yours, refunded or put towards the other line.</li>
+      <li><b>Depth isn't guaranteed.</b> We guarantee the hours, the book and every document found, not the number of generations. You get our forecast after scouting, before you pay for a package.</li>
+    </ul>
+  </details>
 </div></section>
 
-<section><div class="w narrow">
-  <p class="eyebrow">The rules we work by</p>
-  <h2>Dull but important — before you pay</h2>
-  <div class="honest" style="margin-top:24px">
-    <ul style="margin:0">
-      <li><b>We never take originals.</b> Photographs and scans only. A family heirloom must not be lost in the post.</li>
-      <li><b>The book is written in your voice</b> — your name is on the cover, ours is in the colophon in small type.</li>
-      <li><b>Living people only with their consent.</b> We publish no one else's story without written permission. The example on this site is shown with the client's consent — he wanted others to see it. Yours will be shown only if you want it to be.</li>
-      <li><b>The book can run in two languages</b> if you need it to: English beside the Ukrainian, Polish or Russian of the original document. So a grandchild can read it and the document stays authentic.</li>
-      <li><b>Refunds.</b> Hours not worked are refunded. Hours worked and anything printed are not.</li>
-      <li><b>We keep the materials for three years.</b> If you want a second copy, a continuation on the other line, or a book for your brother, you won't start from nothing.</li>
+<section id="memory"><div class="w narrow">
+  <p class="eyebrow">Before the archive</p>
+  <h2>If there's an older person in your family, start with them</h2>
+  <p class="sub">The archive will wait. A person may not. An hour of recording on an ordinary phone gives the book its voice, and in twenty years that recording will be worth more than the book.</p>
+  <details class="more"><summary>How we help with that conversation · $290, free with any project</summary>
+    <ul>
+      <li><b>Before the archive:</b> we send the list of questions everyone starts with, plus a one-page guide on how to sit, hold the phone and let the person finish.</li>
+      <li><b>After the first findings:</b> precise questions, like "ask what your grandfather's brother was called". That second talk often breaks the deadlock.</li>
+      <li><b>You record, we do the rest:</b> transcription, gentle cleanup that keeps the living speech, and weaving it into the book. The audio stays with you.</li>
+      <li>If you can't hold the conversation yourself, we can do it over video in the family's language.</li>
     </ul>
-  </div>
+  </details>
 </div></section>
 
-<section><div class="w narrow">
-  <p class="eyebrow">The questions people ask most</p>
-  <h2>If you have never done this before</h2>
-  <div style="margin-top:28px">
-    <details><summary>What is "archival research", exactly?</summary>
-      <p>For centuries, churches and local authorities wrote down births, marriages and deaths. Those registers survive and sit in state archives. Some have been filmed and put online; others are released only on request. The work consists of finding the right register, finding the right page in it, and reading a handwritten line.</p></details>
-    <details><summary>What do I need to know to begin?</summary>
-      <p>Ideally a surname, a village and one exact date: someone's birth, marriage or death. An old certificate or an entry in a passport will do. If all you have is a surname and a country, we will tell you honestly that the odds are lower — before we take any money.</p></details>
-    <details><summary>Why does it take so long?</summary>
-      <p>Because it is read with human eyes. The page is handwritten, the hand is a stranger's, the ink has faded, the surname is spelled differently in every book, and the entry you need may be on any of nine hundred pages. And archives answer within thirty days. It goes fastest when you know the village and at least one exact date: then we go straight to the right register instead of working through its neighbours.</p></details>
+<section id="faq"><div class="w narrow">
+  <p class="eyebrow">Questions</p>
+  <h2>If you've never done this before</h2>
+  <div style="margin-top:22px">
+    <details><summary>What do I need to begin?</summary>
+      <p>Ideally a surname, a village and one exact date, a birth, marriage or death. An old certificate will do. If all you have is a surname and a country, we'll tell you the odds are lower before we take any money.</p></details>
     <details><summary>What if nothing is found?</summary>
-      <p>It happens, and we say so before we begin. That is exactly why the first step is $190 of scouting: it shows whether there is any point. And a book still comes out of three generations — it will be about the people we did find, and about what became of the rest.</p></details>
-    <details><summary>How do I know you can actually do this?</summary>
-      <p>We took one commission the whole way and published the result openly: ten generations, the most distant ancestor born around 1720, three and a half thousand pages read — and a thirty-year gap described without varnish, which we never managed to close. You can read all of it before ordering anything.</p></details>
-    <details><summary>Do you file the archive requests, or do I?</summary><p>We draft and file the request, and we carry the correspondence — you don't need to learn the forms or the fonds. For old registers, which is nearly everything that interests us, a genealogical request may be filed by anyone: that material is open, the work is paid, and the archive invoices after it is done. Where recent decades are concerned, an archive may ask for proof of kinship — then you are the applicant, and we prepare the text, assemble the citations and run the case. We will tell you about that in advance, not after you have paid.</p></details>
-    <details><summary>Where are my family's documents actually kept?</summary><p>In several places at once, which works in our favour. The church registers of a village sit in a regional archive — but copies of them were often filmed and can be reached from a vault in Utah, which we work with daily. Some files have been put into open scan libraries. And if your ancestor left for America, the first place we go is the American paperwork: the ship manifest, the naturalization file, the census, the draft card. That is usually where the village name appears — the one the family forgot long ago, and without which searching a European archive is close to pointless.</p></details>
-    <details><summary>How do I pay if I am not in the United States?</summary>
-      <p>By card from any country, through secure checkout. For Europe other methods are possible — write to us and we will find one that suits.</p></details>
+      <p>It happens, and we'll say so before you commit. That's what the $190 scouting is for. And you get the book either way: three generations make a book too, about the people we found and what became of the rest.</p></details>
+    <details><summary>Where are my family's records actually kept?</summary>
+      <p>In several places at once. Village registers sit in a regional archive, but many were filmed and can be reached from a vault in Utah. And if your ancestor came to America, we start with the American papers: the ship list, the naturalization file, the census. That's usually where the village name is.</p></details>
+    <details><summary>Which places do you cover?</summary>
+      <p>Lands of the former Austro-Hungarian empire and its neighbours: Galicia, Volhynia, Podolia, Bukovina, Bessarabia, Transylvania, Silesia, Lesser Poland, the Pale of Settlement. Cyrillic cursive, Polish and Latin registers, German Kurrent, Hungarian and Jewish records. If your roots are elsewhere, write anyway.</p></details>
+    <details><summary>Do you take my original documents?</summary>
+      <p>Never. Photographs and scans only. A family heirloom shouldn't be lost in the post. We keep the materials for three years, so a second copy or the other line doesn't start from nothing.</p></details>
+    <details><summary>What's your refund policy?</summary>
+      <p>Hours not worked are refunded. Hours worked and anything already printed are not. Payment is by card from any country.</p></details>
   </div>
+  <p style="margin-top:22px"><a href="/faq/">All questions, answered the way we'd answer on the phone →</a></p>
 </div></section>
 
 <section id="reading"><div class="w">
-  <p class="eyebrow">If you are still deciding</p>
+  <p class="eyebrow">If you're still deciding</p>
   <h2>Written by us, free to read</h2>
-  <p class="sub">We publish what we know, including the parts that make the work look harder than a sales page would like. Start with the first one if you have never thought about any of this.</p>
   <div class="things">
-    <div class="thing">
+    <a class="thing card-link reveal" href="/article-why/">
+      <img class="cover" src="/img/og_default.jpg" alt="" loading="lazy">
       <span class="n">Start here</span>
-      <h3><a href="/article-why/" style="color:inherit">Why your family's history matters at all</a></h3>
-      <p>We fund national archives because a people that forgets keeps walking into its own past. Nobody argues with that — and nobody applies it one scale down, to where the decisions that shaped your life were actually taken.</p>
-    </div>
-    <div class="thing">
-      <span class="n">Then this</span>
-      <h3><a href="/article-myth/" style="color:inherit">The story your family tells</a></h3>
-      <p>We were nobility once. We came from nothing. They took everything. Almost every family repeats a sentence nobody has ever checked — and it quietly decides what its descendants think is possible.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The reason most people never look</span>
-      <h3><a href="/article-peasants/" style="color:inherit">"We were just simple peasants"</a></h3>
-      <p>It sounds like modesty, but it works like a closed door. In this part of Europe the village was the most counted place in the empire: every baptism, every household, every field. "Simple" usually just means nobody has looked yet.</p>
-    </div>
-    <div class="thing">
-      <span class="n">Before it is too late</span>
-      <h3><a href="/article-funeral/" style="color:inherit">What leaves with one funeral</a></h3>
-      <p>The parish books in Europe will wait. The one relative who still knows the village as it was said out loud, why they left, and who is in the photo box will not. Five questions worth recording this month.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The question that is coming</span>
-      <h3><a href="/article-child/" style="color:inherit">The day a child asks where you're from</a></h3>
-      <p>It arrives on its own schedule — a school map, a DNA kit, a new baby. Most families can answer with a country and a shrug, and a shrug is its own inheritance. Three true things to have ready before the question comes.</p>
-    </div>
-    <div class="thing">
-      <span class="n">If a test left you wanting more</span>
-      <h3><a href="/article-dna/" style="color:inherit">Your DNA test gave you a percentage, not a person</a></h3>
-      <p>A pie chart, a slice marked "Eastern Europe", a wall of cousins with usernames instead of faces — and, if you are honest, a little emptier than before. The test answers which populations your DNA resembles, never a single ancestor, village or church. The thing you wanted is written down elsewhere, and the way to it is a village name the kit never gave you.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The box nobody can name</span>
-      <h3><a href="/article-faces/" style="color:inherit">The faces with no names</a></h3>
-      <p>A shoebox the colour of weak tea: a wedding on a dirt street, a severe woman who looks a little like your mother, and no idea who most of them are. Someone knew, once. A face goes dark the day the last person who could name it does — and a record is how you turn a stranger in your closet back into your own.</p>
-    </div>
-    <div class="thing">
-      <span class="n">And about you</span>
-      <h3><a href="/article-legacy/" style="color:inherit">What your great-grandchildren will find</a></h3>
-      <p>On paper you are thinner than your ancestors: four durable documents, and everything that gives them meaning sitting on platforms that will not outlive us. The century most at risk is the one closest to now.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The first thing everyone asks</span>
-      <h3><a href="/article-burned/" style="color:inherit">But surely it all burned</a></h3>
-      <p>The wars went through twice, so people assume nothing survived and never start. Yet almost nothing in these archives was written down only once: the parish book, the diocesan duplicate, the civil registry's second copy and the microfilm are separate objects in separate countries. Most searches check one of them.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The wall almost everyone hits</span>
-      <h3><a href="/article-village/" style="color:inherit">Poland is not where the records are</a></h3>
-      <p>The archives were kept parish by parish, so a country is not a lead — you need one village. And its name is usually sitting in an American document: a naturalisation paper, the second page of a ship manifest, an old obituary. The search starts at home, not abroad.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The four steps, plainly</span>
-      <h3><a href="/article-records/" style="color:inherit">How to find your Polish family's records</a></h3>
-      <p>Once you have the village, there is a clear path. Work out which empire ruled it — that decides the language and the archive — then open the right free database, and read what you find. We lay out all four steps, and we are honest about the one where most searches quietly stop.</p>
-    </div>
-    <div class="thing">
-      <span class="n">Three empires, one family</span>
-      <h3><a href="/article-partitions/" style="color:inherit">Russian, Prussian, or Austrian?</a></h3>
-      <p>For over a century there was no Poland — the land was split three ways, and which empire ruled your village decides the language of its records, the archive that holds them, and how much survived. How to tell which one, and what each of the three means for your search.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The name is a key, not a meaning</span>
-      <h3><a href="/article-surname/" style="color:inherit">Your surname is the least interesting thing about your family</a></h3>
-      <p>It is always the first move: type the family name in, get back a tidy paragraph that it means smith, or son of John. Then you pull the thread and nothing comes. The meaning of a surname is the one piece almost everyone can find and that tells you almost nothing about your own people. The family is in the record the name only labels.</p>
-    </div>
-    <div class="thing">
-      <span class="n">Why they went</span>
-      <h3><a href="/article-migration/" style="color:inherit">They didn't leave because they wanted to</a></h3>
-      <p>"Poor farmers who came for a better life" sounds complete, and a little dull. It leaves out that they were part of one of the largest movements of people in modern history, and that something had broken at home first. The reason is usually written in the parish books of the village they left.</p>
-    </div>
-    <div class="thing">
+      <h3>Why your family's history matters at all</h3>
+      <p>We fund national archives because a people that forgets repeats itself. Nobody applies that to a family.</p>
+    </a>
+    <a class="thing card-link reveal" href="/article-silence/">
+      <img class="cover" src="/img/og_silence.jpg" alt="" loading="lazy">
+      <span class="n">When she never talked about it</span>
+      <h3>Grandma never talked about where she came from</h3>
+      <p>Silence usually wasn't a secret. The parish books wrote everyone down the same way.</p>
+    </a>
+    <a class="thing card-link reveal" href="/article-citizenship/">
+      <img class="cover" src="/img/og_citizenship.jpg" alt="" loading="lazy">
       <span class="n">When the goal is a passport</span>
-      <h3><a href="/article-citizenship/" style="color:inherit">The record your citizenship claim lives or dies on</a></h3>
-      <p>A citizenship-by-descent claim feels like a legal problem, but it stalls on one thing: the ancestor's record, kept in a parish abroad, often under a spelling you'd never recognise. The lawyer files the claim. Someone has to find the record first, and a border having moved does not move the citizenship.</p>
-    </div>
-    <div class="thing">
-      <span class="n">The family that stayed</span>
-      <h3><a href="/article-relatives/" style="color:inherit">Somebody stayed behind</a></h3>
-      <p>Almost every immigrant left a brother or sister at home. The same parish books that hold your ancestor hold them and their children, and the line can be followed forward until the archive goes quiet about a century ago.</p>
-    </div>
-    <div class="thing">
-      <span class="n">When the name "was changed at Ellis Island"</span>
-      <h3><a href="/article-ellis/" style="color:inherit">Nobody changed your name at Ellis Island</a></h3>
-      <p>The clerk didn't write the name, he checked it against a list made in Europe. Families changed names later, by choice. So the old spelling is still written down, on the ship list and in the village books.</p>
-    </div>
-    <div class="thing">
-      <span class="n">When "she never talked about it"</span>
-      <h3><a href="/article-silence/" style="color:inherit">Grandma never talked about where she came from</a></h3>
-      <p>Silence usually wasn't a secret. It hurt, or it didn't seem to matter. The parish books wrote everyone down the same way, and the American papers often name the village even when nobody at home did.</p>
-    </div>
-    <div class="thing">
-      <span class="n">Straight answers</span>
-      <h3><a href="/faq/" style="color:inherit">The questions people actually ask</a></h3>
-      <p>Can anything be found if the church burned? How far back is realistic? Was the name changed at Ellis Island? Fourteen questions answered the way we would answer them on the phone, including where the answer is "probably not".</p>
-    </div>
-    <div class="thing">
-      <span class="n">As a gift</span>
-      <h3><a href="/article-gift/" style="color:inherit">For someone who has everything</a></h3>
-      <p>Most presents are about the giver. This one is about one person and useless to anyone else on earth — and it grips people who never once thought about their ancestors.</p>
-    </div>
+      <h3>The record your citizenship claim lives on</h3>
+      <p>The lawyer files the claim. Someone has to find the ancestor's record first.</p>
+    </a>
   </div>
+  <p style="margin-top:24px"><a class="cta ghost sm" href="/articles/">All articles →</a></p>
 </div></section>
 
 <section class="final" id="start"><div class="w">
   <h2>Start with a single name</h2>
-  <p>Write and tell us what you know about your family — even if it is one surname and one village. We will tell you what can realistically be done with it.</p>
-  <a class="cta" href="mailto:hello@rootmere.com?subject=I%20want%20to%20find%20my%20family">Write to us</a>
+  <p>Tell us what you know, even if it's one surname and one village. We'll tell you what can realistically be done with it. The first answer is free.</p>
+  <a class="cta" href="mailto:hello@rootmere.com?subject=One%20name%20to%20start%20with&amp;body=Name%20(as%20the%20family%20says%20it)%3A%0AWhen%20they%20came%20over%20(roughly)%3A%0AVillage%20or%20region%2C%20if%20known%3A%0AAnything%20else%20the%20family%20remembers%3A%0A">Send us one name</a>
+  <p class="trustline" style="margin-top:16px">hello@rootmere.com · free first answer · no obligation</p>
 </div></section>
+
+<a class="sticky-cta" id="stickyCta" href="#start">Get a free first answer</a>
 
 <footer><div class="w row">
   <div>Rootmere — reading the handwritten archives of Central and Eastern Europe, and making books about families.</div>
@@ -794,39 +694,87 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div>Rootmere is a trade name of Elite Product LLC, California, USA.</div>
 </div></footer>
 <script>
-// Лупа следует за пальцем. Пока её не трогали — сама медленно идёт по строкам,
-// иначе на телефоне никто не догадается, что тут вообще что-то происходит.
+// Лупа: на компьютере рукопись под курсором сменяется расшифровкой.
+// На телефоне — кнопка «Show the reading» (08.11: раньше лупа ловила палец, и страница не листалась).
 (function(){
   var el = document.getElementById('lens');
   if(!el) return;
-  var idle;
   function set(y){
     var r = el.getBoundingClientRect();
     var p = ((y - r.top) / r.height) * 100;
     el.classList.add('held');
     el.style.setProperty('--my', Math.max(0, Math.min(100, p)) + '%');
   }
-  function release(){
-    el.classList.remove('held');
-    el.style.removeProperty('--my');
-  }
-  function fromMouse(e){ clearTimeout(idle); set(e.clientY); }
-  // На телефоне палец уходит — возвращаем бегущую строку не сразу, иначе дёргается.
-  function fromTouch(e){
-    if(!e.touches || !e.touches.length) return;
-    clearTimeout(idle);
-    set(e.touches[0].clientY);
-    e.preventDefault();
-  }
-  function later(){ idle = setTimeout(release, 1800); }
-
-  el.addEventListener('pointermove', fromMouse);
-  el.addEventListener('mousemove', fromMouse);        // на случай старых браузеров
+  function release(){ el.classList.remove('held'); el.style.removeProperty('--my'); }
+  el.addEventListener('pointermove', function(e){ if(e.pointerType === 'mouse') set(e.clientY); });
   el.addEventListener('mouseleave', release);
-  el.addEventListener('touchstart', fromTouch, {passive:false});
-  el.addEventListener('touchmove',  fromTouch, {passive:false});
-  el.addEventListener('touchend', later);
-  el.addEventListener('touchcancel', later);
+  var btn = document.getElementById('lensToggle');
+  if(!btn){ // старые страницы (RU) без кнопки — добавляем её, иначе на телефоне расшифровку не увидеть
+    btn = document.createElement('button'); btn.type = 'button'; btn.className = 'lens-toggle';
+    btn.setAttribute('aria-pressed', 'false'); btn.textContent = document.documentElement.lang === 'ru' ? 'Показать расшифровку' : 'Show the reading';
+    el.parentNode.insertBefore(btn, el.nextSibling);
+  }
+  var ru = document.documentElement.lang === 'ru';
+  if(btn) btn.addEventListener('click', function(){
+    var on = el.classList.toggle('reading');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? (ru ? 'Показать рукопись' : 'Show the handwriting') : (ru ? 'Показать расшифровку' : 'Show the reading');
+  });
+})();
+
+// Мягкое появление блоков, росчерк под заголовком, линия таймлайна, счётчики, липкая кнопка.
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  var em = document.querySelector('.hero h1 em');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(x){ x.classList.add('in'); });
+    if(em) em.classList.add('inked');
+  } else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var t = e.target, sib = t.parentNode ? Array.prototype.indexOf.call(t.parentNode.children, t) : 0;
+        t.style.transitionDelay = Math.min(sib, 4) * 80 + 'ms';
+        t.classList.add('in'); io.unobserve(t);
+      });
+    }, {rootMargin: '0px 0px -8% 0px'});
+    items.forEach(function(x){ io.observe(x); });
+    if(em) setTimeout(function(){ em.classList.add('inked'); }, 300);
+
+    var tl = document.getElementById('timeline');
+    if(tl){
+      tl.style.setProperty('--draw', 0);
+      new IntersectionObserver(function(es, o){
+        if(es[0].isIntersecting){ tl.style.setProperty('--draw', 1); o.disconnect(); }
+      }, {threshold: .15}).observe(tl);
+    }
+
+    var nums = document.querySelectorAll('[data-count]');
+    var no = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        no.unobserve(e.target);
+        var b = e.target, end = +b.dataset.count, pre = b.dataset.prefix || '', t0 = null;
+        function step(ts){
+          if(!t0) t0 = ts;
+          var k = Math.min(1, (ts - t0) / 1200), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+          b.textContent = pre + (end >= 10000 || (end > 1999) ? v.toLocaleString('en-US') : v);
+          if(k < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, {threshold: .6});
+    nums.forEach(function(n){ no.observe(n); });
+  }
+
+  var sc = document.getElementById('stickyCta'), hero = document.querySelector('.hero'), start = document.getElementById('start');
+  if(sc && hero && 'IntersectionObserver' in window){
+    var pastHero = false, atStart = false;
+    function upd(){ sc.classList.toggle('on', pastHero && !atStart); }
+    new IntersectionObserver(function(es){ pastHero = !es[0].isIntersecting; upd(); }).observe(hero);
+    if(start) new IntersectionObserver(function(es){ atStart = es[0].isIntersecting; upd(); }).observe(start);
+  }
 })();
 </script>
 </body></html>
