@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rootmere — Genealogy in Central and Eastern Europe</title>
 <meta name="description" content="We read the handwritten archives of Central and Eastern Europe and turn one name into a book about your family. Scouting from $190.">
 <link rel="alternate" hreflang="en" href="https://rootmere.com/">
@@ -34,6 +34,8 @@
   {"@type":"Offer","name":"One family line and the book","price":"3400","priceCurrency":"USD"},
   {"@type":"Offer","name":"Family archive, both lines","price":"5900","priceCurrency":"USD"}]}
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -316,7 +318,7 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .timeline .yr{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--seal);text-align:right;padding-top:3px}
 .timeline h3{font-size:20px;font-weight:500;margin-bottom:4px}
 .timeline p{margin:0;color:var(--ink-2);font-size:16px}
-.timeline .doc{width:100%;max-width:460px;border:1px solid var(--rule);margin-top:12px;display:block}
+.timeline .doc{width:100%;height:auto;max-width:460px;border:1px solid var(--rule);margin-top:12px;display:block}
 .timeline li.gap::before{background:var(--paper);border-style:dashed}
 .timeline li.gap h3{color:var(--soft)}
 @media(max-width:600px){
@@ -353,7 +355,7 @@ details.more li{margin-bottom:8px}
 a.card-link{text-decoration:none;color:inherit;display:block;transition:transform .25s ease,box-shadow .25s ease}
 a.card-link:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
 a.card-link h3{text-decoration:none}
-.cover{width:calc(100% + 48px);margin:-26px -24px 16px;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
+.cover{width:calc(100% + 48px);height:auto;margin:-26px -24px 16px;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
 
 /* липкая кнопка на телефоне */
 .final .trustline{font-size:13px;margin:16px auto 0}
@@ -396,6 +398,16 @@ a.card-link h3{text-decoration:none}
   .menulist a.link:last-child{border-bottom:0}
   .lang a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;padding:0}
 }
+
+/* шлифовка P2 судьи v2 (08.11): мелкий текст для 55+, полоска iPhone, тёмная тема, длина строки в статьях */
+.proof .cap{font-size:13px}
+.ps span{font-size:15px}
+.timeline .yr{font-size:15px}
+.spellrow .lab{font-size:12.5px}
+.plan .term{font-size:13.5px}
+@media(max-width:759px){.sticky-cta{bottom:calc(12px + env(safe-area-inset-bottom))}}
+.lens.offscreen{animation-play-state:paused}
+@media (prefers-color-scheme:dark){.proof img,.timeline .doc,.art-cover img{filter:brightness(.88) contrast(1.04)}}
 </style>
 </head>
 <body>
@@ -440,7 +452,7 @@ a.card-link h3{text-decoration:none}
 
   <div class="proof">
     <div class="lens" id="lens">
-      <img alt="A line from an 1866 parish register recording a baptism" src="/img/1866_zapys_krupno.jpg" fetchpriority="high">
+      <img alt="A line from an 1866 parish register recording a baptism" src="/img/1866_zapys_krupno.jpg" width="900" height="348" fetchpriority="high">
       <div class="typeset" aria-hidden="true">
         <b style="left:11.5%;top:18%">Дьячекъ Василій Билецкій</b>
         <b style="left:0.5%;top:34%">Крестьянинъ села Гнѣздичны</b>
@@ -497,10 +509,10 @@ a.card-link h3{text-decoration:none}
 
     <ol class="timeline" id="timeline">
       <li class="reveal"><span class="yr">2021</span><div><h3>One certificate</h3><p>His great-grandmother was sixteen when his grandfather was born. A second certificate gave the father's name and the grandfather's patronymic: two ancestors instead of one.</p>
-        <img class="doc" src="/img/dovidka_lines.jpg" alt="Lines from an archival birth certificate naming the father and the sixteen-year-old mother" loading="lazy"></div></li>
+        <img class="doc" src="/img/dovidka_lines.jpg" width="904" height="238" alt="Lines from an archival birth certificate naming the father and the sixteen-year-old mother" loading="lazy"></div></li>
       <li class="gap reveal"><span class="yr">1869–1899</span><div><h3>Thirty years with no books</h3><p>No register for the village survives in any archive. We wrote that plainly in his book and here. One day a grandchild will check.</p></div></li>
       <li class="reveal"><span class="yr">1868</span><div><h3>A man nobody remembered</h3><p>"Of the same village, the peasant Sila son of Foma Pryvrotskyi."</p>
-        <img class="doc" src="/img/1868_sila.jpg" alt="A line from an 1868 parish register" loading="lazy"></div></li>
+        <img class="doc" src="/img/1868_sila.jpg" width="900" height="157" alt="A line from an 1868 parish register" loading="lazy"></div></li>
       <li class="reveal"><span class="yr">1850</span><div><h3>The household number</h3><p>The revision lists track the family by household: № 78 in 1816 and 1834, № 102 in 1850 and 1858. Ages and patronymics line up, so it's the same family, not another man with the same name.</p></div></li>
       <li class="reveal"><span class="yr">1811</span><div><h3>Semen son of Ilya</h3><p>Born around 1765, died in 1821. In household 71 two more generations open above him.</p></div></li>
       <li class="reveal"><span class="yr">~1720</span><div><h3>Ivan, the earliest name</h3><p>Every link back to him carries a citation: fond, inventory, file and folio.</p></div></li>
@@ -697,19 +709,19 @@ a.card-link h3{text-decoration:none}
   <h2>Written by us, free to read</h2>
   <div class="things">
     <a class="thing card-link reveal" href="/article-why/">
-      <img class="cover" src="/img/og_default.jpg" alt="" loading="lazy">
+      <img class="cover" src="/img/og_default.jpg" width="1200" height="630" alt="" loading="lazy">
       <span class="n">Start here</span>
       <h3>Why your family's history matters at all</h3>
       <p>We fund national archives because a people that forgets repeats itself. Nobody applies that to a family.</p>
     </a>
     <a class="thing card-link reveal" href="/article-silence/">
-      <img class="cover" src="/img/og_silence.jpg" alt="" loading="lazy">
+      <img class="cover" src="/img/og_silence.jpg" width="1200" height="630" alt="" loading="lazy">
       <span class="n">When she never talked about it</span>
       <h3>Grandma never talked about where she came from</h3>
       <p>Silence usually wasn't a secret. The parish books wrote everyone down the same way.</p>
     </a>
     <a class="thing card-link reveal" href="/article-citizenship/">
-      <img class="cover" src="/img/og_citizenship.jpg" alt="" loading="lazy">
+      <img class="cover" src="/img/og_citizenship.jpg" width="1200" height="630" alt="" loading="lazy">
       <span class="n">When the goal is a passport</span>
       <h3>The record your citizenship claim lives on</h3>
       <p>The lawyer files the claim. Someone has to find the ancestor's record first.</p>
@@ -833,5 +845,10 @@ a.card-link h3{text-decoration:none}
 document.querySelectorAll('details.menu a').forEach(function(a){
   a.addEventListener('click', function(){ var d = a.closest('details'); if(d) d.removeAttribute('open'); });
 });
+</script>
+<script>
+// лупа на десктопе не крутит анимацию, когда её не видно (судья v2, P2-7)
+(function(){ var l=document.getElementById('lens'); if(!l||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(es){ l.classList.toggle('offscreen', !es[0].isIntersecting); }).observe(l); })();
 </script>
 </body></html>

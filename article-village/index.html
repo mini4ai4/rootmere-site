@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Where Polish Genealogy Records Are Really Kept</title>
 <meta name="description" content="The wall almost everyone hits: the archives are kept parish by parish, so a country is not a lead — you need one village. And the village's name is usually in American documents (naturalisation papers, the 1906+ ship manifest, draft cards, the obituary), not European ones. How to find it and pin it to a map.">
 <link rel="canonical" href="https://rootmere.com/article-village/">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="Rootmere">
 <meta property="og:title" content="Where Polish Genealogy Records Are Really Kept">
 <meta property="og:description" content="The wall almost everyone hits: the archives are kept parish by parish, so a country is not a lead — you need one village. And the village's name is usually in American documents (naturalisation papers, the 1906+ ship manifest, draft cards, the obituary), not European ones. How to find it and pin it to a map.">
@@ -31,6 +31,8 @@
   {"@type":"Offer","name":"One family line and the book","price":"3400","priceCurrency":"USD"},
   {"@type":"Offer","name":"Family archive, both lines","price":"5900","priceCurrency":"USD"}]}
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -313,7 +315,7 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .timeline .yr{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--seal);text-align:right;padding-top:3px}
 .timeline h3{font-size:20px;font-weight:500;margin-bottom:4px}
 .timeline p{margin:0;color:var(--ink-2);font-size:16px}
-.timeline .doc{width:100%;max-width:460px;border:1px solid var(--rule);margin-top:12px;display:block}
+.timeline .doc{width:100%;height:auto;max-width:460px;border:1px solid var(--rule);margin-top:12px;display:block}
 .timeline li.gap::before{background:var(--paper);border-style:dashed}
 .timeline li.gap h3{color:var(--soft)}
 @media(max-width:600px){
@@ -350,7 +352,7 @@ details.more li{margin-bottom:8px}
 a.card-link{text-decoration:none;color:inherit;display:block;transition:transform .25s ease,box-shadow .25s ease}
 a.card-link:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
 a.card-link h3{text-decoration:none}
-.cover{width:calc(100% + 48px);margin:-26px -24px 16px;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
+.cover{width:calc(100% + 48px);height:auto;margin:-26px -24px 16px;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
 
 /* липкая кнопка на телефоне */
 .final .trustline{font-size:13px;margin:16px auto 0}
@@ -393,6 +395,16 @@ a.card-link h3{text-decoration:none}
   .menulist a.link:last-child{border-bottom:0}
   .lang a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;padding:0}
 }
+
+/* шлифовка P2 судьи v2 (08.11): мелкий текст для 55+, полоска iPhone, тёмная тема, длина строки в статьях */
+.proof .cap{font-size:13px}
+.ps span{font-size:15px}
+.timeline .yr{font-size:15px}
+.spellrow .lab{font-size:12.5px}
+.plan .term{font-size:13.5px}
+@media(max-width:759px){.sticky-cta{bottom:calc(12px + env(safe-area-inset-bottom))}}
+.lens.offscreen{animation-play-state:paused}
+@media (prefers-color-scheme:dark){.proof img,.timeline .doc,.art-cover img{filter:brightness(.88) contrast(1.04)}}
 </style>
 </head>
 <body><nav><div class="w">
@@ -424,7 +436,7 @@ a.card-link h3{text-decoration:none}
   <p class="lede">Most family searches stop at a country. But the archives of Central and Eastern Europe were never kept by country, or even by surname. They were kept parish by parish, village by village. Until you know the one village, there is nothing to open. The good news is that the village's name is usually sitting in a drawer in your own country, not a foreign one.</p>
   <p class="readtime">4 min read</p>
 </div></header>
-<figure class="art-cover"><div class="w narrow"><img src="/img/og_village.jpg" alt="The village the records are actually kept in — Rootmere"></div></figure>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_village.jpg" width="1200" height="630" alt="The village the records are actually kept in — Rootmere"></div></figure>
 
 <section id="village"><div class="w narrow">
   <p class="eyebrow">First, why this is the wall</p>
@@ -579,5 +591,10 @@ a.card-link h3{text-decoration:none}
 document.querySelectorAll('details.menu a').forEach(function(a){
   a.addEventListener('click', function(){ var d = a.closest('details'); if(d) d.removeAttribute('open'); });
 });
+</script>
+<script>
+// лупа на десктопе не крутит анимацию, когда её не видно (судья v2, P2-7)
+(function(){ var l=document.getElementById('lens'); if(!l||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(es){ l.classList.toggle('offscreen', !es[0].isIntersecting); }).observe(l); })();
 </script>
 </body></html>
