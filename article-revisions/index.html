@@ -495,6 +495,30 @@ a.card-link h3{text-decoration:none}
 .startform .cta{font-family:"Source Sans 3",sans-serif;font-weight:600}
 .wipe-ctl{position:relative}
 .wipe-ctl .stamp{position:absolute;right:0;top:50%;margin-top:-12px}
+
+/* первый экран: вся страница метрики → зум на запись (судья r2 №2; страница из образа 620) */
+.page-hero{margin:0;position:relative}
+.page-hero .pg{position:relative;transform-origin:0 0;transform:scale(var(--fit,1));transition:transform 1.2s cubic-bezier(.2,.7,.2,1) .35s}
+.page-hero img{display:block;width:100%;height:auto}
+.page-hero .box{position:absolute;left:0;top:19%;width:49.7%;height:34%;outline:3px solid var(--seal);outline-offset:-2px;
+  clip-path:inset(0 100% 0 0);transition:clip-path .7s ease 1.4s}
+.page-hero.go .box{clip-path:inset(0)}
+.page-hero figcaption{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-top:8px}
+@media(max-width:899px){
+  .home-hero .proof{order:0}
+  .page-hero{margin:0 -24px;height:min(52vh,460px);overflow:hidden;background:var(--card);border-bottom:1px solid var(--rule)}
+  .page-hero .pg{height:100%;width:auto;aspect-ratio:955/585}
+  .page-hero .pg img{height:100%;width:auto;max-width:none}
+  .page-hero figcaption{position:absolute;left:24px;bottom:10px;margin:0;background:var(--paper);padding:3px 7px}
+  .home-hero .pre{margin-top:26px}
+}
+@media(min-width:900px){
+  .home-hero .hero-grid{grid-template-areas:"copy page" "copy proof";align-items:start}
+  .home-hero .hero-copy{grid-area:copy;align-self:center}
+  .home-hero .page-hero{grid-area:page;overflow:hidden;border:1px solid var(--rule)}
+  .home-hero .proof{grid-area:proof}
+}
+@media (prefers-reduced-motion:reduce){.page-hero .pg{transition:none}.page-hero .box{clip-path:none;transition:none}}
 </style>
 </head>
 <body>
@@ -757,5 +781,15 @@ document.querySelectorAll('.wipe').forEach(function(w){
 </script>
 <script>
 (function(){ var h=document.querySelector('.home-hero h1'); if(h) setTimeout(function(){ h.classList.add('inked'); }, 250); })();
+</script>
+<script>
+// страница метрики: сначала видна вся, потом приближается к записи и обводится рамкой
+(function(){ var h=document.getElementById('pageHero'); if(!h) return; var pg=h.querySelector('.pg'), img=h.querySelector('img');
+  function fit(){ if(innerWidth>=900){ pg.style.setProperty('--fit',1); return 1; }
+    var w=pg.getBoundingClientRect().width/(parseFloat(getComputedStyle(pg).getPropertyValue('--fit'))||1); return Math.min(1,h.clientWidth/w); }
+  function go(){ if(innerWidth<900){ pg.style.transition='none'; pg.style.setProperty('--fit',fit()); pg.offsetWidth; pg.style.transition=''; }
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ pg.style.setProperty('--fit',1); h.classList.add('go'); }); }); }
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ h.classList.add('go'); return; }
+  if(img.complete) go(); else img.addEventListener('load', go); })();
 </script>
 </body></html>
