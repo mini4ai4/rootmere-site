@@ -840,6 +840,8 @@ document.querySelectorAll('.wipe').forEach(function(w){
     var E=endScale();
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ pg.style.setProperty('--fit',E.s); pg.style.setProperty('--ty',E.ty+'px'); h.classList.add('go'); setTimeout(wipe,1700); }); }); }
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ h.classList.add('go','read'); set(40); return; }
+  function ctlw(){ if(!ctl) return; if(innerWidth>=900){ ctl.style.right='auto'; ctl.style.width=Math.round(box.getBoundingClientRect().width)+'px'; } else { ctl.style.width=''; ctl.style.right=''; } }
+  setTimeout(ctlw,1400); addEventListener('resize',ctlw);
   go();
   addEventListener('orientationchange',function(){ setTimeout(function(){ var E=endScale(); pg.style.setProperty('--fit',E.s); pg.style.setProperty('--ty',E.ty+'px'); },300); });
 })();
