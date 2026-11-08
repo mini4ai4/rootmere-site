@@ -373,6 +373,29 @@ a.card-link h3{text-decoration:none}
 .midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
 .midcta p{margin:0 0 12px;color:var(--ink-2)}
 .readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
+
+/* шапка на телефоне: логотип + «Prices» + «Menu» (судья v2, 08.11) */
+.navpill,details.menu{display:none}
+@media(max-width:759px){
+  .navlinks{display:none}
+  nav .w{justify-content:flex-start;position:relative}
+  .navpill{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;margin-left:auto;
+    border:1px solid var(--ink);font:600 14px "Source Sans 3",sans-serif;color:var(--ink);text-decoration:none}
+  details.menu{display:block;border:0;padding:0}
+  details.menu summary::before{content:none}
+  nav .w{gap:8px}
+  .lang a[aria-current]{display:none}
+  details.menu summary{list-style:none;min-height:44px;display:flex;align-items:center;padding:0 6px 0 10px;
+    font:600 14px "Source Sans 3",sans-serif;color:var(--ink-2);cursor:pointer}
+  details.menu summary::-webkit-details-marker{display:none}
+  details.menu summary::after{content:"\25BE";margin-left:6px;font-size:11px}
+  details.menu[open] summary::after{content:"\25B4"}
+  .menulist{position:absolute;right:0;left:0;top:100%;background:var(--paper);border-bottom:1px solid var(--rule);
+    box-shadow:0 10px 24px rgba(0,0,0,.08);padding:6px 16px 10px;display:flex;flex-direction:column}
+  .menulist a.link{display:flex;align-items:center;min-height:44px;font-size:16px;border-bottom:1px solid var(--rule)}
+  .menulist a.link:last-child{border-bottom:0}
+  .lang a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+}
 </style>
 </head>
 <body>
@@ -389,6 +412,14 @@ a.card-link h3{text-decoration:none}
     <a class="link" href="/articles/">Articles</a>
     <a class="link" href="/faq/">Questions</a>
   </div>
+  <a class="navpill" href="#prices">Prices</a><details class="menu"><summary>Menu</summary><div class="menulist">
+    <a class="link" href="#what">What you get</a>
+    <a class="link" href="#case">An example</a>
+    <a class="link" href="#how">How it works</a>
+    <a class="link" href="#prices">Prices</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
+  </div></details>
   <div class="lang">
     <a href="/" aria-current="page">EN</a>
     <a href="/ru/">RU</a>
@@ -425,7 +456,7 @@ a.card-link h3{text-decoration:none}
 </div></header>
 
 <div class="proofstrip reveal"><div class="w">
-  <div class="ps"><b data-count="1720" data-prefix="~">~1720</b><span>earliest ancestor found in our first project</span></div>
+  <div class="ps"><b>~1720</b><span>earliest ancestor found in our first project</span></div>
   <div class="ps"><b data-count="3579">3,579</b><span>register pages read by hand</span></div>
   <div class="ps"><b data-count="10">10</b><span>generations, every link cited</span></div>
   <div class="ps"><b data-count="35">35</b><span>spellings of one surname, all checked</span></div>
@@ -467,9 +498,9 @@ a.card-link h3{text-decoration:none}
     <ol class="timeline" id="timeline">
       <li class="reveal"><span class="yr">2021</span><div><h3>One certificate</h3><p>His great-grandmother was sixteen when his grandfather was born. A second certificate gave the father's name and the grandfather's patronymic: two ancestors instead of one.</p>
         <img class="doc" src="/img/dovidka_lines.jpg" alt="Lines from an archival birth certificate naming the father and the sixteen-year-old mother" loading="lazy"></div></li>
+      <li class="gap reveal"><span class="yr">1869–1899</span><div><h3>Thirty years with no books</h3><p>No register for the village survives in any archive. We wrote that plainly in his book and here. One day a grandchild will check.</p></div></li>
       <li class="reveal"><span class="yr">1868</span><div><h3>A man nobody remembered</h3><p>"Of the same village, the peasant Sila son of Foma Pryvrotskyi."</p>
         <img class="doc" src="/img/1868_sila.jpg" alt="A line from an 1868 parish register" loading="lazy"></div></li>
-      <li class="gap reveal"><span class="yr">1869–1899</span><div><h3>Thirty years with no books</h3><p>No register for the village survives in any archive. We wrote that plainly in his book and here. One day a grandchild will check.</p></div></li>
       <li class="reveal"><span class="yr">1850</span><div><h3>The household number</h3><p>The revision lists track the family by household: № 78 in 1816 and 1834, № 102 in 1850 and 1858. Ages and patronymics line up, so it's the same family, not another man with the same name.</p></div></li>
       <li class="reveal"><span class="yr">1811</span><div><h3>Semen son of Ilya</h3><p>Born around 1765, died in 1821. In household 71 two more generations open above him.</p></div></li>
       <li class="reveal"><span class="yr">~1720</span><div><h3>Ivan, the earliest name</h3><p>Every link back to him carries a citation: fond, inventory, file and folio.</p></div></li>
@@ -593,7 +624,7 @@ a.card-link h3{text-decoration:none}
     </div>
 
     <div class="plan main reveal">
-      <p class="tag">Most people choose this</p>
+      <p class="tag">What we recommend</p>
       <h3>One family line and the book</h3>
       <p class="price">$3,400</p>
       <p class="term">8–10 weeks · 57 hours of work</p>
@@ -796,5 +827,11 @@ a.card-link h3{text-decoration:none}
   addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
   upd();
 })();
+</script>
+<script>
+// меню на телефоне закрывается после выбора пункта (иначе висит поверх раздела)
+document.querySelectorAll('details.menu a').forEach(function(a){
+  a.addEventListener('click', function(){ var d = a.closest('details'); if(d) d.removeAttribute('open'); });
+});
 </script>
 </body></html>

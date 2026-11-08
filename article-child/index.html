@@ -4,9 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Day a Child Asks Where You're From</title>
 <meta name="description" content="Every family eventually gets the question from a child or grandchild: where are we from, who were we. Most can answer only with a country and a shrug. Why that answer has an expiry date in the family rather than the archive, and three things to write down while someone can still say them.">
-<link rel="alternate" hreflang="en" href="https://rootmere.com/">
-<link rel="alternate" hreflang="ru" href="https://rootmere.com/ru/">
-<link rel="alternate" hreflang="x-default" href="https://rootmere.com/">
 <link rel="canonical" href="https://rootmere.com/article-child/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rootmere">
@@ -373,6 +370,29 @@ a.card-link h3{text-decoration:none}
 .midcta{margin:10px 0;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--seal);padding:20px 22px}
 .midcta p{margin:0 0 12px;color:var(--ink-2)}
 .readbar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--seal);transform-origin:0 50%;transform:scaleX(0);z-index:40}
+
+/* шапка на телефоне: логотип + «Prices» + «Menu» (судья v2, 08.11) */
+.navpill,details.menu{display:none}
+@media(max-width:759px){
+  .navlinks{display:none}
+  nav .w{justify-content:flex-start;position:relative}
+  .navpill{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;margin-left:auto;
+    border:1px solid var(--ink);font:600 14px "Source Sans 3",sans-serif;color:var(--ink);text-decoration:none}
+  details.menu{display:block;border:0;padding:0}
+  details.menu summary::before{content:none}
+  nav .w{gap:8px}
+  .lang a[aria-current]{display:none}
+  details.menu summary{list-style:none;min-height:44px;display:flex;align-items:center;padding:0 6px 0 10px;
+    font:600 14px "Source Sans 3",sans-serif;color:var(--ink-2);cursor:pointer}
+  details.menu summary::-webkit-details-marker{display:none}
+  details.menu summary::after{content:"\25BE";margin-left:6px;font-size:11px}
+  details.menu[open] summary::after{content:"\25B4"}
+  .menulist{position:absolute;right:0;left:0;top:100%;background:var(--paper);border-bottom:1px solid var(--rule);
+    box-shadow:0 10px 24px rgba(0,0,0,.08);padding:6px 16px 10px;display:flex;flex-direction:column}
+  .menulist a.link{display:flex;align-items:center;min-height:44px;font-size:16px;border-bottom:1px solid var(--rule)}
+  .menulist a.link:last-child{border-bottom:0}
+  .lang a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+}
 </style>
 </head>
 <body><nav><div class="w">
@@ -387,7 +407,15 @@ a.card-link h3{text-decoration:none}
     <a class="link" href="#shrug">What a shrug says</a>
     <a class="link" href="#month">This month</a>
   </div>
-  <div class="lang"><a href="/article-child/" aria-current="page">EN</a></div>
+  <a class="navpill" href="/#prices">Prices</a><details class="menu"><summary>Menu</summary><div class="menulist">
+    <a class="link" href="/">Home</a>
+    <a class="link" href="/article-why/">Why it matters</a>
+    <a class="link" href="#question">The question</a>
+    <a class="link" href="#shrug">What a shrug says</a>
+    <a class="link" href="#month">This month</a>
+    <a class="link" href="/#prices">Prices</a>
+  </div></details>
+  
 </div></nav>
 
 <header class="hero"><div class="w">
@@ -556,5 +584,11 @@ a.card-link h3{text-decoration:none}
   addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
   upd();
 })();
+</script>
+<script>
+// меню на телефоне закрывается после выбора пункта (иначе висит поверх раздела)
+document.querySelectorAll('details.menu a').forEach(function(a){
+  a.addEventListener('click', function(){ var d = a.closest('details'); if(d) d.removeAttribute('open'); });
+});
 </script>
 </body></html>
