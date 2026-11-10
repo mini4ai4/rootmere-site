@@ -668,6 +668,18 @@ li[data-row]{cursor:pointer}
 li[data-row].on{color:var(--seal)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fig img{filter:brightness(.88) contrast(1.04)}}
 :root[data-theme="dark"] .fig img{filter:brightness(.88) contrast(1.04)}
+
+/* судья v3 r3 (10.11): миниатюры без полосы, оглавление на десктопе, номера строк двора 71 */
+@media(max-width:759px){.rn{overflow:hidden}.rn img{top:0;bottom:auto;height:118%;object-position:left top}}
+@media(min-width:1200px){.toc details[open] summary::before,.toc summary::before{content:none}.toc summary{font-size:11px;white-space:nowrap}}
+body:has(.readtime) .art-hero{padding-bottom:18px}
+body:has(.readtime) .toc{padding-top:8px}
+.rowno{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:8px;border:1.5px solid var(--seal);border-radius:50%;font:600 12px "IBM Plex Mono",monospace;color:var(--seal);vertical-align:2px;background:var(--card)}
+li[data-row]{min-height:44px;list-style:none;margin-left:-16px}
+li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
+.fig .hl .rowno{position:absolute;left:4px;top:50%;margin-top:-11px}
+.fig .hl{opacity:.35}.fig .hl.on{opacity:1}
+@media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 </style>
 </head>
 <body>
@@ -710,12 +722,12 @@ li[data-row].on{color:var(--seal)}
   <div class="honest">
     <h3>A real entry, and what each line does</h3>
     <p style="margin:0 0 10px;color:var(--ink-2)">From a household numbered 71 in an 1811 list, under the heading "the children of Ilya son of Ivan":</p>
-    <figure class="fig fig-rev" id="entry71"><div class="fig-scan"><img src="/img/rev_1811_entry.jpg" width="1400" height="332" alt="Household 71 in an 1811 revision list, handwritten in Cyrillic" loading="lazy"><i class="hl" data-row="1" style="top:31%;height:22%"></i><i class="hl" data-row="2" style="top:52%;height:24%"></i><i class="hl" data-row="3" style="top:77%;height:23%"></i></div>
-    <figcaption>Household 71, 1811. Tap a line below to find it on the page.</figcaption></figure>
+    <figure class="fig fig-rev" id="entry71"><div class="fig-scan"><img src="/img/rev_1811_entry.jpg" width="1400" height="332" alt="Household 71 in an 1811 revision list, handwritten in Cyrillic" loading="lazy"><i class="hl" data-row="1" style="top:31%;height:22%"><span class="rowno">1</span></i><i class="hl" data-row="2" style="top:52%;height:24%"><span class="rowno">2</span></i><i class="hl" data-row="3" style="top:77%;height:23%"><span class="rowno">3</span></i></div>
+    <figcaption>Household 71, 1811. Tap a numbered line to find it on the page.</figcaption></figure>
     <ul style="margin:0 0 10px">
-      <li data-row="1" tabindex="0"><b>Semen</b> — at the last revision 30 — now present 45</li>
-      <li data-row="2" tabindex="0">Semen's son: <b>Tymofiy</b> — newly born — 9</li>
-      <li data-row="3" tabindex="0"><b>Andriy</b> — 37 — <b>died 1800</b></li>
+      <li data-row="1" tabindex="0"><span class="rowno">1</span><b>Semen</b> — at the last revision 30 — now present 45</li>
+      <li data-row="2" tabindex="0"><span class="rowno">2</span>Semen's son: <b>Tymofiy</b> — newly born — 9</li>
+      <li data-row="3" tabindex="0"><span class="rowno">3</span><b>Andriy</b> — 37 — <b>died 1800</b></li>
     </ul>
     <p style="margin:0;color:var(--ink-2)">Three lines, and they contain: two brothers, a grandson, a death date, and the fact that Tymofiy was born after the previous count. Then the next list, fifteen years later, opens its "previous revision" column with 45 for Semen and 9 for Tymofiy — exactly these numbers. The chain is closed without a single leap of faith.</p>
   </div>
@@ -967,8 +979,8 @@ document.querySelectorAll('.wipe').forEach(function(w){
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }
   var t=null, user=false; lis.forEach(function(l){ ['click','mouseenter','focus'].forEach(function(e){ l.addEventListener(e,function(){ user=true; if(t) clearInterval(t); show(l.getAttribute('data-row')); }); }); });
-  if('IntersectionObserver' in window){ var k=0, io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; io.disconnect();
-    if(user) return; t=setInterval(function(){ if(user){ clearInterval(t); return; } k++; if(k>3){ clearInterval(t); show(''); return; } show(String(k)); }, 1100); },{threshold:.8}); io.observe(f); }
+  if('IntersectionObserver' in window){ var k=0, io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; io.disconnect(); setTimeout(function(){
+    if(user) return; t=setInterval(function(){ if(user){ clearInterval(t); return; } k++; if(k>3){ clearInterval(t); show(''); return; } show(String(k)); }, 1100); },600); },{threshold:.6}); io.observe(f); }
 })();
 // судья v3 №8 (10.11): оглавление подсвечивает текущий раздел; прячется, пока виден герой или финал
 (function(){ var t=document.querySelector('.toc'); if(!t||!('IntersectionObserver' in window)) return;

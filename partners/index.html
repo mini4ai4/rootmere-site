@@ -668,6 +668,18 @@ li[data-row]{cursor:pointer}
 li[data-row].on{color:var(--seal)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fig img{filter:brightness(.88) contrast(1.04)}}
 :root[data-theme="dark"] .fig img{filter:brightness(.88) contrast(1.04)}
+
+/* судья v3 r3 (10.11): миниатюры без полосы, оглавление на десктопе, номера строк двора 71 */
+@media(max-width:759px){.rn{overflow:hidden}.rn img{top:0;bottom:auto;height:118%;object-position:left top}}
+@media(min-width:1200px){.toc details[open] summary::before,.toc summary::before{content:none}.toc summary{font-size:11px;white-space:nowrap}}
+body:has(.readtime) .art-hero{padding-bottom:18px}
+body:has(.readtime) .toc{padding-top:8px}
+.rowno{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:8px;border:1.5px solid var(--seal);border-radius:50%;font:600 12px "IBM Plex Mono",monospace;color:var(--seal);vertical-align:2px;background:var(--card)}
+li[data-row]{min-height:44px;list-style:none;margin-left:-16px}
+li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
+.fig .hl .rowno{position:absolute;left:4px;top:50%;margin-top:-11px}
+.fig .hl{opacity:.35}.fig .hl.on{opacity:1}
+@media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 </style>
 </head>
 <body>
@@ -949,8 +961,8 @@ document.querySelectorAll('.wipe').forEach(function(w){
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }
   var t=null, user=false; lis.forEach(function(l){ ['click','mouseenter','focus'].forEach(function(e){ l.addEventListener(e,function(){ user=true; if(t) clearInterval(t); show(l.getAttribute('data-row')); }); }); });
-  if('IntersectionObserver' in window){ var k=0, io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; io.disconnect();
-    if(user) return; t=setInterval(function(){ if(user){ clearInterval(t); return; } k++; if(k>3){ clearInterval(t); show(''); return; } show(String(k)); }, 1100); },{threshold:.8}); io.observe(f); }
+  if('IntersectionObserver' in window){ var k=0, io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; io.disconnect(); setTimeout(function(){
+    if(user) return; t=setInterval(function(){ if(user){ clearInterval(t); return; } k++; if(k>3){ clearInterval(t); show(''); return; } show(String(k)); }, 1100); },600); },{threshold:.6}); io.observe(f); }
 })();
 // судья v3 №8 (10.11): оглавление подсвечивает текущий раздел; прячется, пока виден герой или финал
 (function(){ var t=document.querySelector('.toc'); if(!t||!('IntersectionObserver' in window)) return;
