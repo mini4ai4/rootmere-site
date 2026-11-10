@@ -569,6 +569,25 @@ a.card-link h3{text-decoration:none}
 .page-hero .pg{transform:translateY(var(--ty,0px)) scale(var(--fit,1))}
 .box-read b{color:#1b1d1c}
 @media(max-width:899px){.page-hero .wipe-ctl{padding:6px 0}}
+
+/* статьи 10.11 (судья v1 §7): оглавление, «читать дальше» карточками, строка под 55+ */
+.toc{padding:26px 0 0}
+.toc-h{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+.toc ol{margin:0;padding:14px 0 14px 22px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.toc li{margin:6px 0;font-size:17px;line-height:1.4}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{border-color:var(--seal)}
+.readnext{margin:44px auto 0;max-width:1000px;text-align:left}
+.readnext .toc-h{text-align:center}
+.rn-grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:700px){.rn-grid{grid-template-columns:repeat(auto-fit,minmax(220px,316px));justify-content:center}}
+.rn{display:block;background:var(--card);border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.rn img{display:block;width:100%;height:auto;aspect-ratio:1200/538;object-fit:cover;object-position:top;border-bottom:1px solid var(--rule)}
+.rn span{display:block;padding:14px 16px 16px;font:500 18px/1.3 Fraunces,Georgia,serif}
+.rn:hover span{color:var(--seal)}
+.rn-more{text-align:center;font-size:16px!important;margin:18px auto 0!important}
+body:has(.readtime) section .narrow p,body:has(.readtime) section .narrow li{font-size:18px}
+body:has(.readtime) .narrow{max-width:min(700px,68ch)}
 </style>
 </head>
 <body><nav><div class="w">
@@ -578,19 +597,14 @@ a.card-link h3{text-decoration:none}
   </div>
   <div class="navlinks">
     <a class="link" href="/">Home</a>
-    <a class="link" href="/article-why/">Why it matters</a>
-    <a class="link" href="#index">What the family keeps</a>
-    <a class="link" href="#goes">What goes</a>
-    <a class="link" href="#wait">Why we wait</a>
-    <a class="link" href="#month">This month</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
+    <a class="link" href="/#prices">Prices</a>
   </div>
   <a class="navpill" href="/#prices">Prices</a><details class="menu"><summary>Menu</summary><div class="menulist">
     <a class="link" href="/">Home</a>
-    <a class="link" href="/article-why/">Why it matters</a>
-    <a class="link" href="#index">What the family keeps</a>
-    <a class="link" href="#goes">What goes</a>
-    <a class="link" href="#wait">Why we wait</a>
-    <a class="link" href="#month">This month</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
     <a class="link" href="/#prices">Prices</a>
   </div></details>
   
@@ -603,6 +617,7 @@ a.card-link h3{text-decoration:none}
   <p class="readtime">4 min read</p>
 </div></header>
 <figure class="art-cover"><div class="w narrow"><img src="/img/og_funeral.jpg" width="1200" height="630" alt="What leaves with one funeral, kept on paper — Rootmere"></div></figure>
+<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><p class="toc-h">In this article</p><ol><li><a href="#index">Archives keep the facts. Families keep the index.</a></li><li><a href="#goes">Not the dates. Everything around them.</a></li><li><a href="#wait">It feels morbid, and it feels like there is time</a></li><li><a href="#month">One conversation, recorded</a></li></ol></div></div>
 
 <section id="index"><div class="w narrow">
   <p class="eyebrow">The part nobody writes down</p>
@@ -669,7 +684,7 @@ a.card-link h3{text-decoration:none}
   <p>If you come away with a village name, a surname and a church, you already have what most families never manage to put together. Send us those three things and we will tell you, free, what survives for that parish and where it sits today.</p>
   <a class="cta sm" href="mailto:hello@rootmere.com?subject=I%20have%20a%20village%20name">Write to us</a>
   <p class="cta-note" style="margin-top:12px;font-size:.92em;color:var(--ink-2)">The first answer is free. If the books look promising, the next step is archival scouting: $190, 5–7 days, credited against the project. <a href="/#how">How it works</a></p>
-  <p style="margin-top:20px"><a href="/article-legacy/">← What your great-grandchildren will find</a> · <a href="/article-gift/">A gift that was theirs before they were born</a> · <a href="/#how">How a search works, and what it costs</a></p>
+  <div class="readnext"><p class="toc-h">Keep reading</p><div class="rn-grid"><a class="rn" href="/article-legacy/"><img src="/img/og_legacy.jpg" width="1200" height="630" alt="" loading="lazy"><span>What your great-grandchildren will find</span></a><a class="rn" href="/article-gift/"><img src="/img/og_gift.jpg" width="1200" height="630" alt="" loading="lazy"><span>A gift that was theirs before they were born</span></a></div><p class="rn-more"><a href="/#how">How a search works, and what it costs</a></p></div>
 </div></section>
 
 <footer><div class="w row">

@@ -11,12 +11,12 @@
 <meta property="og:description" content="A plain four-step guide to finding Polish and Central European records: find the exact village (usually named in American documents), work out which partition ruled it — Russian, Austrian Galicia or Prussian — and what language the records are in, open the right free database (Geneteka, Szukaj w Archiwach, FamilySearch), and read the handwriting, the step where most searches stop.">
 <meta property="og:url" content="https://rootmere.com/article-records/">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:image" content="https://rootmere.com/img/og_default.jpg">
+<meta property="og:image" content="https://rootmere.com/img/og_records.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Rootmere — reading the handwritten archives of Central and Eastern Europe">
-<meta name="twitter:image" content="https://rootmere.com/img/og_default.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How to Find Your Polish Ancestors' Records", "description": "A plain four-step guide to finding Polish and Central European records: find the exact village (usually named in American documents), work out which partition ruled it — Russian, Austrian Galicia or Prussian — and what language the records are in, open the right free database (Geneteka, Szukaj w Archiwach, FamilySearch), and read the handwriting, the step where most searches stop.", "inLanguage": "en", "url": "https://rootmere.com/article-records/", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://rootmere.com/article-records/"}, "image": "https://rootmere.com/img/og_default.jpg", "datePublished": "2026-10-25", "dateModified": "2026-10-25", "author": {"@type": "Organization", "name": "Rootmere", "url": "https://rootmere.com/"}, "publisher": {"@type": "Organization", "name": "Rootmere", "logo": {"@type": "ImageObject", "url": "https://rootmere.com/img/og_default.jpg"}}, "isPartOf": {"@type": "WebSite", "name": "Rootmere", "url": "https://rootmere.com/"}}</script>
+<meta property="og:image:alt" content="A Cyrillic marriage record from Russian Poland — Rootmere">
+<meta name="twitter:image" content="https://rootmere.com/img/og_records.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How to Find Your Polish Ancestors' Records", "description": "A plain four-step guide to finding Polish and Central European records: find the exact village (usually named in American documents), work out which partition ruled it — Russian, Austrian Galicia or Prussian — and what language the records are in, open the right free database (Geneteka, Szukaj w Archiwach, FamilySearch), and read the handwriting, the step where most searches stop.", "inLanguage": "en", "url": "https://rootmere.com/article-records/", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://rootmere.com/article-records/"}, "image": "https://rootmere.com/img/og_records.jpg", "datePublished": "2026-10-25", "dateModified": "2026-10-25", "author": {"@type": "Organization", "name": "Rootmere", "url": "https://rootmere.com/"}, "publisher": {"@type": "Organization", "name": "Rootmere", "logo": {"@type": "ImageObject", "url": "https://rootmere.com/img/og_default.jpg"}}, "isPartOf": {"@type": "WebSite", "name": "Rootmere", "url": "https://rootmere.com/"}}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService",
  "name":"Rootmere","url":"https://rootmere.com/",
@@ -569,6 +569,25 @@ a.card-link h3{text-decoration:none}
 .page-hero .pg{transform:translateY(var(--ty,0px)) scale(var(--fit,1))}
 .box-read b{color:#1b1d1c}
 @media(max-width:899px){.page-hero .wipe-ctl{padding:6px 0}}
+
+/* статьи 10.11 (судья v1 §7): оглавление, «читать дальше» карточками, строка под 55+ */
+.toc{padding:26px 0 0}
+.toc-h{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+.toc ol{margin:0;padding:14px 0 14px 22px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.toc li{margin:6px 0;font-size:17px;line-height:1.4}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{border-color:var(--seal)}
+.readnext{margin:44px auto 0;max-width:1000px;text-align:left}
+.readnext .toc-h{text-align:center}
+.rn-grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:700px){.rn-grid{grid-template-columns:repeat(auto-fit,minmax(220px,316px));justify-content:center}}
+.rn{display:block;background:var(--card);border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.rn img{display:block;width:100%;height:auto;aspect-ratio:1200/538;object-fit:cover;object-position:top;border-bottom:1px solid var(--rule)}
+.rn span{display:block;padding:14px 16px 16px;font:500 18px/1.3 Fraunces,Georgia,serif}
+.rn:hover span{color:var(--seal)}
+.rn-more{text-align:center;font-size:16px!important;margin:18px auto 0!important}
+body:has(.readtime) section .narrow p,body:has(.readtime) section .narrow li{font-size:18px}
+body:has(.readtime) .narrow{max-width:min(700px,68ch)}
 </style>
 </head>
 <body><nav><div class="w">
@@ -578,17 +597,14 @@ a.card-link h3{text-decoration:none}
   </div>
   <div class="navlinks">
     <a class="link" href="/">Home</a>
-    <a class="link" href="/article-why/">Why it matters</a>
-    <a class="link" href="#village">Find the village</a>
-    <a class="link" href="#partition">Which empire</a>
-    <a class="link" href="#online">The free sites</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
+    <a class="link" href="/#prices">Prices</a>
   </div>
   <a class="navpill" href="/#prices">Prices</a><details class="menu"><summary>Menu</summary><div class="menulist">
     <a class="link" href="/">Home</a>
-    <a class="link" href="/article-why/">Why it matters</a>
-    <a class="link" href="#village">Find the village</a>
-    <a class="link" href="#partition">Which empire</a>
-    <a class="link" href="#online">The free sites</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
     <a class="link" href="/#prices">Prices</a>
   </div></details>
   
@@ -600,6 +616,8 @@ a.card-link h3{text-decoration:none}
   <p class="lede">There's a clear path through this, and most of it you can walk yourself. It runs in four moves: find the exact village, work out which empire ruled it, open the right free database, and then read what you find. The first three are a matter of knowing where to look. The fourth is where almost everyone gets stuck — and it's worth being honest about why.</p>
   <p class="readtime">4 min read</p>
 </div></header>
+<figure class="art-cover"><div class="w narrow"><img src="/img/og_records.jpg" width="1200" height="630" alt="A Cyrillic marriage record from Russian Poland — Rootmere"></div></figure>
+<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><p class="toc-h">In this article</p><ol><li><a href="#village">Find the one village — and look for it at home first</a></li><li><a href="#partition">Work out which empire ruled that village</a></li><li><a href="#online">Open the right free database</a></li><li><a href="#reading">And then you have to read them</a></li></ol></div></div>
 
 <section id="village"><div class="w narrow">
   <p class="eyebrow">Step one</p>

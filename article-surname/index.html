@@ -569,6 +569,25 @@ a.card-link h3{text-decoration:none}
 .page-hero .pg{transform:translateY(var(--ty,0px)) scale(var(--fit,1))}
 .box-read b{color:#1b1d1c}
 @media(max-width:899px){.page-hero .wipe-ctl{padding:6px 0}}
+
+/* статьи 10.11 (судья v1 §7): оглавление, «читать дальше» карточками, строка под 55+ */
+.toc{padding:26px 0 0}
+.toc-h{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+.toc ol{margin:0;padding:14px 0 14px 22px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.toc li{margin:6px 0;font-size:17px;line-height:1.4}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{border-color:var(--seal)}
+.readnext{margin:44px auto 0;max-width:1000px;text-align:left}
+.readnext .toc-h{text-align:center}
+.rn-grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:700px){.rn-grid{grid-template-columns:repeat(auto-fit,minmax(220px,316px));justify-content:center}}
+.rn{display:block;background:var(--card);border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.rn img{display:block;width:100%;height:auto;aspect-ratio:1200/538;object-fit:cover;object-position:top;border-bottom:1px solid var(--rule)}
+.rn span{display:block;padding:14px 16px 16px;font:500 18px/1.3 Fraunces,Georgia,serif}
+.rn:hover span{color:var(--seal)}
+.rn-more{text-align:center;font-size:16px!important;margin:18px auto 0!important}
+body:has(.readtime) section .narrow p,body:has(.readtime) section .narrow li{font-size:18px}
+body:has(.readtime) .narrow{max-width:min(700px,68ch)}
 </style>
 </head>
 <body><nav><div class="w">
@@ -578,17 +597,14 @@ a.card-link h3{text-decoration:none}
   </div>
   <div class="navlinks">
     <a class="link" href="/">Home</a>
-    <a class="link" href="/article-why/">Why it matters</a>
-    <a class="link" href="#meaning">The meaning trap</a>
-    <a class="link" href="#cant">What a name can't hold</a>
-    <a class="link" href="#record">Where the family is</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
+    <a class="link" href="/#prices">Prices</a>
   </div>
   <a class="navpill" href="/#prices">Prices</a><details class="menu"><summary>Menu</summary><div class="menulist">
     <a class="link" href="/">Home</a>
-    <a class="link" href="/article-why/">Why it matters</a>
-    <a class="link" href="#meaning">The meaning trap</a>
-    <a class="link" href="#cant">What a name can't hold</a>
-    <a class="link" href="#record">Where the family is</a>
+    <a class="link" href="/articles/">Articles</a>
+    <a class="link" href="/faq/">Questions</a>
     <a class="link" href="/#prices">Prices</a>
   </div></details>
   
@@ -601,6 +617,7 @@ a.card-link h3{text-decoration:none}
   <p class="readtime">5 min read</p>
 </div></header>
 <figure class="art-cover"><div class="w narrow"><img src="/img/og_surname.jpg" width="1200" height="630" alt="A surname written out by hand in an old record — Rootmere"></div></figure>
+<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><p class="toc-h">In this article</p><ol><li><a href="#meaning">A surname is a label, and it was pinned on late</a></li><li><a href="#cant">What a name can't hold</a></li><li><a href="#record">The record holds the family; the name is just the key to it</a></li></ol></div></div>
 
 <section id="meaning"><div class="w narrow">
   <p class="eyebrow">Why the meaning is a dead end</p>
@@ -642,7 +659,7 @@ a.card-link h3{text-decoration:none}
   <p>If you have a surname and even a half-remembered town, that is enough to begin. Send us what you have and we'll tell you, free, what survives for that place and where it sits today — no charge and no obligation. Not what your name means. Who your people actually were.</p>
   <a class="cta sm" href="mailto:hello@rootmere.com?subject=I%20have%20a%20surname%20and%20a%20town">Write to us</a>
   <p class="cta-note" style="margin-top:12px;font-size:.92em;color:var(--ink-2)">The first answer is free. If the books look promising, the next step is archival scouting: $190, 5–7 days, credited against the project. <a href="/#how">How it works</a></p>
-  <p style="margin-top:20px"><a href="/article-spelling/">← The name written twelve ways</a> · <a href="/article-village/">Poland is not where the records are</a> · <a href="/article-records/">How to find the records</a> · <a href="/#how">How a search works, and what it costs</a></p>
+  <div class="readnext"><p class="toc-h">Keep reading</p><div class="rn-grid"><a class="rn" href="/article-spelling/"><img src="/img/og_spelling.jpg" width="1200" height="630" alt="" loading="lazy"><span>The name written twelve ways</span></a><a class="rn" href="/article-village/"><img src="/img/og_village.jpg" width="1200" height="630" alt="" loading="lazy"><span>Poland is not where the records are</span></a><a class="rn" href="/article-records/"><img src="/img/og_records.jpg" width="1200" height="630" alt="" loading="lazy"><span>How to find the records</span></a></div><p class="rn-more"><a href="/#how">How a search works, and what it costs</a></p></div>
 </div></section>
 <script>
 // Лупа: на компьютере рукопись под курсором сменяется расшифровкой.
