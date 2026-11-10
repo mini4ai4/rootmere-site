@@ -580,14 +580,58 @@ a.card-link h3{text-decoration:none}
 .readnext{margin:44px auto 0;max-width:1000px;text-align:left}
 .readnext .toc-h{text-align:center}
 .rn-grid{display:grid;gap:16px;grid-template-columns:1fr}
-@media(min-width:700px){.rn-grid{grid-template-columns:repeat(auto-fit,minmax(220px,316px));justify-content:center}}
+
 .rn{display:block;background:var(--card);border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
 .rn img{display:block;width:100%;height:auto;aspect-ratio:1200/538;object-fit:cover;object-position:top;border-bottom:1px solid var(--rule)}
 .rn span{display:block;padding:14px 16px 16px;font:500 18px/1.3 Fraunces,Georgia,serif}
 .rn:hover span{color:var(--seal)}
 .rn-more{text-align:center;font-size:16px!important;margin:18px auto 0!important}
-body:has(.readtime) section .narrow p,body:has(.readtime) section .narrow li{font-size:18px}
+body:has(.readtime) section .narrow p:not(.eyebrow),body:has(.readtime) section .narrow li{font-size:18px}
 body:has(.readtime) .narrow{max-width:min(700px,68ch)}
+
+/* судья v3 статьи (10.11): обложка на первом экране, специфичность, read-next, ритм, CTA, липкое оглавление, тёмная тема */
+.art-hero{padding:30px 0 34px}
+.art-hero h1{font-size:clamp(32px,4.6vw,50px);line-height:1.08}
+.kicker .readtime{margin:0;font:inherit;letter-spacing:inherit;color:inherit;white-space:nowrap}
+.art-hero .art-cover{margin:24px 0 22px;padding:0}
+.art-cover img{width:100%;height:auto;aspect-ratio:1200/538;object-fit:cover;object-position:top;display:block;border:1px solid var(--rule)}
+.art-cover figcaption{font:400 13px/1.45 "IBM Plex Mono",monospace;color:var(--soft);margin-top:8px}
+@media(max-width:700px){
+  .art-hero .art-cover{margin:20px -24px 20px}
+  .art-cover img{border-left:0;border-right:0}
+  .art-cover figcaption{padding:0 24px}
+  .art-hero .lede{font-size:18px}
+}
+.readnext .toc-h{font-size:12px!important;max-width:none;margin:0 0 14px;color:var(--soft);letter-spacing:.1em}
+.honest h3{line-height:1.25}
+@media(min-width:760px){.rn-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.rn img{object-position:center 30%}}
+@media(max-width:759px){
+  .rn{display:grid;grid-template-columns:112px 1fr;align-items:stretch}
+  .rn img{aspect-ratio:auto;height:100%;min-height:96px;object-position:center;border-bottom:0;border-right:1px solid var(--rule)}
+  .rn span{font-size:17px;padding:12px 14px;align-self:center}
+}
+@media(max-width:700px){
+  body:has(.readtime) .kicker,body:has(.readtime) .eyebrow,
+  body:has(.readtime) section:not(.final) h2{text-align:left}
+  body:has(.readtime) .honest{padding:20px 18px}
+  body:has(.readtime) .honest ul{padding-left:16px}
+}
+body:has(.readtime) section:not(.final){padding:46px 0;border-bottom:0}
+body:has(.readtime) section:not(.final)+section:not(.final)::before{content:"";display:block;width:48px;height:1px;background:var(--rule);margin:0 auto 46px}
+body:has(.readtime) .midcta{margin:6px 0 0}
+body:has(.readtime) section[id]{scroll-margin-top:96px}
+body:has(.readtime) .final .cta.sm{padding:14px 28px;font-size:16px;min-height:48px}
+body:has(.readtime) .final .copyaddr{margin-top:10px}
+@media(min-width:1200px){
+  body:has(.readtime) .toc{position:fixed;top:120px;left:calc(50% + 380px);width:220px;padding:0;z-index:5;transition:opacity .3s}
+  body:has(.readtime) .toc .w{padding:0;max-width:none}
+  body:has(.readtime) .toc ol{border:0;padding:0 0 0 18px}
+  body:has(.readtime) .toc li{font-size:14px;margin:8px 0}
+  body:has(.readtime) .toc.off{opacity:0;pointer-events:none}
+  .toc a.on{color:var(--seal);border-color:var(--seal)}
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) :is(.rn img,.art-cover img){filter:brightness(.85) contrast(1.04)}}
+:root[data-theme="dark"] :is(.art-cover img,.rn img){filter:brightness(.88) contrast(1.04)}
 </style>
 </head>
 <body>
@@ -859,6 +903,19 @@ document.querySelectorAll('.wipe').forEach(function(w){
   setTimeout(ctlw,1400); addEventListener('resize',ctlw);
   go();
   addEventListener('orientationchange',function(){ setTimeout(function(){ var E=endScale(); pg.style.setProperty('--fit',E.s); pg.style.setProperty('--ty',E.ty+'px'); },300); });
+})();
+</script>
+<script>
+// судья v3 №8 (10.11): оглавление подсвечивает текущий раздел; прячется, пока виден герой или финал
+(function(){ var t=document.querySelector('.toc'); if(!t||!('IntersectionObserver' in window)) return;
+  var links={}; t.querySelectorAll('a').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return;
+    Object.keys(links).forEach(function(k){ links[k].classList.remove('on'); });
+    if(links[e.target.id]) links[e.target.id].classList.add('on'); }); },{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[id]').forEach(function(s){ if(links[s.id]) io.observe(s); });
+  var vis={}, edge=new IntersectionObserver(function(es){ es.forEach(function(e){ vis[e.target.className]=e.isIntersecting; });
+    t.classList.toggle('off', Object.keys(vis).some(function(k){ return vis[k]; })); });
+  ['.hero','.final'].forEach(function(q){ var el=document.querySelector(q); if(el) edge.observe(el); });
 })();
 </script>
 </body></html>
