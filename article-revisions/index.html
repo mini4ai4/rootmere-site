@@ -632,6 +632,42 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) :is(.rn img,.art-cover img){filter:brightness(.85) contrast(1.04)}}
 :root[data-theme="dark"] :is(.art-cover img,.rn img){filter:brightness(.88) contrast(1.04)}
+
+/* судья v3 r2 (10.11): миниатюры без плашки, время чтения, ритм, свёрнутое оглавление, фигуры */
+@media(min-width:760px){.rn img{object-position:top}}
+@media(max-width:759px){
+  .rn{display:block;position:relative;padding-left:112px;min-height:100px}
+  .rn img{position:absolute;left:0;top:0;bottom:0;width:112px;height:100%;aspect-ratio:auto;object-fit:cover;object-position:left top;border-bottom:0;border-right:1px solid var(--rule)}
+  .rn span{font-size:17px;padding:14px 16px}
+}
+.kicker .readtime::before{content:"\00B7\00A0";margin-left:.4em}
+@media(max-width:700px){.kicker .readtime{display:block;margin-top:6px}.kicker .readtime::before{content:none}}
+body:has(.readtime) section:not(.final){padding:34px 0}
+body:has(.readtime) section:not(.final)+section:not(.final)::before{margin:0 auto 34px}
+body:has(.readtime) .art-hero{border-bottom:0}
+body:has(.readtime) .final{padding:56px 0 64px}
+body:has(.readtime) .midcta{margin:6px 0 24px}
+.toc details{border:0;padding:0}
+.toc summary{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);min-height:44px;display:flex;align-items:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);cursor:pointer;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary::before{content:"+";margin-right:10px;color:var(--seal)}
+.toc details[open] summary::before{content:"\2013"}
+.toc details[open] ol{border-top:0}
+@media(min-width:1200px){.toc summary{pointer-events:none;border:0;min-height:0}.toc summary::before{content:none}}
+.fig{margin:26px 0}
+.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);aspect-ratio:auto}
+.fig img[src*="og_"]{aspect-ratio:1200/538;object-fit:cover;object-position:top}
+.fig figcaption{font:400 13px/1.5 "IBM Plex Mono",monospace;color:var(--soft);margin-top:8px}
+@media(max-width:700px){.fig{margin:22px -24px}.fig img{border-left:0;border-right:0}.fig figcaption{padding:0 24px}}
+.honest .fig-rev{margin:14px 0 14px}
+@media(max-width:700px){.honest .fig-rev{margin:14px -18px}}
+.fig-scan{position:relative}
+.fig .hl{position:absolute;left:0;right:0;outline:2px solid var(--seal);background:rgba(140,47,35,.08);opacity:0;transition:opacity .3s;pointer-events:none}
+.fig .hl.on{opacity:1}
+li[data-row]{cursor:pointer}
+li[data-row].on{color:var(--seal)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fig img{filter:brightness(.88) contrast(1.04)}}
+:root[data-theme="dark"] .fig img{filter:brightness(.88) contrast(1.04)}
 </style>
 </head>
 <body>
@@ -656,12 +692,12 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
 </div></nav>
 
 <header class="hero art-hero"><div class="w narrow">
-  <p class="kicker">Working note · from our own desk <span class="readtime">· 4 min read</span></p>
+  <p class="kicker">Working note · from our own desk<span class="readtime">4 min read</span></p>
   <h1>The document that gives you a generation for free.<br><em>How to read a revision list, column by column.</em></h1>
   <figure class="art-cover"><img src="/img/og_revisions.jpg" width="1200" height="538" alt="An 1811 revision list listing every male in each household — Rootmere" fetchpriority="high"><figcaption>An 1811 revision list listing every male in each household</figcaption></figure>
   <p class="lede">When a parish register is lost, most people stop. They shouldn't. Tax censuses of households — revision lists — survive in state archives when church books have burned, and they are built in a way that hands you two things a parish register never will: a death date for a man whose burial entry is gone, and, if you read the column headings carefully, the name of a father who was already dead before the record was written. This is how we read them.</p>
 </div></header>
-<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><p class="toc-h">In this article</p><ol><li><a href="#how">Two columns, and everything hangs on the difference between them</a></li><li><a href="#proof">What makes it the same family, and what only makes it a coincidence</a></li><li><a href="#patronymic">The generation you get without a birth record</a></li></ol></div></div>
+<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><details open><summary>In this article · 3 parts</summary><ol><li><a href="#how">Two columns, and everything hangs on the difference between them</a></li><li><a href="#proof">What makes it the same family, and what only makes it a coincidence</a></li><li><a href="#patronymic">The generation you get without a birth record</a></li></ol></details></div></div>
 
 <section id="how"><div class="w narrow">
   <p class="eyebrow">The structure</p>
@@ -674,10 +710,12 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
   <div class="honest">
     <h3>A real entry, and what each line does</h3>
     <p style="margin:0 0 10px;color:var(--ink-2)">From a household numbered 71 in an 1811 list, under the heading "the children of Ilya son of Ivan":</p>
+    <figure class="fig fig-rev" id="entry71"><div class="fig-scan"><img src="/img/rev_1811_entry.jpg" width="1400" height="332" alt="Household 71 in an 1811 revision list, handwritten in Cyrillic" loading="lazy"><i class="hl" data-row="1" style="top:31%;height:22%"></i><i class="hl" data-row="2" style="top:52%;height:24%"></i><i class="hl" data-row="3" style="top:77%;height:23%"></i></div>
+    <figcaption>Household 71, 1811. Tap a line below to find it on the page.</figcaption></figure>
     <ul style="margin:0 0 10px">
-      <li><b>Semen</b> — at the last revision 30 — now present 45</li>
-      <li>Semen's son: <b>Tymofiy</b> — newly born — 9</li>
-      <li><b>Andriy</b> — 37 — <b>died 1800</b></li>
+      <li data-row="1" tabindex="0"><b>Semen</b> — at the last revision 30 — now present 45</li>
+      <li data-row="2" tabindex="0">Semen's son: <b>Tymofiy</b> — newly born — 9</li>
+      <li data-row="3" tabindex="0"><b>Andriy</b> — 37 — <b>died 1800</b></li>
     </ul>
     <p style="margin:0;color:var(--ink-2)">Three lines, and they contain: two brothers, a grandson, a death date, and the fact that Tymofiy was born after the previous count. Then the next list, fifteen years later, opens its "previous revision" column with 45 for Semen and 9 for Tymofiy — exactly these numbers. The chain is closed without a single leap of faith.</p>
   </div>
@@ -922,6 +960,16 @@ document.querySelectorAll('.wipe').forEach(function(w){
 })();
 </script>
 <script>
+// судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
+(function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
+(function(){ var f=document.getElementById('entry71'); if(!f) return;
+  var lis=document.querySelectorAll('li[data-row]');
+  function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
+    lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }
+  var t=null, user=false; lis.forEach(function(l){ ['click','mouseenter','focus'].forEach(function(e){ l.addEventListener(e,function(){ user=true; if(t) clearInterval(t); show(l.getAttribute('data-row')); }); }); });
+  if('IntersectionObserver' in window){ var k=0, io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; io.disconnect();
+    if(user) return; t=setInterval(function(){ if(user){ clearInterval(t); return; } k++; if(k>3){ clearInterval(t); show(''); return; } show(String(k)); }, 1100); },{threshold:.8}); io.observe(f); }
+})();
 // судья v3 №8 (10.11): оглавление подсвечивает текущий раздел; прячется, пока виден герой или финал
 (function(){ var t=document.querySelector('.toc'); if(!t||!('IntersectionObserver' in window)) return;
   var links={}; t.querySelectorAll('a').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });

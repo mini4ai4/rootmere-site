@@ -632,6 +632,42 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) :is(.rn img,.art-cover img){filter:brightness(.85) contrast(1.04)}}
 :root[data-theme="dark"] :is(.art-cover img,.rn img){filter:brightness(.88) contrast(1.04)}
+
+/* судья v3 r2 (10.11): миниатюры без плашки, время чтения, ритм, свёрнутое оглавление, фигуры */
+@media(min-width:760px){.rn img{object-position:top}}
+@media(max-width:759px){
+  .rn{display:block;position:relative;padding-left:112px;min-height:100px}
+  .rn img{position:absolute;left:0;top:0;bottom:0;width:112px;height:100%;aspect-ratio:auto;object-fit:cover;object-position:left top;border-bottom:0;border-right:1px solid var(--rule)}
+  .rn span{font-size:17px;padding:14px 16px}
+}
+.kicker .readtime::before{content:"\00B7\00A0";margin-left:.4em}
+@media(max-width:700px){.kicker .readtime{display:block;margin-top:6px}.kicker .readtime::before{content:none}}
+body:has(.readtime) section:not(.final){padding:34px 0}
+body:has(.readtime) section:not(.final)+section:not(.final)::before{margin:0 auto 34px}
+body:has(.readtime) .art-hero{border-bottom:0}
+body:has(.readtime) .final{padding:56px 0 64px}
+body:has(.readtime) .midcta{margin:6px 0 24px}
+.toc details{border:0;padding:0}
+.toc summary{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);min-height:44px;display:flex;align-items:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);cursor:pointer;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary::before{content:"+";margin-right:10px;color:var(--seal)}
+.toc details[open] summary::before{content:"\2013"}
+.toc details[open] ol{border-top:0}
+@media(min-width:1200px){.toc summary{pointer-events:none;border:0;min-height:0}.toc summary::before{content:none}}
+.fig{margin:26px 0}
+.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);aspect-ratio:auto}
+.fig img[src*="og_"]{aspect-ratio:1200/538;object-fit:cover;object-position:top}
+.fig figcaption{font:400 13px/1.5 "IBM Plex Mono",monospace;color:var(--soft);margin-top:8px}
+@media(max-width:700px){.fig{margin:22px -24px}.fig img{border-left:0;border-right:0}.fig figcaption{padding:0 24px}}
+.honest .fig-rev{margin:14px 0 14px}
+@media(max-width:700px){.honest .fig-rev{margin:14px -18px}}
+.fig-scan{position:relative}
+.fig .hl{position:absolute;left:0;right:0;outline:2px solid var(--seal);background:rgba(140,47,35,.08);opacity:0;transition:opacity .3s;pointer-events:none}
+.fig .hl.on{opacity:1}
+li[data-row]{cursor:pointer}
+li[data-row].on{color:var(--seal)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fig img{filter:brightness(.88) contrast(1.04)}}
+:root[data-theme="dark"] .fig img{filter:brightness(.88) contrast(1.04)}
 </style>
 </head>
 <body><nav><div class="w">
@@ -655,12 +691,12 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
 </div></nav>
 
 <header class="hero art-hero"><div class="w narrow">
-  <p class="kicker">When the family says "she never talked about the old country" <span class="readtime">· 4 min read</span></p>
+  <p class="kicker">When the family says "she never talked about the old country"<span class="readtime">4 min read</span></p>
   <h1>Grandma never talked about where she came from.<br><em>That isn't the same as there being nothing to tell.</em></h1>
   <figure class="art-cover"><img src="/img/og_silence.jpg" width="1200" height="538" alt="Slavic women and a child at Ellis Island, 1905, photographed by Lewis Hine — Rootmere" fetchpriority="high"><figcaption>Slavic women and a child at Ellis Island, 1905, photographed by Lewis Hine</figcaption></figure>
   <p class="lede">A lot of people start looking with almost nothing. No village, no stories, a couple of photos and one sentence that ends every conversation: "She didn't like to talk about it." It's easy to hear that as a closed door. Most of the time it's something else. The person who stayed quiet usually had reasons, and the reasons didn't follow her into the parish books, where the family is written down as plainly as anyone else.</p>
 </div></header>
-<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><p class="toc-h">In this article</p><ol><li><a href="#quiet">The quiet generation and the curious one</a></li><li><a href="#why">Usually it wasn't a secret. It just hurt, or it didn't seem to matter.</a></li><li><a href="#books">The American papers usually say more than Grandma did</a></li></ol></div></div>
+<div class="toc" role="navigation" aria-label="In this article"><div class="w narrow"><details open><summary>In this article · 3 parts</summary><ol><li><a href="#quiet">The quiet generation and the curious one</a></li><li><a href="#why">Usually it wasn't a secret. It just hurt, or it didn't seem to matter.</a></li><li><a href="#books">The American papers usually say more than Grandma did</a></li></ol></details></div></div>
 
 <section id="quiet"><div class="w narrow">
   <p class="eyebrow">You're not the only one</p>
@@ -688,6 +724,7 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
   <h2>The American papers usually say more than Grandma did</h2>
 
   <p>Even someone who never mentioned the old country had to give answers to clerks. The passenger list asked where she was coming from. A naturalization after 1906 usually asked where she was born. Marriage records, a church wedding in Cleveland or Scranton, sometimes name the parents and the home parish. Put two or three of those side by side and the village often falls out, even when no one in the family ever said its name. We wrote about that in <a href="/article-village/">finding the village</a>, and about the <a href="/article-spelling/">spelling</a> problem that tends to come next.</p>
+  <figure class="fig"><img src="/img/og_ellis.jpg" width="1200" height="538" alt="A 1906 passenger manifest. Column 10, last permanent residence, names the town each passenger left." loading="lazy"><figcaption>A 1906 passenger manifest. Column 10, last permanent residence, names the town each passenger left.</figcaption></figure>
 
   <p>And if you still have someone in the middle generation, an aunt, a much older cousin, it's worth asking small questions instead of big ones. Not "where did we come from" but "what did she cook at Christmas" or "who sent letters". People who'd shrug at the big question often remember the small one.</p>
 
@@ -702,7 +739,7 @@ body:has(.readtime) .final .copyaddr{margin-top:10px}
   <p>Send us her name, roughly when she came, and anything at all: a city she lived in, a church, a surname from her side. We'll tell you which American records are most likely to name her village and what we'd look at first. That first answer costs nothing.</p>
   <a class="cta sm" href="mailto:hello@rootmere.com?subject=She%20never%20talked%20about%20the%20old%20country">Write to us</a><br><button type="button" class="copyaddr" data-addr="hello@rootmere.com">or copy hello@rootmere.com</button>
   <p class="cta-note" style="margin-top:12px;font-size:.92em;color:var(--ink-2)">The first answer is free. If the books look promising, the next step is archival scouting: $190, 5–7 days, credited against the project. <a href="/#how">How it works</a></p>
-  <div class="readnext"><p class="toc-h">Keep reading</p><div class="rn-grid"><a class="rn" href="/article-village/"><img src="/img/og_village.jpg" width="1200" height="630" alt="" loading="lazy"><span>Which village did they come from?</span></a><a class="rn" href="/article-faces/"><img src="/img/og_faces.jpg" width="1200" height="630" alt="" loading="lazy"><span>The faces with no names</span></a><a class="rn" href="/article-migration/"><img src="/img/og_migration.jpg" width="1200" height="630" alt="" loading="lazy"><span>They didn't leave because they wanted to</span></a></div><p class="rn-more"><a href="/article-burned/">"But surely it all burned"</a> · <a href="/#how">How a search works, and what it costs</a></p></div>
+  <div class="readnext"><p class="toc-h">Keep reading</p><div class="rn-grid"><a class="rn" href="/article-migration/"><img src="/img/og_migration.jpg" width="1200" height="630" alt="" loading="lazy"><span>They didn't leave because they wanted to</span></a><a class="rn" href="/article-ellis/"><img src="/img/og_ellis.jpg" width="1200" height="630" alt="" loading="lazy"><span>Nobody changed your name at Ellis Island</span></a><a class="rn" href="/article-gap/"><img src="/img/og_gap.jpg" width="1200" height="630" alt="" loading="lazy"><span>Thirty years of nothing: when the registers stop</span></a></div><p class="rn-more"><a href="/article-village/">Which village did they come from?</a> · <a href="/article-faces/">The faces with no names</a> · <a href="/article-burned/">"But surely it all burned"</a> · <a href="/#how">How a search works, and what it costs</a></p></div>
 </div></section>
 
 <footer><div class="w row">
@@ -898,6 +935,16 @@ document.querySelectorAll('.wipe').forEach(function(w){
 })();
 </script>
 <script>
+// судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
+(function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
+(function(){ var f=document.getElementById('entry71'); if(!f) return;
+  var lis=document.querySelectorAll('li[data-row]');
+  function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
+    lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }
+  var t=null, user=false; lis.forEach(function(l){ ['click','mouseenter','focus'].forEach(function(e){ l.addEventListener(e,function(){ user=true; if(t) clearInterval(t); show(l.getAttribute('data-row')); }); }); });
+  if('IntersectionObserver' in window){ var k=0, io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; io.disconnect();
+    if(user) return; t=setInterval(function(){ if(user){ clearInterval(t); return; } k++; if(k>3){ clearInterval(t); show(''); return; } show(String(k)); }, 1100); },{threshold:.8}); io.observe(f); }
+})();
 // судья v3 №8 (10.11): оглавление подсвечивает текущий раздел; прячется, пока виден герой или финал
 (function(){ var t=document.querySelector('.toc'); if(!t||!('IntersectionObserver' in window)) return;
   var links={}; t.querySelectorAll('a').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });
