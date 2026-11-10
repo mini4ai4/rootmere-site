@@ -681,6 +681,10 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 .fig .hl{opacity:.35}.fig .hl.on{opacity:1}
 @media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 .fig .hl-col{top:0;bottom:0;right:auto;opacity:1}
+/* судья v3 r4 */
+.art-hero .dek{font:italic 400 clamp(20px,2.4vw,26px)/1.3 Fraunces,Georgia,serif;color:var(--ink-2);margin:12px 0 0;max-width:34ch}
+.swipe-hint{display:none}
+@media(max-width:700px){.fig-rev .swipe-hint{display:block;font:500 12px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;padding:6px 18px 0;margin:0}}
 </style>
 </head>
 <body>
@@ -706,7 +710,8 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 
 <header class="hero art-hero"><div class="w narrow">
   <p class="kicker">Why this matters at all<span class="readtime">4 min read</span></p>
-  <h1>Every family without a record has a story instead.<br><em>Usually nobody has ever checked it.</em></h1>
+  <h1>Every family without a record has a story instead.</h1>
+  <p class="dek">Usually nobody has ever checked it.</p>
   <figure class="art-cover"><img src="/img/og_myth.jpg" width="1200" height="538" alt="Names of witnesses written in an 1866 parish register — Rootmere" fetchpriority="high"><figcaption>Names of witnesses written in an 1866 parish register</figcaption></figure>
   <p class="lede">We were nobility once. We came from nothing. They took everything from us. We were always in that one village. Almost every family carries a sentence like this, repeated until no one remembers who said it first — and almost nobody has ever tested it against a document. That would be harmless if the story just sat there. It doesn't. It quietly decides things.</p>
 </div></header>
@@ -958,7 +963,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 <script>
 // судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
 (function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
-(function(){ var f=document.getElementById('entry71'); if(!f) return;
+(function(){ var f=document.getElementById('entry71'); if(!f) return; var sc=f.querySelector('.fig-scan'); if(sc && sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*0.6;
   var lis=document.querySelectorAll('li[data-row]');
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }

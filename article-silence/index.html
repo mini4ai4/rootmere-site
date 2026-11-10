@@ -681,6 +681,10 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 .fig .hl{opacity:.35}.fig .hl.on{opacity:1}
 @media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 .fig .hl-col{top:0;bottom:0;right:auto;opacity:1}
+/* судья v3 r4 */
+.art-hero .dek{font:italic 400 clamp(20px,2.4vw,26px)/1.3 Fraunces,Georgia,serif;color:var(--ink-2);margin:12px 0 0;max-width:34ch}
+.swipe-hint{display:none}
+@media(max-width:700px){.fig-rev .swipe-hint{display:block;font:500 12px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;padding:6px 18px 0;margin:0}}
 </style>
 </head>
 <body><nav><div class="w">
@@ -705,7 +709,8 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 
 <header class="hero art-hero"><div class="w narrow">
   <p class="kicker">When the family says "she never talked about the old country"<span class="readtime">4 min read</span></p>
-  <h1>Grandma never talked about where she came from.<br><em>That isn't the same as there being nothing to tell.</em></h1>
+  <h1>Grandma never talked about where she came from.</h1>
+  <p class="dek">That isn't the same as there being nothing to tell.</p>
   <figure class="art-cover"><img src="/img/og_silence.jpg" width="1200" height="538" alt="Slavic women and a child at Ellis Island, 1905, photographed by Lewis Hine — Rootmere" fetchpriority="high"><figcaption>Slavic women and a child at Ellis Island, 1905, photographed by Lewis Hine</figcaption></figure>
   <p class="lede">A lot of people start looking with almost nothing. No village, no stories, a couple of photos and one sentence that ends every conversation: "She didn't like to talk about it." It's easy to hear that as a closed door. Most of the time it's something else. The person who stayed quiet usually had reasons, and the reasons didn't follow her into the parish books, where the family is written down as plainly as anyone else.</p>
 </div></header>
@@ -737,7 +742,7 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
   <h2>The American papers usually say more than Grandma did</h2>
 
   <p>Even someone who never mentioned the old country had to give answers to clerks. The passenger list asked where she was coming from. A naturalization after 1906 usually asked where she was born. Marriage records, a church wedding in Cleveland or Scranton, sometimes name the parents and the home parish. Put two or three of those side by side and the village often falls out, even when no one in the family ever said its name. We wrote about that in <a href="/article-village/">finding the village</a>, and about the <a href="/article-spelling/">spelling</a> problem that tends to come next.</p>
-  <figure class="fig"><div class="fig-scan"><img src="/img/manifest_bremen1929.jpg" width="1400" height="1085" alt="A 1929 manifest, S.S. Columbus from Bremen. The place-of-birth column names the town: Dittersbach, Deta, Budapest." loading="lazy"><i class="hl on hl-col" style="left:86.5%;width:7.8%"></i></div><figcaption>A 1929 manifest, S.S. Columbus from Bremen. The place-of-birth column names the town: Dittersbach, Deta, Budapest. Source: Wikimedia Commons, public domain.</figcaption></figure>
+  <figure class="fig"><div class="fig-scan"><img src="/img/manifest_bremen1929.jpg" width="1400" height="1085" alt="A 1929 manifest, S.S. Columbus from Bremen. The place-of-birth column names the town: Dittersbach, Deta, Budapest." loading="lazy"><i class="hl on hl-col" style="left:87.3%;width:7.2%"></i></div><figcaption>A 1929 manifest, S.S. Columbus from Bremen. The place-of-birth column names the town: Dittersbach, Deta, Budapest. Source: Wikimedia Commons, public domain.</figcaption></figure>
 
   <p>And if you still have someone in the middle generation, an aunt, a much older cousin, it's worth asking small questions instead of big ones. Not "where did we come from" but "what did she cook at Christmas" or "who sent letters". People who'd shrug at the big question often remember the small one.</p>
 
@@ -950,7 +955,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 <script>
 // судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
 (function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
-(function(){ var f=document.getElementById('entry71'); if(!f) return;
+(function(){ var f=document.getElementById('entry71'); if(!f) return; var sc=f.querySelector('.fig-scan'); if(sc && sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*0.6;
   var lis=document.querySelectorAll('li[data-row]');
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }

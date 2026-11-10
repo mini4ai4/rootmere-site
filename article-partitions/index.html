@@ -681,6 +681,10 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 .fig .hl{opacity:.35}.fig .hl.on{opacity:1}
 @media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 .fig .hl-col{top:0;bottom:0;right:auto;opacity:1}
+/* судья v3 r4 */
+.art-hero .dek{font:italic 400 clamp(20px,2.4vw,26px)/1.3 Fraunces,Georgia,serif;color:var(--ink-2);margin:12px 0 0;max-width:34ch}
+.swipe-hint{display:none}
+@media(max-width:700px){.fig-rev .swipe-hint{display:block;font:500 12px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;padding:6px 18px 0;margin:0}}
 </style>
 </head>
 <body><nav><div class="w">
@@ -956,7 +960,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 <script>
 // судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
 (function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
-(function(){ var f=document.getElementById('entry71'); if(!f) return;
+(function(){ var f=document.getElementById('entry71'); if(!f) return; var sc=f.querySelector('.fig-scan'); if(sc && sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*0.6;
   var lis=document.querySelectorAll('li[data-row]');
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }

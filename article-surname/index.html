@@ -681,6 +681,10 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 .fig .hl{opacity:.35}.fig .hl.on{opacity:1}
 @media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 .fig .hl-col{top:0;bottom:0;right:auto;opacity:1}
+/* судья v3 r4 */
+.art-hero .dek{font:italic 400 clamp(20px,2.4vw,26px)/1.3 Fraunces,Georgia,serif;color:var(--ink-2);margin:12px 0 0;max-width:34ch}
+.swipe-hint{display:none}
+@media(max-width:700px){.fig-rev .swipe-hint{display:block;font:500 12px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;padding:6px 18px 0;margin:0}}
 </style>
 </head>
 <body><nav><div class="w">
@@ -705,7 +709,8 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 
 <header class="hero art-hero"><div class="w narrow">
   <p class="kicker">Where everyone starts<span class="readtime">5 min read</span></p>
-  <h1>Your surname is the least interesting thing about your family<br><em>and the first thing most people waste a year on.</em></h1>
+  <h1>Your surname is the least interesting thing about your family</h1>
+  <p class="dek">and the first thing most people waste a year on.</p>
   <figure class="art-cover"><img src="/img/og_surname.jpg" width="1200" height="538" alt="A surname written out by hand in an old record — Rootmere" fetchpriority="high"><figcaption>A surname written out by hand in an old record</figcaption></figure>
   <p class="lede">It is always the first move. You type the family name into a search box, or into one of those "what does your surname mean" sites, and back comes a tidy little paragraph: it means <em>smith</em>, or <em>son of John</em>, or <em>the man from the meadow</em>. For a moment it feels like a thread you can pull. Then you pull it, and nothing comes. The meaning of a surname is the one piece of your history that almost everyone can find and that tells you almost nothing about your own people.</p>
 </div></header>
@@ -943,7 +948,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 <script>
 // судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
 (function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
-(function(){ var f=document.getElementById('entry71'); if(!f) return;
+(function(){ var f=document.getElementById('entry71'); if(!f) return; var sc=f.querySelector('.fig-scan'); if(sc && sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*0.6;
   var lis=document.querySelectorAll('li[data-row]');
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }

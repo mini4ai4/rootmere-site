@@ -681,6 +681,10 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 .fig .hl{opacity:.35}.fig .hl.on{opacity:1}
 @media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 .fig .hl-col{top:0;bottom:0;right:auto;opacity:1}
+/* судья v3 r4 */
+.art-hero .dek{font:italic 400 clamp(20px,2.4vw,26px)/1.3 Fraunces,Georgia,serif;color:var(--ink-2);margin:12px 0 0;max-width:34ch}
+.swipe-hint{display:none}
+@media(max-width:700px){.fig-rev .swipe-hint{display:block;font:500 12px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;padding:6px 18px 0;margin:0}}
 </style>
 </head>
 <body>
@@ -706,7 +710,8 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 
 <header class="hero art-hero"><div class="w narrow">
   <p class="kicker">Why this matters at all<span class="readtime">5 min read</span></p>
-  <h1>Your great-grandchildren will look for you.<br><em>Here is what they will find.</em></h1>
+  <h1>Your great-grandchildren will look for you.</h1>
+  <p class="dek">Here is what they will find.</p>
   <figure class="art-cover"><img src="/img/og_legacy.jpg" width="1200" height="538" alt="What your great-grandchildren will find — Rootmere" fetchpriority="high"><figcaption>What your great-grandchildren will find</figcaption></figure>
   <p class="lede">Everyone who researches a family eventually turns the question round. You spend months trying to work out who a man born in 1848 actually was, from three lines in a register, and at some point it occurs to you that you are also a person in somebody's future search. So it is worth knowing, concretely, what will be left — because the honest answer surprises people, and it is not what they assume.</p>
 </div></header>
@@ -962,7 +967,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 <script>
 // судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
 (function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
-(function(){ var f=document.getElementById('entry71'); if(!f) return;
+(function(){ var f=document.getElementById('entry71'); if(!f) return; var sc=f.querySelector('.fig-scan'); if(sc && sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*0.6;
   var lis=document.querySelectorAll('li[data-row]');
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }

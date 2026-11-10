@@ -681,6 +681,10 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 .fig .hl{opacity:.35}.fig .hl.on{opacity:1}
 @media(max-width:700px){.fig-rev .fig-scan{overflow-x:auto;-webkit-overflow-scrolling:touch}.fig-rev .fig-scan img{width:640px;max-width:none}.fig-rev .fig-scan .hl{right:auto;width:640px}}
 .fig .hl-col{top:0;bottom:0;right:auto;opacity:1}
+/* судья v3 r4 */
+.art-hero .dek{font:italic 400 clamp(20px,2.4vw,26px)/1.3 Fraunces,Georgia,serif;color:var(--ink-2);margin:12px 0 0;max-width:34ch}
+.swipe-hint{display:none}
+@media(max-width:700px){.fig-rev .swipe-hint{display:block;font:500 12px "IBM Plex Mono",monospace;color:var(--seal);letter-spacing:.06em;padding:6px 18px 0;margin:0}}
 </style>
 </head>
 <body><nav><div class="w">
@@ -705,7 +709,8 @@ li[data-row].on .rowno{background:var(--seal);color:var(--paper)}
 
 <header class="hero art-hero"><div class="w narrow">
   <p class="kicker">The question we are asked first<span class="readtime">5 min read</span></p>
-  <h1>"But surely it all burned."<br><em>Less of it than you think.</em></h1>
+  <h1>"But surely it all burned."</h1>
+  <p class="dek">Less of it than you think.</p>
   <figure class="art-cover"><img src="/img/og_burned.jpg" width="1200" height="538" alt="What survived the fires in the archives — Rootmere" fetchpriority="high"><figcaption>What survived the fires in the archives</figcaption></figure>
   <p class="lede">Almost everyone who writes to us says some version of this in the first paragraph. The wars went through those countries twice, the borders moved, the villages emptied. It seems obvious that nothing could have survived. It is the single most common reason people never start, and it is wrong more often than it is right. Not because the destruction was exaggerated, but because of a habit of nineteenth-century bureaucracy that almost nobody outside the archives knows about.</p>
 </div></header>
@@ -968,7 +973,7 @@ document.querySelectorAll('.wipe').forEach(function(w){
 <script>
 // судья v3 r2: оглавление свёрнуто на телефоне; строки двора 71 подсвечиваются на скане
 (function(){ var d=document.querySelector('.toc details'); if(d && innerWidth<760) d.removeAttribute('open'); })();
-(function(){ var f=document.getElementById('entry71'); if(!f) return;
+(function(){ var f=document.getElementById('entry71'); if(!f) return; var sc=f.querySelector('.fig-scan'); if(sc && sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*0.6;
   var lis=document.querySelectorAll('li[data-row]');
   function show(r){ f.querySelectorAll('.hl').forEach(function(h){ h.classList.toggle('on', h.getAttribute('data-row')===r); });
     lis.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-row')===r); }); }
